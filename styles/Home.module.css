@@ -108,13 +108,8 @@
   margin-left: 0.5rem;
 }
 
-.map {
-  min-height: 100vh;
-  min-width: 100vw;
-}
-
 .leaflet-container {  
-  width: 100%;  height: 100vh;  z-index: 1;
+  width: 100%;  height: 80vh;  z-index: 1;
 }
 
 @media (max-width: 600px) {
