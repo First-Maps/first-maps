@@ -2,6 +2,7 @@ import Head from 'next/head'
 import styled from 'styled-components'
 
 import Map from '../components/Map'
+import { Search } from '../components/Search/Search'
 
 // enter styled components
 const StyledMain = styled.main`
@@ -24,8 +25,10 @@ export default function Home() {
       </Head>
 
       <StyledMain>
-        <Map></Map>
+        <Map />
+        <Search />
       </StyledMain>
+      
     </div>
   )
 }
