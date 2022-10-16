@@ -25,6 +25,9 @@ const MyTileLayer = styled(TileLayer)`
 
 export default function Map() {
   const position = [49.2833, -123.1152]
+
+  // TODO: useEffect to fetch data from API, then setMarkers
+  
   return (
       <MyMapContainer
         center={position}
