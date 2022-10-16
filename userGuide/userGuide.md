@@ -225,3 +225,63 @@ We will be using a browser to send the server a request.
 Your browser should show you a map, like this: 
 
 ![Screen Shot 2022-10-16 at 2.04.26 PM.png](How%20to%20use%20the%20app%20f1b2e0aeadba42e3852a4d6b06625f18/Screen_Shot_2022-10-16_at_2.04.26_PM.png)
+
+# COLLABORATING IN GIT, WITHOUT BREAKING EVERYTHING
+
+…and then have your teammates be very upset at you.
+
+ 
+
+> When you code a project, **one error somewhere can cause the entire app to stop working.**
+> 
+
+So as you are building the app, you want to have a stable branch. Code in the stable branch should be well…stable. 
+
+As in it has been tested, and your team members have agreed to the changes that are in that branch. 
+
+**In our project, the stable branch is the ‘dev’ branch** 
+
+<aside>
+💡 When you are working, make a branch from the dev branch, and work on that one.
+
+</aside>
+
+There are many ways to organize branches. For now name the branch “dev-<your name>”
+
+## How to create your own branch
+
+1. On Github Desktop, click the current branch button
+
+![Screen Shot 2022-10-16 at 2.30.39 PM.png](How%20to%20use%20the%20app%20f1b2e0aeadba42e3852a4d6b06625f18/Screen_Shot_2022-10-16_at_2.30.39_PM.png)
+
+1. Then, click the new branch button
+
+![Screen Shot 2022-10-16 at 2.46.24 PM.png](How%20to%20use%20the%20app%20f1b2e0aeadba42e3852a4d6b06625f18/Screen_Shot_2022-10-16_at_2.46.24_PM.png)
+
+1. A window titled “Create a branch” will pop up, name your branch and click the blue “create branch” button.
+    
+    If successful, at the top of the window, it should say: “current branch: <name of the branch you just created>
+    
+
+![Screen Shot 2022-10-16 at 2.47.31 PM.png](How%20to%20use%20the%20app%20f1b2e0aeadba42e3852a4d6b06625f18/Screen_Shot_2022-10-16_at_2.47.31_PM.png)
+
+1. Click “publish branch to github” 
+    
+    This will make the branch appear on the remote (online) repository
+    
+
+![Screen Shot 2022-10-16 at 2.48.33 PM.png](How%20to%20use%20the%20app%20f1b2e0aeadba42e3852a4d6b06625f18/Screen_Shot_2022-10-16_at_2.48.33_PM.png)
+
+1. Making sure you are on your own branch:
+
+At the top of your github desktop app, it should tell you which branch you are on. 
+
+Alternatively, you can enter this in the command line
+
+```jsx
+git branch
+```
+
+It should look like this: 
+
+![Screen Shot 2022-10-16 at 2.51.09 PM.png](How%20to%20use%20the%20app%20f1b2e0aeadba42e3852a4d6b06625f18/Screen_Shot_2022-10-16_at_2.51.09_PM.png)
