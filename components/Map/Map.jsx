@@ -51,8 +51,12 @@ export default function Map() {
   }, [])
 
   /**
-   * Use array.map to map through the markers array 
-   * and create a Marker component for each item in the array
+   * 
+   * To DO: 
+   * 
+   * put more thing in markers
+   * change the data so that it shows up downtown
+   * do the useEffect() the optimal way, see moodboard assignment
    * 
    */
 
