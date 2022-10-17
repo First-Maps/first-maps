@@ -44,8 +44,8 @@ export default function Map() {
           let temp = location.coordinates[0]
           location.coordinates[0] = location.coordinates[1]
           location.coordinates[1] = temp  
+          console.log(location)
         }
-      
         setMarkers(locationsOfInterestArray)
       })
   }, [])
@@ -81,7 +81,7 @@ export default function Map() {
           return (
             <Marker position={marker.coordinates}>
               <Popup>
-                {marker.name}
+                <p>{marker.name} {marker.description}</p>
               </Popup>
             </Marker>
           )
