@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { FilterToggleButton as FilterToggleButtonComponent } from '../components/FilterToggleButton/FilterToggleButton'
+import { FilterToggleButton as FilterToggleButtonComponent } from '../components/Search/FilterToggleButton'
 
 export default {
-  title: 'Components/FilterToggleButton',
+  title: 'Components/Search/FilterToggleButton',
   component: FilterToggleButtonComponent,
   args: {},
 }
