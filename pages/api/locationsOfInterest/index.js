@@ -5,8 +5,9 @@ import LocationOfInterest from '../../../models/LocationOfInterest';
 
 dbConnect();
 
-export default async (req, res) => {
-    const { method } = req;
+
+export default async (req, res) => {   
+    const { method } = req;    
 
     switch (method) {
         case 'GET':

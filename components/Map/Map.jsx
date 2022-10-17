@@ -1,4 +1,5 @@
 import styled, { ThemeProvider } from "styled-components"
+import { useState, useEffect } from 'react'
 
 import "leaflet/dist/leaflet.css"
 import "leaflet/dist/images/marker-shadow.png"
@@ -23,11 +24,29 @@ const MyTileLayer = styled(TileLayer)`
   }
 `
 
+
 export default function Map() {
+  
   const position = [49.2833, -123.1152]
+  const [markers, setMarkers] = useState([]);
 
   // TODO: useEffect to fetch data from API, then setMarkers
-  
+  useEffect(() => {
+    fetch('/api/locationsOfInterest')
+      .then(response => response.json())
+      .then(pointsOfInterestData => {
+        let coordinatesData = pointsOfInterestData.data
+        console.log(coordinatesData)
+        setMarkers(coordinatesData)
+      })
+      // setMarkers(data)
+  }, [])
+
+
+  const handleMarkers = () => {
+    setMarkers()
+  }
+
   return (
       <MyMapContainer
         center={position}
