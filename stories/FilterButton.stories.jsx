@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { FilterButton as FilterButtonComponent } from '../components/FilterButton/FilterButton';
+import { FilterButton as FilterButtonComponent } from '../components/Search/FilterButton';
 
 export default {
-  title: 'Components/FilterButton',
+  title: 'Components/Search/FilterButton',
   component: FilterButtonComponent,
   args: {},
 }
