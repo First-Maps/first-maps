@@ -73,6 +73,16 @@ export default function Map() {
         />
 
         <ZoomControl position="bottomright" />
+        {markers.map( marker => {
+          return (
+            <Marker position={marker.coordinates}>
+              <Popup>
+                {marker.name}
+              </Popup>
+            </Marker>
+          )
+        })}
+
 
         <Marker position={position}>
           <Popup>Vancouver or thereabouts</Popup>
