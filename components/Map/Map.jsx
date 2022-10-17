@@ -28,18 +28,26 @@ const MyTileLayer = styled(TileLayer)`
 export default function Map() {
   
   const position = [49.2833, -123.1152]
+  const position1 = [49.2850, -123.1142]
+
   const [markers, setMarkers] = useState([]);
 
   // TODO: useEffect to fetch data from API, then setMarkers
   useEffect(() => {
     fetch('/api/locationsOfInterest')
       .then(response => response.json())
-      .then(pointsOfInterestData => {
-        let coordinatesData = pointsOfInterestData.data
-        console.log(coordinatesData)
-        setMarkers(coordinatesData)
+      .then(Data => {
+        let locationsOfInterestArray = Data.data
+        
+        // swap the coordinates, from geoJSON [long, lat] to leaflet [lat, long]
+        for (let location of locationsOfInterestArray){ 
+          let temp = location.coordinates[0]
+          location.coordinates[0] = location.coordinates[1]
+          location.coordinates[1] = temp  
+        }
+      
+        setMarkers(locationsOfInterestArray)
       })
-      // setMarkers(data)
   }, [])
 
 
@@ -64,6 +72,10 @@ export default function Map() {
 
         <Marker position={position}>
           <Popup>Vancouver or thereabouts</Popup>
+          <Tooltip>This is a tooltip for the marker</Tooltip>
+        </Marker>
+        <Marker position={position1}>
+          <Popup>teest popup</Popup>
           <Tooltip>This is a tooltip for the marker</Tooltip>
         </Marker>
       </MyMapContainer>
