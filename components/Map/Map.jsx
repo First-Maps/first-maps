@@ -28,11 +28,11 @@ const MyTileLayer = styled(TileLayer)`
 export default function Map() {
   
   const position = [49.2833, -123.1152]
-  const position1 = [49.2850, -123.1142]
-
+  const position1 = [49.304743, -123.107379]
+  
   const [markers, setMarkers] = useState([]);
 
-  // TODO: useEffect to fetch data from API, then setMarkers
+  // fetch locationsOfInterest data, then setMarkers
   useEffect(() => {
     fetch('/api/locationsOfInterest')
       .then(response => response.json())
@@ -50,10 +50,14 @@ export default function Map() {
       })
   }, [])
 
+  /**
+   * Use array.map to map through the markers array 
+   * and create a Marker component for each item in the array
+   * 
+   */
 
-  const handleMarkers = () => {
-    setMarkers()
-  }
+
+
 
   return (
       <MyMapContainer
@@ -75,7 +79,7 @@ export default function Map() {
           <Tooltip>This is a tooltip for the marker</Tooltip>
         </Marker>
         <Marker position={position1}>
-          <Popup>teest popup</Popup>
+          <Popup><div className="spongebobHouse"><b>Spongebob's House</b></div></Popup>
           <Tooltip>This is a tooltip for the marker</Tooltip>
         </Marker>
       </MyMapContainer>
