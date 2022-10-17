@@ -1,5 +1,6 @@
 import styled, { ThemeProvider } from "styled-components"
 import { useState, useEffect } from 'react'
+import axios from 'axios'
 
 import "leaflet/dist/leaflet.css"
 import "leaflet/dist/images/marker-shadow.png"
@@ -24,78 +25,78 @@ const MyTileLayer = styled(TileLayer)`
   }
 `
 
-
 export default function Map() {
-  
+
   const position = [49.2833, -123.1152]
-  const position1 = [49.304743, -123.107379]
-  
+
   const [markers, setMarkers] = useState([]);
 
-  // fetch locationsOfInterest data, then setMarkers
+  // fetch locationsOfInterest data from database, setMarkers to the data
   useEffect(() => {
-    fetch('/api/locationsOfInterest')
-      .then(response => response.json())
-      .then(Data => {
-        let locationsOfInterestArray = Data.data
-        
-        // swap the coordinates, from geoJSON [long, lat] to leaflet [lat, long]
-        for (let location of locationsOfInterestArray){ 
+    const abortController = new AbortController()
+
+    ; (async () => {
+      try {
+        let Data = await axios.get("/api/locationsOfInterest", { signal: abortController.signal })
+        let locationsOfInterestArray = Data.data.data
+
+        for (let location of locationsOfInterestArray) {
           let temp = location.coordinates[0]
           location.coordinates[0] = location.coordinates[1]
-          location.coordinates[1] = temp  
+          location.coordinates[1] = temp
           console.log(location)
         }
         setMarkers(locationsOfInterestArray)
-      })
+
+      } catch (error) {
+        console.error(error)
+        
+        if (axios.isCancel(error)) {
+          return
+        }
+      }
+    })()
+
+    // unmount component
+    return () => {
+      abortController.abort()
+    }
   }, [])
-
-  /**
-   * 
-   * To DO: 
-   * 
-   * put more thing in markers
-   * change the data so that it shows up downtown
-   * do the useEffect() the optimal way, see moodboard assignment
-   * 
-   */
-
 
 
 
   return (
-      <MyMapContainer
-        center={position}
-        zoom={13}
-        scrollWheelZoom={true}
-        zoomControl={false}
-      >
-        
-        <MyTileLayer
-          attribution='&copy; <a href="https://www.maptiler.com/copyright">MapTiler</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=27UbwLtYuQZu5sAt2zAj"
-        />
+    <MyMapContainer
+      center={position}
+      zoom={13}
+      scrollWheelZoom={true}
+      zoomControl={false}
+    >
 
-        <ZoomControl position="bottomright" />
-        {markers.map( marker => {
-          return (
-            <Marker position={marker.coordinates}>
-              <Popup>
-                <p>{marker.name} {marker.description}</p>
-              </Popup>
-            </Marker>
-          )
-        })}
+      <MyTileLayer
+        attribution='&copy; <a href="https://www.maptiler.com/copyright">MapTiler</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=27UbwLtYuQZu5sAt2zAj"
+      />
+
+      <ZoomControl position="bottomright" />
+      {markers.map(marker => {
+        return (
+          <Marker position={marker.coordinates} description={marker.description} category={marker.category} >
+            <Popup>
+              <p><b>Location: {marker.name}</b></p>
+              <p>Description: {marker.description}</p>
+              <p>Category: {marker.category}</p>
+              <p>Coordinates: {marker.coordinates}</p>
+            </Popup>
+          </Marker>
+        )
+      })}
 
 
-        <Marker position={position}>
-          <Popup>Vancouver or thereabouts</Popup>
-          <Tooltip>This is a tooltip for the marker</Tooltip>
-        </Marker>
-        <Marker position={position1}>
-          <Popup><div className="spongebobHouse"><b>Spongebob's House</b></div></Popup>
-          <Tooltip>This is a tooltip for the marker</Tooltip>
-        </Marker>
-      </MyMapContainer>
+      <Marker position={position}>
+        <Popup>Vancouver or thereabouts</Popup>
+        <Tooltip>This is a tooltip for the marker</Tooltip>
+      </Marker>
+    </MyMapContainer>
   )
 }
