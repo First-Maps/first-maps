@@ -1,8 +1,8 @@
 import React from "react"
-import { SearchGroup as SearchGroupComponent } from "../components/SearchGroup/SearchGroup"
+import { SearchGroup as SearchGroupComponent } from "../components/Search/SearchGroup"
 
 export default {
-  title: "Components/SearchGroup",
+  title: "Components/Search/SearchGroup",
   component: SearchGroupComponent,
   args: {},
 }

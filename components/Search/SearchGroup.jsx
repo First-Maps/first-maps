@@ -1,9 +1,9 @@
 import styled from "styled-components"
 import PropTypes from "prop-types"
 
-import { Search } from "../Search/Search"
-import { FilterButton } from "../FilterButton/FilterButton"
-import { FilterToggleButton } from "../FilterToggleButton/FilterToggleButton"
+import { Search } from "./Search"
+import { FilterButton } from "./FilterButton"
+import { FilterToggleButton } from "./FilterToggleButton"
 
 const SearchGroupContainer = styled.div`
   display: flex;
