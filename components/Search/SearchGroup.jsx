@@ -47,21 +47,27 @@ const SearchToggleContainer = styled.div`
 export const SearchGroup = ({
   filterToggles,
   activeFilter,
+  searchFilters,
   ...props
 }) => {
   return (
     <SearchGroupContainer>
       <SearchBarContainer>
         <Search />
-        <FilterButton pressed={activeFilter} />
+        <FilterButton 
+          pressed={activeFilter} 
+          handleClick={props.handleActivateFilter}
+        />
       </SearchBarContainer>
 
       <SearchToggleContainer>
         {activeFilter && filterToggles.map((filterToggle) => (
           <FilterToggleButton
-            key = {filterToggle.key}
+            key={filterToggle.key}
             label={filterToggle.label}
-            selected={filterToggle.selected}
+            filter={filterToggle.key}
+            selected={searchFilters[filterToggle.key]}
+            handleSelectFilter={props.handleSelectFilter}
           />
         ))}
       </SearchToggleContainer>
@@ -72,12 +78,13 @@ export const SearchGroup = ({
 SearchGroup.propTypes = {
   filterToggles: PropTypes.arrayOf(
     PropTypes.shape({
-      key: PropTypes.number,
+      key: PropTypes.string,
       label: PropTypes.string,
       selected: PropTypes.bool,
     })
   ),
   activeFilter: PropTypes.bool,
+  searchFilters: PropTypes.object,
 }
 
 SearchGroup.defaultProps = {

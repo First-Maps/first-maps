@@ -17,15 +17,24 @@ const MyFilterToggleButton = styled.button`
 export const FilterToggleButton = ({
   label,
   selected,
+  filter,
   ...props
 }) => {
   const background = selected ? 
     'linear-gradient(to right, #F8893C 0%, #FF5929 100%)'
     :
     'linear-gradient(to right, #878787 0%, #333333 100%)'
+
+  function handleClick() {
+    props.handleSelectFilter(filter)
+  }
   
   return (
-    <MyFilterToggleButton background={background} {...props}>
+    <MyFilterToggleButton 
+      background={background} 
+      onClick={handleClick}
+      {...props}
+    >
       {label}
     </MyFilterToggleButton>
   )

@@ -1,5 +1,6 @@
 import Head from 'next/head'
 import styled from 'styled-components'
+import { useState } from 'react'
 
 import Map from '../components/Map'
 import { SearchGroup } from '../components/Search/SearchGroup'
@@ -18,11 +19,27 @@ const StyledMain = styled.main`
 export default function Home() {
 
   const filterToggles = [
-    { key: 1, label: "Arts", selected: true },
-    { key: 2, label: "Tourism", selected: false },
-    { key: 3, label: "Language", selected: false },
+    { key: "arts", label: "Arts" },
+    { key: "tourism", label: "Tourism" },
+    { key: "language", label: "Language" },
   ]
 
+  const [activeFilter, setActiveFilter] = useState(false)
+  const [searchFilters, setSearchFilters] = useState(
+    {
+      arts: false,
+      tourism: false,
+      language: false,
+    }
+  )
+
+  function handleActivateFilter() {
+    setActiveFilter(!activeFilter)
+  }
+
+  function handleSelectFilter(filter) {
+    setSearchFilters({ ...searchFilters, [filter]: !searchFilters[filter] })
+  }
 
   return (
     <div>
@@ -34,7 +51,15 @@ export default function Home() {
 
       <StyledMain>
         <Map />
-        <SearchGroup activeFilter={true} filterToggles={filterToggles} />
+
+        <SearchGroup 
+          activeFilter={activeFilter} 
+          filterToggles={filterToggles} 
+          handleActivateFilter={handleActivateFilter} 
+          searchFilters={searchFilters}
+          handleSelectFilter={handleSelectFilter}
+        />
+
         <Navbar />
       </StyledMain>
       

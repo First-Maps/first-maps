@@ -23,7 +23,7 @@ const MyFilterButton = styled.button`
     left: 0;
     width: 1px;
     height: 60%;
-    background: gray;
+    background: #909090;
   }
   
   @media (prefers-color-scheme: dark) {
@@ -39,7 +39,11 @@ export const FilterButton = ({
   const color = pressed ? "#F8893C" : "darkgray"
   
   return (
-    <MyFilterButton color={color} {...props}>
+    <MyFilterButton 
+      color={color} 
+      onClick={props.handleClick}
+      {...props}
+    >
       <FilterIcon />
     </MyFilterButton>
   )
