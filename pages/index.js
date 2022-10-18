@@ -2,7 +2,8 @@ import Head from 'next/head'
 import styled from 'styled-components'
 
 import Map from '../components/Map'
-import { Search } from '../components/Search/Search'
+import { SearchGroup } from '../components/Search/SearchGroup'
+import { Navbar } from '../components/Navbar/Navbar'
 
 // enter styled components
 const StyledMain = styled.main`
@@ -16,6 +17,13 @@ const StyledMain = styled.main`
 
 export default function Home() {
 
+  const filterToggles = [
+    { key: 1, label: "Arts", selected: true },
+    { key: 2, label: "Tourism", selected: false },
+    { key: 3, label: "Language", selected: false },
+  ]
+
+
   return (
     <div>
       <Head>
@@ -26,7 +34,8 @@ export default function Home() {
 
       <StyledMain>
         <Map />
-        <Search />
+        <SearchGroup activeFilter={true} filterToggles={filterToggles} />
+        <Navbar />
       </StyledMain>
       
     </div>

@@ -9,7 +9,7 @@ const MyNavItem = styled.div`
   height: 100%;
   width: 100%;
   cursor: pointer;
-  color: ${props => props.color};
+  color: ${props => props.active ? "#F8893C" : "4D"};
 `
 
 const Para = styled.p`
@@ -24,10 +24,9 @@ export const NavItem = ({
   children,
   ...props
 }) => {
-  const color = active ? "#F8893C" : "#4D4D4D"
   
   return (
-    <MyNavItem color={color} {...props}>
+    <MyNavItem active={active} {...props}>
       {children}
       <Para>{label}</Para>
     </MyNavItem>

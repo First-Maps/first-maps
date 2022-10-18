@@ -8,8 +8,10 @@ import { MapContainer, TileLayer, Marker, Popup, Tooltip, ZoomControl } from "re
 // this is how we can style exotic components that styled-components doesn't support directly
 const MyMapContainer = styled(MapContainer)`
   &[style] {
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
   min-width: 100vw;
+  @media (min-width: 768px) {
+    min-height: 100vh;
   }
 `
 

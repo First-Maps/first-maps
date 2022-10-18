@@ -10,8 +10,8 @@ const MyFilterToggleButton = styled.button`
   padding: 0.4em 0.7em;
   border: 0;
   background-image: ${props => props.background};
-  color: white;
   min-width: 4em;
+  color: white;
 `
 
 export const FilterToggleButton = ({

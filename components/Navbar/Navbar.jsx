@@ -5,13 +5,22 @@ import { NavItem } from "./NavItem";
 
 import { Home, Compass, Donate, User } from "iconoir-react";
 
+// make NavContainer absolute positioned on larger screens
 const NavContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  height: 50px;
+  height: 60px;
   min-width: 100%;
+
+  @media (min-width: 768px) {
+    justify-content: left;
+    position: absolute;
+    z-index: 999;
+    bottom: 0;
+    left: 0;
+  }
 `;
 
 const MyNavbar = styled.div`
@@ -19,13 +28,20 @@ const MyNavbar = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  height: 60px;
+  min-height: 60px;
   width: 100%;
   margin: 0;
+  padding: 0.5em 0 0.5em 0;
   background-color: white;
+
   @media (min-width: 768px) {
-    width: 450px;
-    justify-content: space-around;
+    width: 400px;
+    align-self: flex-end;
+    border-radius: 1em 1em 0 0;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #2B2A33;
   }
 `;
 
