@@ -28,3 +28,9 @@ a {
     background: black;
   }
 }
+
+.contributions_intro_image{
+  max-height: 30rem;
+  max-width: 30rem;
+  border-radius: 3%;
+}
