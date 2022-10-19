@@ -29,30 +29,25 @@ const MyTileLayer = styled(TileLayer)`
 
 export default function Map() {
 
-  const position = [49.2833, -123.1152]
+  const BCIT = [49.2833, -123.1152]
 
   const [markers, setMarkers] = useState([]);
 
   // fetch locationsOfInterest data from database, setMarkers to the data
   useEffect(() => {
-    const abortController = new AbortController()
-
-    ; (async () => {
+    const abortController = new AbortController();
+    (async () => {
       try {
-        let Data = await axios.get("/api/locationsOfInterest", { signal: abortController.signal })
-        let locationsOfInterestArray = Data.data.data
-
-        for (let location of locationsOfInterestArray) {
-          let temp = location.coordinates[0]
-          location.coordinates[0] = location.coordinates[1]
-          location.coordinates[1] = temp
-          console.log(location)
-        }
+        let request = await axios.get("/api/locationsOfInterest", { signal: abortController.signal })
+        
+        //our api shoud be request.data.results not request.data.data
+        let locationsOfInterestArray = request.data.data
+        // reverses cordinates to match leaflet's format
+        locationsOfInterestArray.map((location) => location.coordinates = [location.coordinates[1], location.coordinates[0]])
         setMarkers(locationsOfInterestArray)
-
       } catch (error) {
         console.error(error)
-        
+
         if (axios.isCancel(error)) {
           return
         }
@@ -69,7 +64,7 @@ export default function Map() {
 
   return (
     <MyMapContainer
-      center={position}
+      center={BCIT}
       zoom={13}
       scrollWheelZoom={true}
       zoomControl={false}
@@ -90,14 +85,20 @@ export default function Map() {
               <p>Category: {marker.category}</p>
               <p>Coordinates: {marker.coordinates}</p>
             </Popup>
+            <Tooltip>{marker.name}</Tooltip>
           </Marker>
         )
       })}
 
 
-      <Marker position={position}>
-        <Popup>Vancouver or thereabouts</Popup>
-        <Tooltip>This is a tooltip for the marker</Tooltip>
+      <Marker position={BCIT} eventHandlers={{
+        click: () => {
+          console.log("clicked")
+        }
+      }}>
+
+        <Popup>BCIT downtown campus</Popup>
+        <Tooltip>BCIT</Tooltip>
       </Marker>
     </MyMapContainer>
   )
