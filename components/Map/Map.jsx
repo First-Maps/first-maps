@@ -39,9 +39,9 @@ export default function Map() {
     (async () => {
       try {
         let request = await axios.get("/api/locationsOfInterest", { signal: abortController.signal })
-        
+
         //our api shoud be request.data.results not request.data.data
-        let locationsOfInterestArray = request.data.data
+        let locationsOfInterestArray = request.data.results
         // reverses cordinates to match leaflet's format
         locationsOfInterestArray.map((location) => location.coordinates = [location.coordinates[1], location.coordinates[0]])
         setMarkers(locationsOfInterestArray)

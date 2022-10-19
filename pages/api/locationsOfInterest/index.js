@@ -6,6 +6,7 @@ import LocationOfInterest from '../../../models/LocationOfInterest';
 dbConnect();
 
 
+// eslint-disable-next-line import/no-anonymous-default-export
 export default async (req, res) => {   
     const { method } = req;    
 
@@ -14,7 +15,7 @@ export default async (req, res) => {
             try {
                 // find all locationsOfInterest
                 const locationsOfInterest = await LocationOfInterest.find({})
-                res.status(200).json({ success: true, data: locationsOfInterest })
+                res.status(200).json({ success: true, results: locationsOfInterest })
             } catch(error){
                 res.status(400).json({ "error message" : error })
             }
@@ -23,7 +24,7 @@ export default async (req, res) => {
         case 'POST':
             try {
                 const locationOfInterest = await LocationOfInterest.create(req.body)
-                res.status(201).json({ success: true, data: locationOfInterest })
+                res.status(201).json({ success: true, results: locationOfInterest })
             } catch(error){
                 res.status(400).json({ "error message": error })
             }
