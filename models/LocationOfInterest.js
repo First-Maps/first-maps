@@ -22,6 +22,19 @@ const LocationsOfInterestSchema = new mongoose.Schema({
     coordinates: {
         type: [Number],   // [<longitude>, <latitude>]
         index: '2d'   // create the geospatial index
+    },
+    languages: {
+        type: [{
+            id: {
+                type: Number
+            },
+            name: {
+                type: String
+            },
+            link: {
+                type: String
+            }
+        }]
     }
 })
 
