@@ -2,9 +2,7 @@
 
 import dbConnect from "../../../utils/dbConnect";
 import dev_LocationOfInterest from '../../../models/dev_LocationOfInterest';
-
-// import findMiddle()
-import findMiddle from '../../../utils/findMiddle.js';
+import axios from 'axios'
 
 dbConnect();
 
@@ -15,7 +13,12 @@ export default async (req, res) => {
     switch (method) {
         case 'GET':
             try {
-
+                // send axios request to nativelands api
+                const response = await axios.get('https://native-land.ca/api/index.php?maps=territories');
+                const locationsArray = response.data;
+                
+                // loop through locationsArray, filter out the coordinates that are not in BC
+                
                 const locationsOfInterest = await dev_LocationOfInterest.find({})
                 res.status(200).json({ success: true, data: locationsOfInterest })
             } catch(error){

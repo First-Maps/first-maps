@@ -37,7 +37,10 @@ export default function Map() {
 
     ; (async () => {
       try {
+        // the staging table is called locationsOfInterest
         //let Data = await axios.get("/api/locationsOfInterest", { signal: abortController.signal })
+        
+        // the dev table is called dev_locationsOfInterest
         let Data = await axios.get("/api/devLocationsOfInterest", { signal: abortController.signal })
 
 
