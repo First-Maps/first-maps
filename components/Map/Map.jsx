@@ -37,7 +37,10 @@ export default function Map() {
 
     ; (async () => {
       try {
-        let Data = await axios.get("/api/locationsOfInterest", { signal: abortController.signal })
+        //let Data = await axios.get("/api/locationsOfInterest", { signal: abortController.signal })
+        let Data = await axios.get("/api/devLocationsOfInterest", { signal: abortController.signal })
+
+
         let locationsOfInterestArray = Data.data.data
 
         for (let location of locationsOfInterestArray) {
