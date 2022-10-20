@@ -1,6 +1,8 @@
 import styled from "styled-components"
 import PropTypes from "prop-types"
 
+import { Home, Compass, Donate, User } from "iconoir-react"
+
 const MyNavItem = styled.div`
   display: flex;
   flex-direction: column;
@@ -21,13 +23,19 @@ const Para = styled.p`
 export const NavItem = ({
   label,
   active,
-  children,
+  handleSelectPage,
   ...props
 }) => {
-  
+  function handleClick() {
+    handleSelectPage(label)
+  }
+
   return (
-    <MyNavItem active={active} {...props}>
-      {children}
+    <MyNavItem active={active} onClick={handleClick} {...props}>
+      {label === "Home" && <Home width="2em" height="2em" />}
+      {label === "Explore" && <Compass width="2em" height="2em" />}
+      {label === "Contribute" && <Donate width="2em" height="2em" />}
+      {label === "Profile" && <User width="2em" height="2em" />}
       <Para>{label}</Para>
     </MyNavItem>
   )
@@ -35,7 +43,8 @@ export const NavItem = ({
 
 NavItem.propTypes = {
   label: PropTypes.string,
-  active: PropTypes.bool
+  active: PropTypes.bool,
+  handleSelectPage: PropTypes.func
 }
 
 NavItem.defaultProps = {

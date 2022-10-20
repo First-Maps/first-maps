@@ -1,7 +1,5 @@
 import React from 'react';
 
-import { Home as HomeIcon, Compass, Donate, User } from "iconoir-react"
-
 import { NavItem } from '../components/Navbar/NavItem'
 
 export default {
@@ -12,37 +10,50 @@ export default {
 
 const Template = (args) => <NavItem {...args} />
 
-export const Home = Template.bind({})
-Home.args = {
+export const HomeActive = Template.bind({})
+HomeActive.args = {
   label: 'Home',
   active: true,
-  children: <HomeIcon height="2em" width="2em" />
 }
 
 export const HomeInactive = Template.bind({})
 HomeInactive.args = {
   label: 'Home',
   active: false,
-  children: <HomeIcon height="2em" width="2em" />
 }
 
-export const Explore = Template.bind({})
-Explore.args = {
+export const ExploreActive = Template.bind({})
+ExploreActive.args = {
+  label: 'Explore',
+  active: true,
+}
+
+export const ExploreInactive = Template.bind({})
+ExploreInactive.args = {
   label: 'Explore',
   active: false,
-  children: <Compass height="2em" width="2em" />
 }
 
-export const Contribute = Template.bind({})
-Contribute.args = {
+export const ContributeActive = Template.bind({})
+ContributeActive.args = {
+  label: 'Contribute',
+  active: true,
+}
+
+export const ContributeInactive = Template.bind({})
+ContributeInactive.args = {
   label: 'Contribute',
   active: false,
-  children: <Donate height="2em" width="2em" />
 }
 
-export const Profile = Template.bind({})
-Profile.args = {
+export const ProfileActive = Template.bind({})
+ProfileActive.args = {
+  label: 'Profile',
+  active: true,
+}
+
+export const ProfileInactive = Template.bind({})
+ProfileInactive.args = {
   label: 'Profile',
   active: false,
-  children: <User height="2em" width="2em" />
 }

@@ -32,7 +32,6 @@ const MyFilterButton = styled.button`
 `
 
 export const FilterButton = ({
-  label,
   pressed,
   ...props
 }) => {
@@ -50,11 +49,9 @@ export const FilterButton = ({
 }
 
 FilterButton.propTypes = {
-  label: PropTypes.string,
   pressed: PropTypes.bool
 }
 
 FilterButton.defaultProps = {
-  label: 'Arts',
   pressed: false
 }
