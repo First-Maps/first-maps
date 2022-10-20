@@ -19,6 +19,13 @@ Home.args = {
   children: <HomeIcon height="2em" width="2em" />
 }
 
+export const HomeInactive = Template.bind({})
+HomeInactive.args = {
+  label: 'Home',
+  active: false,
+  children: <HomeIcon height="2em" width="2em" />
+}
+
 export const Explore = Template.bind({})
 Explore.args = {
   label: 'Explore',
