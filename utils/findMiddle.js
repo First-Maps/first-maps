@@ -29,7 +29,8 @@ function findMiddle(arr) {
     // find middle point between eastmost and westmost
     let middleLatitude = (eastmost[0] + westmost[0]) / 2;
     let middleLongitude = (northmost[1] + southmost[1]) / 2;
+    console.log("middleLatitude: ", middleLatitude);
     
     return [middleLatitude, middleLongitude];
 }
-
+export default findMiddle;
