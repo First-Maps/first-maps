@@ -1,8 +1,9 @@
 // import { defaultConfig } from "next/dist/server/config-shared";
-import findMiddleOfPolygon from "./findMiddle";
 
+/**
+ * DOES NOT WORK AT THE MOMENT
+ */
 
-// does not work rn, do not use
 
 /**
  * Accepts an array of polygons, each polygon is an array of coordinate pairs [longitude, latitude].
@@ -22,43 +23,34 @@ function filterPolygons(locationsArray, north = 60.5000, south = 47.440567, east
     // loop through polygons, find middle of each polygon
     for(let location of locationsArray){ // [long, lat]
         let polygonCoordinates = location.geometry.coordinates;
-        
+    
 
+        // look at first coordinate, ignore the polygon if it is over 10 degrees away from the bounds, 
+        let firstCoordinate = polygonCoordinates[0][0];
+        let firstCoordinateLatitude = firstCoordinate[1];
+        let firstCoordinateLongitude = firstCoordinate[0];
+
+        // checks whether first coordinate is 10 degrees away from bounds
+        let isCoordinateOutOfBounds = 
+            firstCoordinateLatitude > north + 10 || 
+            firstCoordinateLatitude < south - 10 || 
+            firstCoordinateLongitude < east - 10 || 
+            firstCoordinateLongitude > west + 10;
+
+        // if first coordinate is over 10 degrees away from bounds, ignore the polygon
+        if(isCoordinateOutOfBounds){
+            continue;
+        }
+
+        // if first coordinate is within 10 degrees of bounds, find middle of polygon
+        // let middleOfPolygon = findMiddleOfPolygon(polygonCoordinates[0]);
+        filteredLocations.push(location);
     }
+
     return filteredLocations;
 }
-    export default filterPolygons;
 
-        // check if polygon is really far away
-    //     // look at first coordinate, ignore the polygon if it is over 10 degrees away from the bounds, 
-    //     let firstCoordinate = polygonCoordinates[0][0];
-    //     let firstCoordinateLatitude = firstCoordinate[1];
-    //     let firstCoordinateLongitude = firstCoordinate[0];
-
-    //     // checks whether first coordinate is 10 degrees away from bounds
-    //     let isCoordinateOutOfBounds = 
-    //         firstCoordinateLatitude > north + 10 || 
-    //         firstCoordinateLatitude < south - 10 || 
-    //         firstCoordinateLongitude < east - 10 || 
-    //         firstCoordinateLongitude > west + 10;
-
-    //     // if first coordinate is over 10 degrees away from bounds, ignore the polygon
-    //     if(isCoordinateOutOfBounds){
-    //         continue;
-    //     }
-
-    //     // if first coordinate is within 10 degrees of bounds, find middle of polygon
-    //     // let middleOfPolygon = findMiddleOfPolygon(polygonCoordinates[0]);
-    //     filteredLocations.push(location);
-    // 
-
-
-
-
-
-
-
-
+export default filterPolygons;
 
 
 // if longitude is negative
