@@ -7,6 +7,7 @@ import axios from 'axios'
 import findMiddleOfPolygon from '../../../utils/findMiddle'
 import filterPolygons from "../../../utils/filterLocations";
 
+
 dbConnect();
 
 
@@ -19,18 +20,40 @@ export default async (req, res) => {
                 // send axios request to nativelands api
                 const response = await axios.get('https://native-land.ca/api/index.php?maps=territories');
                 const locationsArray = response.data;
-
-
-                // default parameters set in function d
-                // let filteredLocations = filterPolygons(locationsArray, undefined, undefined, undefined, undefined)
-
-                // loop through locationsArray, filter out the coordinates that are not in BC
-                // locationsArray.map((location) => { console.log(`polygon`, location.geometry.coordinates)})     
                 
+                // loop through all locations, locations are represented by a polygon
+                for(let locationObj of locationsArray){
+                    let middleOfPolygon = findMiddleOfPolygon(locationObj); // find middle of polygon
+                    locationObj.middleOfPolygon = middleOfPolygon; // add to the location object
+                }
+
+                // ****  for testing, compare middleCoordinates with polygon coordinates
+                // console.log(locationsArray[0])
+                // console.log(locationsArray[0].geometry.coordinates)
+
+                
+                /**
+                 * TODO: 
+                 * 
+                 * 1. write the polygons to the database
+                 *      since the api data likely won't change, we can just run it on once
+                 *      but store the code somewhere so we can run it again if we need to. 
+                 * 
+                 * 
+                 * 2. Alter the filter function, or maybe mongoose has a way to do this,
+                 *     to filter out the polygons that are not in the designated area
+                 * 
+                 * 3. Get the filtered polygons and send them to the front end
+                 * 
+                 * 4. stretch goal, maybe after midterm presentations: 
+                 *      filter the locations based on given routes
+                 * 
+                 * ***** Move this out of the route, and into a helper function
+                 */
                 
 
-                res.status(200).json({ success: true, data: filteredLocations })
                 // const locationsOfInterest = await dev_LocationOfInterest.find({})
+                res.status(200).json({ success: true, data: `length of locationsArray: ${locationsArray.length}`})
             } catch(error){
                 res.status(400).json({ "error message" : error.toString() })
             }
