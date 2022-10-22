@@ -2,25 +2,26 @@ import axios from 'axios'
 import dbConnect from './dbConnect.js';
 import dev_LocationOfInterest from '../models/dev_LocationOfInterest.js';
 
-
 dbConnect();
 
 
+
 /**
- * @param {Array} polygon, accepts polygon defined by array of coordinates. Each array is a coordinate pair [longitude, latitude]
+ * @param {Array} locationObj, accepts an object with information on territories, in the same
+ * format returned by the native-lands API.
  * @returns {Array} returns an array of the middle coordinate pair [longitude, latitude]
  * NOTE: Current implementation will not work for polygons near the international date line or prime meridian
  */
 function findMiddleOfPolygon(locationObj) {
-  let eastmost = [-180, 0];
+  // set up variables for comparison against location coordinates
+	let eastmost = [-180, 0];
   let westmost = [180, 0];
   let northmost = [0, -90];
   let southmost = [0, 90];   
 
   let polygonCoordinates = locationObj.geometry.coordinates[0];
    
-
-    // find eastmost, westmost, northmost, southmost point in array, loop through all points
+  //  loop through all points, find eastmost, westmost, northmost, southmost point in array of coordinates,
   for(let coordinate of polygonCoordinates){
     if(coordinate[0] > eastmost[0]){
       eastmost = coordinate;
@@ -46,12 +47,13 @@ function findMiddleOfPolygon(locationObj) {
 
 
 /**
- * Checks whether given coordinates are within a given bounding box. By default, the bounding box is British Columbia.
+ * Checks whether given coordinates are within given bounds. 
+ * By default, bounds are set to roughly outline British Columbia.
  * @param {*} coordinate in the form [longitude, latitude]
- * @param {number} north 
- * @param {number} south 
- * @param {number} east 
- * @param {number} west 
+ * @param {number} north latitude of northern boundary
+ * @param {number} south latitude of southern boundary
+ * @param {number} east longitude of eastern boundary
+ * @param {number} west longitude of western boundary
  * @returns {boolean} returns true if coordinate is within the bounds defined by north, south, east, west
  */
 function isLocationInBounds(coordinate, north = 60.5000, south = 47.440567, east = -113.595329, west = -127.915090 ){
@@ -69,73 +71,37 @@ function isLocationInBounds(coordinate, north = 60.5000, south = 47.440567, east
 
 
 
-
+/**
+ * Calls the native-lands api to get a list of locations. 
+ * For each location, it calculates the middle of the territory and checks whether it is within the given bounds. 
+ * If it is, it adds the location to the database.
+ */
 export default async function seed(){
-	// for storing locatiosn that are within the defined bounds.
-	
-
-		try {
-    	// // Use this version of Data for demonstration
-    	// let response = await axios.get("https://native-land.ca/api/index.php?maps=territories")
-	  	// const locationsArray = response.data;
-			// let filteredLocations = [];
+	try {
+		// get locations of interest from API
+  	let response = await axios.get("https://native-land.ca/api/index.php?maps=territories")
+	 	const locationsArray = response.data;
       
-    	// // loop through all locations, locations are represented by a polygon
-    	// for(let locationObj of locationsArray){
-	  	// 	let middleOfPolygon = findMiddleOfPolygon(locationObj); // find middle of polygon
-      // 	let isInBounds = isLocationInBounds(middleOfPolygon); // boolean
+  	// loop through all locations, locations are represented by a polygon
+  	for(let locationObj of locationsArray){
+			let middleOfPolygon = findMiddleOfPolygon(locationObj); // find middle of polygon
+    	let isInBounds = isLocationInBounds(middleOfPolygon); // check if the middle of the polygon is within given bounds
 				
+			// if the middle of the polygon is within the bounds, insert it into the database
+    	if(isInBounds){
+				locationObj.middleOfPolygon = middleOfPolygon; // add to the location object
+				let name = locationObj.properties.Name
+				let coordinates = locationObj.middleOfPolygon;
 
-      // 	if(isInBounds){
-			// 		locationObj.middleOfPolygon = middleOfPolygon; // add to the location object
-			// 	}
-    	// }
+				// insert into database
+				await dev_LocationOfInterest.create({ name, coordinates })
+			}
+	  }
 
-
-
-			const l =  await dev_LocationOfInterest.create({
-				"name": "Nis'Ga'a  Village",
-				"description": "a village",
-				"category": "settlement",
-				"coordinates": [-119.77844250000001, 51.21491347738127 ]
-			})
-
-			console.log(l)
-
-
-
-
-
-    } catch (error) {
-    	console.error(error)
-      if (axios.isCancel(error)) {
-      	return
-      }
-    }
+  } catch (error) {
+  	console.error(error)
+    if (axios.isCancel(error)) {
+    	return
+	  }
+  }
 }
-
-
-
-
-
-// {
-//     id: '161f3c45eda9be9fc05d27d38c833828',
-//     type: 'Feature',
-//     properties: {
-//       Name: 'Wašišiw Ɂítdeʔ (Washoe)',
-//       ID: 36614,
-//       Slug: 'washoe',
-//       description: 'https://native-land.ca/maps/territories/washoe/',
-//       color: '#99497D'
-//     },
-//     geometry: { coordinates: [Array], type: 'Polygon' },
-//     middleOfPolygon: [ -119.77844250000001, 39.21491347738127 ]
-//   }
-  
-// {
-//     "name":"Squamish Village",
-//     "description": "a village",
-//     "category": "settlement",
-//     "coordinates": [-119.77844250000001, 39.21491347738127 ]
-// }
-//     ``

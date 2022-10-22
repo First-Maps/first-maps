@@ -1,9 +1,8 @@
-// this file takes care of dynamic routes
-
 import dbConnect from "../../../utils/dbConnect";
 import LocationOfInterest from '../../../models/LocationOfInterest';
 
 dbConnect();
+
 
 export default async (req, res) => {
 	const {
