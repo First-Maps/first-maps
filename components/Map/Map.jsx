@@ -66,17 +66,18 @@ export default function Map() {
   useEffect(() => {
     (async () => {
       try {
-        // staging/demo database
-        let request = await axios.get("/api/locationsOfInterest")
+        // CHOOSE A DATABASE TO FETCH FROM
+        
+        // *****  staging/demo database    *****
+        // let request = await axios.get("/api/locationsOfInterest")
 
-        // dev database
-        /**
-         * Yevgeniy's language code needs to be run on the dev database before dev database can be used, else it will crash
-         */
-        // let request = await axios.get("/api/devLocationsOfInterest")
+        // *****  dev database ***** 
+       let request = await axios.get("/api/devLocationsOfInterest")
 
-        let locationsOfInterestArray = request.data.results
-
+        // let locationsOfInterestArray = request.data.results  // staging/demo database
+        let locationsOfInterestArray = request.data.data  // dev database
+        
+        
         // reverses cordinates to match leaflet's format
         locationsOfInterestArray.map((location) => location.coordinates = [location.coordinates[1], location.coordinates[0]])
 
