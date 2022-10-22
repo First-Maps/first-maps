@@ -5,9 +5,19 @@ import { FilterButton as FilterButtonComponent } from '../components/Search/Filt
 export default {
   title: 'Components/Search/FilterButton',
   component: FilterButtonComponent,
-  args: {},
+  args: {
+    pressed: false,
+  },
 }
 
-export const FilterButton = (args) => <FilterButtonComponent {...args} />;
+const Template = (args) => <FilterButtonComponent {...args} />;
 
-FilterButton.args = {};
+export const FilterButtonInactive = Template.bind({});
+FilterButtonInactive.args = {
+  pressed: false,
+};
+
+export const FilterButtonActive = Template.bind({});
+FilterButtonActive.args = {
+  pressed: true,
+};

@@ -1,4 +1,4 @@
-import styled, { ThemeProvider } from "styled-components"
+import styled from "styled-components"
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
@@ -10,8 +10,10 @@ import { MapContainer, TileLayer, Marker, Popup, Tooltip, ZoomControl } from "re
 // this is how we can style exotic components that styled-components doesn't support directly
 const MyMapContainer = styled(MapContainer)`
   &[style] {
-  min-height: 100vh;
+  min-height: calc(100vh - 60px);
   min-width: 100vw;
+  @media (min-width: 768px) {
+    min-height: 100vh;
   }
 `
 
@@ -25,25 +27,53 @@ const MyTileLayer = styled(TileLayer)`
   }
 `
 
+const MyPopup = styled(Popup)`
+  &[style] {
+    .leaflet-popup-content-wrapper { 
+      background: #E5E5E5;
+      border-radius: 1em;
+    }
+
+    a.leaflet-popup-close-button {
+      top: 0.25em;
+      right: 0.25em;
+    }
+
+    div.popup-text-content {
+      background: white;
+      border-radius: 0.5em;
+      padding: 0.75em;
+    }
+
+    p {
+      margin: 0.25em 0 0.5em 0;
+    }
+  }
+`
+
+const popupText = styled.div`
+  background: white;
+  border-radius: 0.5em;
+`
+
 export default function Map() {
 
-  const position = [49.2833, -123.1152]
+  const center = [49.2833, -123.1152]
 
-  const [markers, setMarkers] = useState([]);
+  const [markers, setMarkers] = useState([])
 
   // fetch locationsOfInterest data from database, setMarkers to the data
   useEffect(() => {
-    const abortController = new AbortController()
-
-    ; (async () => {
+    (async () => {
       try {
-        // Use this version of Data for demonstration
+
+        // staging/demo database
         // let Data = await axios.get("/api/locationsOfInterest", { signal: abortController.signal })
         
-        // Use this version of Data for dev schema dev_locationsOfInterest
+        // development database
         let Data = await axios.get("/api/devLocationsOfInterest", { signal: abortController.signal })
 
-
+        /**
         let locationsOfInterestArray = Data.data.data
 
         for (let location of locationsOfInterestArray) {
@@ -51,30 +81,33 @@ export default function Map() {
           location.coordinates[0] = location.coordinates[1]
           location.coordinates[1] = temp
           console.log(location)
-        }
+        } 
+        */
+
+        let request = await axios.get("/api/locationsOfInterest")
+
+        //our api shoud be request.data.results not request.data.data
+        let locationsOfInterestArray = request.data.results
+        
+        // reverses cordinates to match leaflet's format
+        locationsOfInterestArray.map((location) => location.coordinates = [location.coordinates[1], location.coordinates[0]])
+
         setMarkers(locationsOfInterestArray)
 
       } catch (error) {
         console.error(error)
-        
+
         if (axios.isCancel(error)) {
           return
         }
       }
     })()
-
-    // unmount component
-    return () => {
-      abortController.abort()
-    }
   }, [])
-
-
 
   return (
     <MyMapContainer
-      center={position}
-      zoom={13}
+      center={center}
+      zoom={12}
       scrollWheelZoom={true}
       zoomControl={false}
     >
@@ -85,24 +118,31 @@ export default function Map() {
       />
 
       <ZoomControl position="bottomright" />
-      {markers.map(marker => {
+
+      {markers.map((marker, index) => {
         return (
-          <Marker position={marker.coordinates} description={marker.description} category={marker.category} >
-            <Popup>
-              <p><b>Location: {marker.name}</b></p>
-              <p>Description: {marker.description}</p>
-              <p>Category: {marker.category}</p>
-              <p>Coordinates: {marker.coordinates}</p>
-            </Popup>
+          <Marker position={marker.coordinates} description={marker.description} category={marker.category} key={index}>
+            <MyPopup>
+              <h2>{marker.name}</h2>
+              <div className="popup-text-content">
+                <p>Description: {marker.description}</p>
+                <p>Category: {marker.category}</p>
+                { 
+                  marker.languages.length > 0 
+                  && 
+                  <p>
+                    Languages: { marker.languages.map((language) => language.name).join(", ")}
+                  </p>
+                }
+                <p>Coordinates: { marker.coordinates.join(', ') }</p>
+              </div>
+
+            </MyPopup>
+            <Tooltip>{marker.name}</Tooltip>
           </Marker>
         )
       })}
 
-
-      <Marker position={position}>
-        <Popup>Vancouver or thereabouts</Popup>
-        <Tooltip>This is a tooltip for the marker</Tooltip>
-      </Marker>
     </MyMapContainer>
   )
 }

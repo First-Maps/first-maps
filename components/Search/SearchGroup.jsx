@@ -5,15 +5,20 @@ import { Search } from "./Search"
 import { FilterButton } from "./FilterButton"
 import { FilterToggleButton } from "./FilterToggleButton"
 
+// put SearchGroupContainer above all other components on the page
 const SearchGroupContainer = styled.div`
+  position: absolute;
+  z-index: 999;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin: 0.5em 0;
+  width: 100vw;
   @media (min-width: 768px) {
     flex-direction: row;
-    align-items: center;
+    align-items: flex-end;
     justify-content: flex-start;
   }
 `
@@ -23,6 +28,7 @@ const SearchBarContainer = styled.div`
   flex-direction: row;
   align-items: center;
   box-sizing: border-box;
+  padding: 1em 1em 0.5em 1em;
 `
 
 const SearchToggleContainer = styled.div`
@@ -31,7 +37,7 @@ const SearchToggleContainer = styled.div`
   align-items: center;
   justify-content: flex-end;
   box-sizing: border-box;
-  padding: 1em 0.5em;
+  padding: 0 1em 0 0;
   width: 100%;
   @media (min-width: 768px) {
     justify-content: flex-start;
@@ -41,37 +47,44 @@ const SearchToggleContainer = styled.div`
 export const SearchGroup = ({
   filterToggles,
   activeFilter,
+  searchFilters,
   ...props
 }) => {
   return (
     <SearchGroupContainer>
       <SearchBarContainer>
         <Search />
-        <FilterButton active={activeFilter} />
+        <FilterButton 
+          pressed={activeFilter} 
+          handleClick={props.handleActivateFilter}
+        />
       </SearchBarContainer>
 
       <SearchToggleContainer>
         {activeFilter && filterToggles.map((filterToggle) => (
           <FilterToggleButton
-            key = {filterToggle.key}
+            key={filterToggle.key}
             label={filterToggle.label}
-            selected={filterToggle.selected}
+            filter={filterToggle.key}
+            selected={searchFilters[filterToggle.key]}
+            handleSelectFilter={props.handleSelectFilter}
           />
         ))}
       </SearchToggleContainer>
     </SearchGroupContainer>
-  );
+  )
 }
 
 SearchGroup.propTypes = {
   filterToggles: PropTypes.arrayOf(
     PropTypes.shape({
-      key: PropTypes.number,
+      key: PropTypes.string,
       label: PropTypes.string,
       selected: PropTypes.bool,
     })
   ),
   activeFilter: PropTypes.bool,
+  searchFilters: PropTypes.object,
 }
 
 SearchGroup.defaultProps = {

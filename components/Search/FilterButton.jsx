@@ -13,7 +13,6 @@ const MyFilterButton = styled.button`
   border: 0;
   box-shadow: 2px 4px 0 rgba(0, 0, 0, 0.25);
   color: ${props => props.color};
-  background-color: white;
   display: inline-block;
   position: relative;
 
@@ -24,30 +23,35 @@ const MyFilterButton = styled.button`
     left: 0;
     width: 1px;
     height: 60%;
-    background: lightgray;
+    background: #909090;
+  }
+  
+  @media (prefers-color-scheme: dark) {
+    color-scheme: dark;
   }
 `
 
 export const FilterButton = ({
-  label,
-  active,
+  pressed,
   ...props
 }) => {
-  const color = active ? "#F8893C" : "darkgray"
+  const color = pressed ? "#F8893C" : "darkgray"
   
   return (
-    <MyFilterButton color={color} {...props}>
+    <MyFilterButton 
+      color={color} 
+      onClick={props.handleClick}
+      {...props}
+    >
       <FilterIcon />
     </MyFilterButton>
   )
 }
 
 FilterButton.propTypes = {
-  label: PropTypes.string,
-  active: PropTypes.bool
+  pressed: PropTypes.bool
 }
 
 FilterButton.defaultProps = {
-  label: 'Arts',
-  active: false
+  pressed: false
 }

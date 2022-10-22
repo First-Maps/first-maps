@@ -1,8 +1,13 @@
 import Head from 'next/head'
 import styled from 'styled-components'
+import { useState } from 'react'
 
 import Map from '../components/Map'
-import { Search } from '../components/Search/Search'
+import { SearchGroup } from '../components/Search/SearchGroup'
+
+import Contribute from './Contribute'
+
+import { Navbar } from '../components/Navbar/Navbar'
 
 // enter styled components
 const StyledMain = styled.main`
@@ -16,6 +21,45 @@ const StyledMain = styled.main`
 
 export default function Home() {
 
+  const filterToggles = [
+    { key: "arts", label: "Arts" },
+    { key: "tourism", label: "Tourism" },
+    { key: "language", label: "Language" },
+  ]
+
+  const [activeFilter, setActiveFilter] = useState(false)
+  const [searchFilters, setSearchFilters] = useState(
+    {
+      arts: false,
+      tourism: false,
+      language: false,
+    }
+  )
+
+  function handleActivateFilter() {
+    setActiveFilter(!activeFilter)
+  }
+
+  function handleSelectFilter(filter) {
+    setSearchFilters({ ...searchFilters, [filter]: !searchFilters[filter] })
+  }
+
+  const navPages = ["Home", "Explore", "Contribute", "Profile"]
+
+  const [activePage, setActivePage] = useState("Home")
+
+  function handleSelectPage(pageName) {
+    if (pageName === activePage) {
+      return
+    }
+
+    if (!navPages.includes(pageName)) {
+      return
+    }
+
+    setActivePage(pageName)
+  }
+
   return (
     <div>
       <Head>
@@ -25,10 +69,30 @@ export default function Home() {
       </Head>
 
       <StyledMain>
-        <Map />
-        <Search />
+
+        {activePage === "Home" && <Map />}
+        {activePage === "Explore" && <Explore />}
+        {activePage === "Contribute" && <Contribute />}
+        {activePage === "Profile" && <Profile />}
+
+        {
+          ["Home", "Explore"].includes(activePage)
+          && <SearchGroup 
+            activeFilter={activeFilter} 
+            filterToggles={filterToggles} 
+            handleActivateFilter={handleActivateFilter} 
+            searchFilters={searchFilters}
+            handleSelectFilter={handleSelectFilter}
+          />
+        }
+
+        <Navbar 
+          handleSelectPage={handleSelectPage} 
+          navPages={navPages} 
+          activePage={activePage} 
+        />
+
       </StyledMain>
-      
     </div>
   )
 }

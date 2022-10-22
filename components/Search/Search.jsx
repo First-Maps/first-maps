@@ -16,7 +16,7 @@ const SearchInput = styled.input`
   box-shadow: 2px 4px 0 rgba(0, 0, 0, 0.25);
   font-weight: 300;
   @media (min-width: 768px) {
-    width: 14em;
+    width: 16em;
   }
 `
 

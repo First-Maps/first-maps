@@ -14,5 +14,11 @@ SearchGroup.args = {
     { key: 1, label: "Arts", selected: true },
     { key: 2, label: "Tourism", selected: false },
     { key: 3, label: "Language", selected: false },
-  ]
+  ],
+  activeFilter: true,
+  searchFilters: {
+    arts: false,
+    tourism: false,
+    language: false,
+  }
 }
