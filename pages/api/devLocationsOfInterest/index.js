@@ -2,8 +2,6 @@ import dbConnect from "../../../utils/dbConnect";
 import dev_LocationOfInterest from '../../../models/dev_LocationOfInterest';
 import axios from 'axios'
 // import testFunc from helper.js
-import findMiddleOfPolygon from '../../../utils/findMiddle'
-import isLocationInBounds from "../../../utils/isLocationInBounds";
 
 
 dbConnect();
