@@ -66,13 +66,32 @@ export default function Map() {
   useEffect(() => {
     (async () => {
       try {
+
+        // staging/demo database
+        // let Data = await axios.get("/api/locationsOfInterest", { signal: abortController.signal })
+        
+        // development database
+        let Data = await axios.get("/api/devLocationsOfInterest", { signal: abortController.signal })
+
+        /**
+        let locationsOfInterestArray = Data.data.data
+
+        for (let location of locationsOfInterestArray) {
+          let temp = location.coordinates[0]
+          location.coordinates[0] = location.coordinates[1]
+          location.coordinates[1] = temp
+          console.log(location)
+        } 
+        */
+
         let request = await axios.get("/api/locationsOfInterest")
 
         //our api shoud be request.data.results not request.data.data
         let locationsOfInterestArray = request.data.results
-        console.log(locationsOfInterestArray)
+        
         // reverses cordinates to match leaflet's format
         locationsOfInterestArray.map((location) => location.coordinates = [location.coordinates[1], location.coordinates[0]])
+
         setMarkers(locationsOfInterestArray)
 
       } catch (error) {
