@@ -4,6 +4,9 @@ import { useState } from 'react'
 
 import Map from '../components/Map'
 import { SearchGroup } from '../components/Search/SearchGroup'
+
+import Contribute from './Contribute'
+
 import { Navbar } from '../components/Navbar/Navbar'
 
 // enter styled components
@@ -54,7 +57,7 @@ export default function Home() {
       return
     }
 
-    setActivePage(page)
+    setActivePage(pageName)
   }
 
   return (
