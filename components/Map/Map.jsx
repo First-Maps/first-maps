@@ -1,4 +1,4 @@
-import styled, { ThemeProvider } from "styled-components"
+import styled from "styled-components"
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 
@@ -60,14 +60,13 @@ export default function Map() {
 
   const center = [49.2833, -123.1152]
 
-  const [markers, setMarkers] = useState([]);
+  const [markers, setMarkers] = useState([])
 
   // fetch locationsOfInterest data from database, setMarkers to the data
   useEffect(() => {
-    const abortController = new AbortController();
     (async () => {
       try {
-        let request = await axios.get("/api/locationsOfInterest", { signal: abortController.signal });
+        let request = await axios.get("/api/locationsOfInterest")
 
         //our api shoud be request.data.results not request.data.data
         let locationsOfInterestArray = request.data.results
@@ -75,6 +74,7 @@ export default function Map() {
         // reverses cordinates to match leaflet's format
         locationsOfInterestArray.map((location) => location.coordinates = [location.coordinates[1], location.coordinates[0]])
         setMarkers(locationsOfInterestArray)
+
       } catch (error) {
         console.error(error)
 
@@ -83,11 +83,6 @@ export default function Map() {
         }
       }
     })()
-
-    // unmount component
-    return () => {
-      abortController.abort()
-    }
   }, [])
 
   return (

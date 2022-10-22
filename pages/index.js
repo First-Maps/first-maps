@@ -4,6 +4,9 @@ import { useState } from 'react'
 
 import Map from '../components/Map'
 import { SearchGroup } from '../components/Search/SearchGroup'
+
+import Contribute from './Contribute'
+
 import { Navbar } from '../components/Navbar/Navbar'
 
 // enter styled components
@@ -41,6 +44,22 @@ export default function Home() {
     setSearchFilters({ ...searchFilters, [filter]: !searchFilters[filter] })
   }
 
+  const navPages = ["Home", "Explore", "Contribute", "Profile"]
+
+  const [activePage, setActivePage] = useState("Home")
+
+  function handleSelectPage(pageName) {
+    if (pageName === activePage) {
+      return
+    }
+
+    if (!navPages.includes(pageName)) {
+      return
+    }
+
+    setActivePage(pageName)
+  }
+
   return (
     <div>
       <Head>
@@ -50,19 +69,30 @@ export default function Home() {
       </Head>
 
       <StyledMain>
-        <Map />
 
-        <SearchGroup 
-          activeFilter={activeFilter} 
-          filterToggles={filterToggles} 
-          handleActivateFilter={handleActivateFilter} 
-          searchFilters={searchFilters}
-          handleSelectFilter={handleSelectFilter}
+        {activePage === "Home" && <Map />}
+        {activePage === "Explore" && <Explore />}
+        {activePage === "Contribute" && <Contribute />}
+        {activePage === "Profile" && <Profile />}
+
+        {
+          ["Home", "Explore"].includes(activePage)
+          && <SearchGroup 
+            activeFilter={activeFilter} 
+            filterToggles={filterToggles} 
+            handleActivateFilter={handleActivateFilter} 
+            searchFilters={searchFilters}
+            handleSelectFilter={handleSelectFilter}
+          />
+        }
+
+        <Navbar 
+          handleSelectPage={handleSelectPage} 
+          navPages={navPages} 
+          activePage={activePage} 
         />
 
-        <Navbar />
       </StyledMain>
-      
     </div>
   )
 }

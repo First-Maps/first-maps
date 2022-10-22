@@ -72,7 +72,7 @@ export const SearchGroup = ({
         ))}
       </SearchToggleContainer>
     </SearchGroupContainer>
-  );
+  )
 }
 
 SearchGroup.propTypes = {
