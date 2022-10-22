@@ -23,7 +23,19 @@ const dev_LocationsOfInterestSchema = new mongoose.Schema({
         type: [Number],   // [<longitude>, <latitude>]
         index: '2d'   // create the geospatial index
     },
-    
+    languages: {
+        type: [{
+            id: {
+                type: Number
+            },
+            name: {
+                type: String
+            },
+            link: {
+                type: String
+            }
+        }]
+    }
 })
 
 // if the dev_LocationsOfInterestSchema db exists, export it. if not, create it and export it
