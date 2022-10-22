@@ -38,7 +38,7 @@ export default function Map() {
     ; (async () => {
       try {
         // Use this version of Data for demonstration
-        //let Data = await axios.get("/api/locationsOfInterest", { signal: abortController.signal })
+        // let Data = await axios.get("/api/locationsOfInterest", { signal: abortController.signal })
         
         // Use this version of Data for dev schema dev_locationsOfInterest
         let Data = await axios.get("/api/devLocationsOfInterest", { signal: abortController.signal })

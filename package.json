@@ -48,5 +48,6 @@
   },
   "resolutions": {
     "styled-components": "^5"
-  }
+  },
+  "type": "module"
 }

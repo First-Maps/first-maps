@@ -11,18 +11,19 @@ const dev_LocationsOfInterestSchema = new mongoose.Schema({
     },
     description: {
         type: String,
-        required: true,
+        required: false,
         maxlength: [500, 'description can not be more than 500 characters'],
     },
     category: { // arts/culture/language/history
         type: String,
-        required: true,
+        required: false,
         maxlength: [50, 'description can not be more than 500 characters'],
     },
     coordinates: {
         type: [Number],   // [<longitude>, <latitude>]
         index: '2d'   // create the geospatial index
-    }
+    },
+    
 })
 
 // if the dev_LocationsOfInterestSchema db exists, export it. if not, create it and export it
