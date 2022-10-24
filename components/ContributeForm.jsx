@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
-import { useState } from 'react'
+import { useState, useNavigate } from 'react'
 import axios from 'axios'
 
 import Map from './Map'
@@ -52,10 +52,10 @@ export default function ContributeForm({
   const [newLocation, setNewLocation] = useState(null)
 
   function handleMapClick(latlng) {
-    setNewLocation([latlng.lat, latlng.lng])
+    setNewLocation([latlng.lng, latlng.lat])
     setFormValues({
       ...formValues,
-      coordinates: [latlng.lat, latlng.lng]
+      coordinates: [latlng.lng, latlng.lat]
     })
   }
 
@@ -77,10 +77,10 @@ export default function ContributeForm({
 
   async function handleSubmit(e) {
     e.preventDefault()
-    console.log(formValues)
+    const res = await axios.post('/api/contribute', formValues)
 
-    //haven't checked yet
-    //const res = await axios.post('/api/devLocationsOfInterest', formValues)
+    // redirect to the home page
+    navigate('/', {replace: true});
   }
 
   return (

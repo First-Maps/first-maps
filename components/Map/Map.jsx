@@ -90,13 +90,16 @@ export default function Map({
         } else if(databaseToFetchFrom === "dev") {
           request = await axios.get("/api/devLocationsOfInterest")
           locationsOfInterestArray = request.data.data;
+          console.log(locationsOfInterestArray)
         } else {
           console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
         }
 
         // reverses cordinates to match leaflet's format
-        locationsOfInterestArray.map((location) => location.coordinates = [location.coordinates[1], location.coordinates[0]]);
-
+        locationsOfInterestArray.map((location) => {
+          location.coordinates = [location.coordinates[1], location.coordinates[0]]
+        });
+        
         setMarkers(locationsOfInterestArray);
 
       } catch (error) {
