@@ -82,6 +82,7 @@ export default function ContributeForm({
     // redirect to the home page
     navigate('/', {replace: true});
   }
+  
 
   return (
     <>
