@@ -25,7 +25,7 @@ const MyNavbar = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: space-around;
   min-height: 60px;
   width: 100%;
   margin: 0;
