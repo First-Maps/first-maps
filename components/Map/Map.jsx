@@ -65,19 +65,26 @@ export default function Map() {
   // fetch locationsOfInterest data from database, setMarkers to the data
   useEffect(() => {
     (async () => {
-      try {
-      
-        // CHOOSE A DATABASE TO FETCH FROM
-        // *****  staging/demo database    *****
-        // let request = await axios.get("/api/locationsOfInterest")
+      try {  
+        let request;
+        let locationsOfInterestArray;
 
-        // *****  dev database ***** 
-       let request = await axios.get("/api/devLocationsOfInterest")
+        // CHOOSE A DATABASE TO FETCH FROM: "staging" or "dev"
+        let databaseToFetchFrom = "dev"
 
-        // let locationsOfInterestArray = request.data.results  // staging/demo database
-        let locationsOfInterestArray = request.data.data  // dev database
-        
-        
+        // call API based on chosen database 
+        if (databaseToFetchFrom === "staging") {
+          request = await axios.get("/api/locationsOfInterest")
+
+          
+          locationsOfInterestArray = request.data.results
+        } else if(databaseToFetchFrom === "dev") {
+          request = await axios.get("/api/devLocationsOfInterest")
+          locationsOfInterestArray = request.data.data
+        } else {
+          console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
+        }
+
         // reverses cordinates to match leaflet's format
         locationsOfInterestArray.map((location) => location.coordinates = [location.coordinates[1], location.coordinates[0]])
 
