@@ -25,7 +25,7 @@ export default async (req, res) => {
                 const locationOfInterest = await dev_LocationOfInterest.create(req.body)
                 res.status(201).json({ success: true, data: locationOfInterest })
             } catch (error) {
-                res.status(400).json({ "error message": error })
+                res.status(400).json({ "error message": error.toString() })
             }
             break;
         default:

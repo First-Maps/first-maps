@@ -5,15 +5,19 @@ import axios from 'axios'
 import "leaflet/dist/leaflet.css"
 import "leaflet/dist/images/marker-shadow.png"
 
-import { MapContainer, TileLayer, Marker, Popup, Tooltip, ZoomControl } from "react-leaflet";
+import { MapContainer, TileLayer, Marker, Popup, Tooltip, ZoomControl } from "react-leaflet"
+import { useMapEvents } from "react-leaflet"
 
 // this is how we can style exotic components that styled-components doesn't support directly
 const MyMapContainer = styled(MapContainer)`
   &[style] {
-  min-height: calc(100vh - 60px);
-  min-width: 100vw;
-  @media (min-width: 768px) {
-    min-height: 100vh;
+    min-width: 100%;
+    min-height: ${
+      props => props.fullSize ? "calc(100vh - 60px)" : "calc(40vh - 60px)"
+    };
+    @media (min-width: 768px) {
+      min-height: ${props => props.fullSize ? "100vh" : "50vh"};
+    }
   }
 `
 
@@ -51,16 +55,23 @@ const MyPopup = styled(Popup)`
   }
 `
 
-const popupText = styled.div`
-  background: white;
-  border-radius: 0.5em;
-`
-
-export default function Map() {
-
+export default function Map({
+  fullSize,
+  handleMapClick,
+  newMarkerPosition,
+  allowAddingMarkers
+}) {
   const center = [49.2833, -123.1152]
 
   const [markers, setMarkers] = useState([])
+
+  const MapClick = () => {
+    const map = useMapEvents({
+      click: (e) => {
+        handleMapClick(e.latlng)
+      }
+    })
+  }
 
   // fetch locationsOfInterest data from database, setMarkers to the data
   useEffect(() => {
@@ -99,8 +110,8 @@ export default function Map() {
       zoom={12}
       scrollWheelZoom={true}
       zoomControl={false}
+      fullSize={fullSize}
     >
-
       <MyTileLayer
         attribution='&copy; <a href="https://www.maptiler.com/copyright">MapTiler</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=27UbwLtYuQZu5sAt2zAj"
@@ -131,6 +142,10 @@ export default function Map() {
           </Marker>
         )
       })}
+
+      {newMarkerPosition && <Marker position={newMarkerPosition} />}
+
+      {allowAddingMarkers && <MapClick />}
 
     </MyMapContainer>
   )

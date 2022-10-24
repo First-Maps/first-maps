@@ -8,7 +8,7 @@ const MyButton = styled.button`
   margin: 1em 0;
   padding: 1em;
   border: 0;
-  background-image: linear-gradient(to right, #F8893C 0%, #FF5929 100%);
+  background-image: ${props => props.active ? "linear-gradient(to right, #F8893C 0%, #FF5929 100%)" : "linear-gradient(to right, #878787 0%, #333 100%)"};
   min-width: 100%;
   color: white;
 `
@@ -16,16 +16,17 @@ const MyButton = styled.button`
 const ButtonText = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
 `
 
 export default function Button({
+  active = true,
   text,
   onClick
 }) {
   return (
-    <MyButton>
+    <MyButton active={active} onClick={onClick} >
       <ButtonText>
         <div>
           {text}
@@ -33,10 +34,7 @@ export default function Button({
 
         &nbsp;&nbsp;
 
-        <NavArrowRight iconProps={{
-          width: '2em',
-          height: '2em'
-        }} />
+        <NavArrowRight  />
       </ButtonText>
     </MyButton>
   )
