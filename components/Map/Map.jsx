@@ -81,23 +81,23 @@ export default function Map({
         let locationsOfInterestArray;
 
         // CHOOSE A DATABASE TO FETCH FROM: "staging" or "dev"
-        let databaseToFetchFrom = "dev"
+        let databaseToFetchFrom = "dev";
 
         // call API based on chosen database 
         if (databaseToFetchFrom === "staging") {
           request = await axios.get("/api/locationsOfInterest")
-          locationsOfInterestArray = request.data.results
+          locationsOfInterestArray = request.data.results;
         } else if(databaseToFetchFrom === "dev") {
           request = await axios.get("/api/devLocationsOfInterest")
-          locationsOfInterestArray = request.data.data
+          locationsOfInterestArray = request.data.data;
         } else {
           console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
         }
 
         // reverses cordinates to match leaflet's format
-        locationsOfInterestArray.map((location) => location.coordinates = [location.coordinates[1], location.coordinates[0]])
+        locationsOfInterestArray.map((location) => location.coordinates = [location.coordinates[1], location.coordinates[0]]);
 
-        setMarkers(locationsOfInterestArray)
+        setMarkers(locationsOfInterestArray);
 
       } catch (error) {
         console.error(error)

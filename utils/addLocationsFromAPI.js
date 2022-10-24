@@ -20,7 +20,7 @@ function findMiddleOfPolygon(locationObj) {
   let southmost = [0, 90];   
 
   let polygonCoordinates = locationObj.geometry.coordinates[0];
-   
+  
   //  loop through all points, find eastmost, westmost, northmost, southmost point in array of coordinates,
   for(let coordinate of polygonCoordinates){
     if(coordinate[0] > eastmost[0]){
