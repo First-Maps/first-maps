@@ -4,7 +4,6 @@ import Head from 'next/head'
 import styled from "styled-components"
 
 import { Navbar } from '../components/Navbar/Navbar'
-import ContributeHome from '../components/ContributeHome'
 import ContributeForm from '../components/ContributeForm'
 
 const StyledContainer = styled.div`
