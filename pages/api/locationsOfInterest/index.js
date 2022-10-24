@@ -74,7 +74,7 @@ export default async (req, res) => {
                         link: language.properties.description // just in case we need it later?
                     }
                 })
-                console.log(location)
+                
                 const locationOfInterest = await LocationOfInterest.create(location)
                 res.status(201).json({ success: true, results: locationOfInterest })
             } catch(error){

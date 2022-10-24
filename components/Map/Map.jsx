@@ -76,6 +76,7 @@ export default function Map({
   // fetch locationsOfInterest data from database, setMarkers to the data.
   useEffect(() => {
     (async () => {
+
       try {
         let request;
         let locationsOfInterestArray;
@@ -86,11 +87,11 @@ export default function Map({
         // call API based on chosen database 
         if (databaseToFetchFrom === "staging") {
           request = await axios.get("/api/locationsOfInterest")
-          locationsOfInterestArray = request.data.results;
+          locationsOfInterestArray = request.data.results
         } else if(databaseToFetchFrom === "dev") {
           request = await axios.get("/api/devLocationsOfInterest")
-          locationsOfInterestArray = request.data.data;
-          console.log(locationsOfInterestArray)
+          locationsOfInterestArray = request.data.data
+
         } else {
           console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
         }
@@ -104,7 +105,7 @@ export default function Map({
 
       } catch (error) {
         console.error(error)
-
+        
         if (axios.isCancel(error)) {
           return
         }
