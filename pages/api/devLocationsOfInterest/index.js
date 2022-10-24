@@ -12,8 +12,6 @@ export default async (req, res) => {
         case 'GET':
             try {
                 const locationsOfInterest = await dev_LocationOfInterest.find({})
-                console.log(locationsOfInterest, 'index.js')
-                
                 res.status(200).json({ success: true, data: locationsOfInterest })
             } catch (error) {
                 res.status(400).json({ "error message": error.toString() })

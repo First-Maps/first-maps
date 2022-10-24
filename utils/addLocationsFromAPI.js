@@ -9,7 +9,7 @@ dbConnect();
 /**
  * @param {Array} locationObj, accepts an object with information on territories, in the same
  * format returned by the native-lands API.
- * @returns {Array} returns an array of the middle coordinate pair [longitude, latitude]
+ * @returns {Array} returns an array of two elements, [longitude, latitude]. Representing the middle of the polygon
  * NOTE: Current implementation will not work for polygons near the international date line or prime meridian
  */
 function findMiddleOfPolygon(locationObj) {

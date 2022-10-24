@@ -86,8 +86,6 @@ export default function Map({
         // call API based on chosen database 
         if (databaseToFetchFrom === "staging") {
           request = await axios.get("/api/locationsOfInterest")
-
-          
           locationsOfInterestArray = request.data.results
         } else if(databaseToFetchFrom === "dev") {
           request = await axios.get("/api/devLocationsOfInterest")
