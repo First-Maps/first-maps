@@ -73,7 +73,7 @@ export default function Map({
     })
   }
 
-  // fetch locationsOfInterest data from database, setMarkers to the data
+  // fetch locationsOfInterest data from database, setMarkers to the data.
   useEffect(() => {
     (async () => {
       try {
