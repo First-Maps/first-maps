@@ -66,8 +66,8 @@ export default function Map() {
   useEffect(() => {
     (async () => {
       try {
+      
         // CHOOSE A DATABASE TO FETCH FROM
-        
         // *****  staging/demo database    *****
         // let request = await axios.get("/api/locationsOfInterest")
 
@@ -85,7 +85,7 @@ export default function Map() {
 
       } catch (error) {
         console.error(error)
-
+        
         if (axios.isCancel(error)) {
           return
         }
