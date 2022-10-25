@@ -65,6 +65,8 @@ export default function Map({
 
   const [markers, setMarkers] = useState([])
 
+
+
   const MapClick = () => {
     const map = useMapEvents({
       click: (e) => {
@@ -90,8 +92,7 @@ export default function Map({
           locationsOfInterestArray = request.data.results
         } else if(databaseToFetchFrom === "dev") {
           request = await axios.get("/api/devLocationsOfInterest")
-          locationsOfInterestArray = request.data.data
-
+          locationsOfInterestArray = request.data.data;
         } else {
           console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
         }

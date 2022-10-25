@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from "styled-components"
-import { useState, useNavigate } from 'react'
+import { useState } from 'react'
+import {useRouter} from 'next/router'
 import axios from 'axios'
 
 import Map from './Map'
@@ -51,6 +52,10 @@ export default function ContributeForm({
 }) {
   const [newLocation, setNewLocation] = useState(null)
 
+  // used for redirecting after location submission
+  let router = useRouter();
+
+
   function handleMapClick(latlng) {
     setNewLocation([latlng.lng, latlng.lat])
     setFormValues({
@@ -80,7 +85,7 @@ export default function ContributeForm({
     const res = await axios.post('/api/contribute', formValues)
 
     // redirect to the home page
-    navigate('/', {replace: true});
+    router.push('/');
   }
   
 
