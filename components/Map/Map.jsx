@@ -65,6 +65,8 @@ export default function Map({
 
   const [markers, setMarkers] = useState([])
 
+
+
   const MapClick = () => {
     const map = useMapEvents({
       click: (e) => {
