@@ -5,6 +5,7 @@ import styled from "styled-components"
 
 import { Navbar } from '../components/Navbar/Navbar'
 import ContributeForm from '../components/ContributeForm'
+import Carousel from '../components/Carousel/Carousel'
 
 const StyledContainer = styled.div`
   min-height: calc(100vh - 60px);
@@ -36,7 +37,7 @@ export default function Explore({
       <StyledContainer>
         
         <h1>Explore</h1>
-        <sub>Coming soon...</sub>
+        <Carousel/>
         
       </StyledContainer>
       <Navbar 

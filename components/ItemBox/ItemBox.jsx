@@ -1,11 +1,52 @@
 import './ItemBox.jsx';
+import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-export default function ItemBox() {
+const LangText = styled.p`
+padding-top: 3em;
+padding-left: 1.5em;
+color: white;
+font-family: sans-serif;
+margin: 0;
+`
+
+const BubbleBox = styled.div`
+background-image: linear-gradient(to bottom, grey, transparent), url("https://d3d0lqu00lnqvz.cloudfront.net/media/media/thumbnails/41a929c8-9efb-45c7-99a3-bf0ea227c3dd.jpg");
+border-radius: 18px;
+cursor: pointer;
+width:${props=>props.wid};
+height:${props=>props.hei};
+filter: drop-shadow(5px 5px 10px rgba(248, 137, 60, 0.4));
+`
+
+export default function ItemBox({
+  label,
+  width='115px',
+  height='137px'
+}){
+
   return (
-    <div className="Itembox">
-      <img src="https://d3d0lqu00lnqvz.cloudfront.net/media/media/thumbnails/41a929c8-9efb-45c7-99a3-bf0ea227c3dd.jpg" alt="placeholder" />
-        <h3>Native Language Here</h3>
-    </div>
+        <BubbleBox wid={width} hei={height}>
+          <LangText>{label}</LangText>
+        </BubbleBox>
   )
 }
+
+ItemBox.propTypes = {
+label: PropTypes.string
+}
+
+ItemBox.defaulProps = {
+label:'',
+}
+
+
+
+
+
+
+{/* <div className="Itembox"> */}
+//115px
+// 137px
+//{/* <img src="https://d3d0lqu00lnqvz.cloudfront.net/media/media/thumbnails/41a929c8-9efb-45c7-99a3-bf0ea227c3dd.jpg" alt="placeholder" /> */}
 
