@@ -90,7 +90,6 @@ export default function Map({
         } else if(databaseToFetchFrom === "dev") {
           request = await axios.get("/api/devLocationsOfInterest")
           locationsOfInterestArray = request.data.data;
-          console.log(locationsOfInterestArray)
         } else {
           console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
         }
