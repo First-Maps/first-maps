@@ -65,8 +65,6 @@ export default function Map({
 
   const [markers, setMarkers] = useState([])
 
-
-
   const MapClick = () => {
     const map = useMapEvents({
       click: (e) => {
@@ -78,7 +76,9 @@ export default function Map({
   // fetch locationsOfInterest data from database, setMarkers to the data.
   useEffect(() => {
     (async () => {
-
+      if (markers.length > 0) {
+        return
+      }
       try {
         let request;
         let locationsOfInterestArray;
@@ -99,8 +99,9 @@ export default function Map({
 
         // reverses cordinates to match leaflet's format
         locationsOfInterestArray.map((location) => {
+          // the map expects latitude-first, but the db has longitude-first
           location.coordinates = [location.coordinates[1], location.coordinates[0]]
-        });
+        })
         
         setMarkers(locationsOfInterestArray);
 
@@ -131,7 +132,12 @@ export default function Map({
 
       {markers.map((marker, index) => {
         return (
-          <Marker position={marker.coordinates} description={marker.description} category={marker.category} key={index}>
+          <Marker 
+            position={marker.coordinates} 
+            description={marker.description} 
+            category={marker.category} 
+            key={index}
+          >
             <MyPopup>
               <h2>{marker.name}</h2>
               <div className="popup-text-content">
@@ -153,9 +159,16 @@ export default function Map({
         )
       })}
 
-      {newMarkerPosition && <Marker position={newMarkerPosition} />}
-
       {allowAddingMarkers && <MapClick />}
+
+      {
+        allowAddingMarkers 
+        && newMarkerPosition 
+        && <Marker 
+          position={newMarkerPosition} 
+          key={newMarkerPosition[0]} 
+        />
+      }
 
     </MyMapContainer>
   )
