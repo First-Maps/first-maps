@@ -29,10 +29,10 @@ export default async (req, res) => {
                     res.status(400).json({ "error message": "coordinates are required" })
                     break;
                 } else if (req.body.coordinates.length !== 2) {
-                    res.status(400).json({ "error message": "coordinates must be an array of two numbers" })
+                    res.status(400).json({ "error message": "coordinates must be an array of TWO numbers" })
                     break;
                 } else if (typeof req.body.coordinates[0] !== "number" || typeof req.body.coordinates[1] !== "number") {
-                    res.status(400).json({ "error message": "coordinates must be an array of two numbers" })
+                    res.status(400).json({ "error message": "coordinates must be an array of two NUMBERS" })
                     break;
                 } else if (req.body.description === undefined || req.body.description === null || req.body.description === "") {
                     res.status(400).json({ "error message": "description is required" })
