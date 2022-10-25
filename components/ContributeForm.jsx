@@ -44,6 +44,11 @@ const Textarea = styled.textarea`
   resize: none;
 `
 
+const ErrorPara = styled.p`
+  color: red;
+  margin: 0;
+`
+
 export default function ContributeForm({
   heading="Contribute",
   inputPlaceholder = 'Enter text...',
@@ -57,9 +62,11 @@ export default function ContributeForm({
 
 
   function handleMapClick(latlng) {
-    setNewLocation([latlng.lng, latlng.lat])
+    // map expects latitude-first
+    setNewLocation([latlng.lat, latlng.lng])
     setFormValues({
       ...formValues,
+      // database expects longitude-first
       coordinates: [latlng.lng, latlng.lat]
     })
   }
@@ -71,9 +78,15 @@ export default function ContributeForm({
     coordinates: [],
   })
 
+  const [formError, setFormError] = useState({
+    name: false,
+    description: false,
+    category: false,
+    coordinates: false,
+  })
+
   function handleFormChange(e) {
     const { name, value } = e.target
-    console.log(name, value)
     setFormValues({
       ...formValues,
       [name]: value,
@@ -82,12 +95,34 @@ export default function ContributeForm({
 
   async function handleSubmit(e) {
     e.preventDefault()
-    const res = await axios.post('/api/contribute', formValues)
+    
+    if (
+      formValues.name === ''
+      || formValues.description === ''
+      || formValues.category === ''
+      || !Array.isArray(formValues.coordinates)
+      || formValues.coordinates.length !== 2
+    ) {
+      const coordinatesGood = (
+        Array.isArray(formValues.coordinates) 
+        && formValues.coordinates.length === 2
+      )
 
+      setFormError({
+        name: formValues.name ? false : true,
+        description: formValues.description ? false : true,
+        category: formValues.category ? false : true,
+        coordinates: coordinatesGood ? false : true,
+      })
+
+      return
+    }
+
+    const res = await axios.post('/api/contribute', formValues)
     // redirect to the home page
-    router.push('/');
+    router.push('/')
   }
-  
+
 
   return (
     <>
@@ -101,34 +136,60 @@ export default function ContributeForm({
       </p>
 
       <h5>Choose a point on the map</h5>
-      <Map allowAddingMarkers={true} handleMapClick={handleMapClick} newMarkerPosition={newLocation} />
-      {newLocation && (<p>New location: {newLocation.join(', ')}</p>)}
-
+      <Map
+        allowAddingMarkers={true}
+        handleMapClick={handleMapClick}
+        newMarkerPosition={newLocation}
+      />
+      {newLocation && <p>New location: {newLocation[1]}, {newLocation[0]}</p>}
+      {formError.coordinates && <ErrorPara>
+        Please pick a location on the map
+      </ErrorPara>}
 
       <form>
-      <FormDiv>
+        <FormDiv>
           <label>
             <Para>Type of location</Para>
-            <Select type="text" name="category" placeholder={inputPlaceholder} onChange={handleFormChange} >
+            <Select
+              type="text"
+              name="category"
+              placeholder={inputPlaceholder}
+              onChange={handleFormChange}
+              required
+            >
               <option value="">--Please choose an option--</option>
-              <option value='culture'>Culture</option>
+              <option value="culture">Culture</option>
               <option value="language">Language</option>
             </Select>
           </label>
+          {formError.category && <ErrorPara>A category is required</ErrorPara>}
         </FormDiv>
 
         <FormDiv>
           <label>
             <Para>Title</Para>
-            <Input type="text" name="name" placeholder={inputPlaceholder} onChange={handleFormChange} />
+            <Input
+              type="text"
+              name="name"
+              placeholder={inputPlaceholder}
+              onChange={handleFormChange}
+              required
+            />
           </label>
+          {formError.name && <ErrorPara>A name is required</ErrorPara>}
         </FormDiv>
 
         <FormDiv>
           <label>
             <Para>Description</Para>
-            <Textarea name="description" placeholder={inputPlaceholder} onChange={handleFormChange} />
+            <Textarea
+              name="description"
+              placeholder={inputPlaceholder}
+              onChange={handleFormChange}
+              required
+            />
           </label>
+          {formError.description && <ErrorPara>A description is required</ErrorPara>}
         </FormDiv>
 
         <Button text="Submit" active={true} onClick={handleSubmit} />

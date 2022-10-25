@@ -3,7 +3,7 @@
 import dbConnect from "../../../utils/dbConnect"
 import LocationOfInterest from '../../../models/LocationOfInterest'
 
-import { getLanguageData } from '../../../helpers/getLanguageData'
+import getLanguageData from '../../../utils/getLanguageData'
 
 dbConnect();
 
