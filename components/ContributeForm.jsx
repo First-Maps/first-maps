@@ -68,7 +68,7 @@ export default function ContributeForm({
 
   function handleFormChange(e) {
     const { name, value } = e.target
-    console.log(name, value)
+
     setFormValues({
       ...formValues,
       [name]: value,
@@ -80,11 +80,10 @@ export default function ContributeForm({
     const res = await axios.post('/api/contribute', formValues)
 
     // redirect to the home page
-    navigate('/', {replace: true});
+    navigate('/', {replace: true})
   }
   
 
-  const [show,setShow]=useState('')
 
   return (
     <>
@@ -109,19 +108,21 @@ export default function ContributeForm({
             <Select type="text" name="category" placeholder={inputPlaceholder} onChange={handleFormChange} >
               <option value="">--Please choose an option--</option>
               {/* reminder: restore this stuff before ever merging your repo to the main */}
-              <option value='culture' onClick={()=>setShow('culture')} >Culture</option>
-              <option value="language" onClick={()=>setShow('language')} >Language</option> 
+              <option value='culture'  >Culture</option>
+              <option value="language" >Language</option> 
               {/* <option value='culture' onClick={()=>setShow(true)} >Culture</option>
               <option value="language" onClick={()=>setShow(false)} >Language</option> */}
               {/* <option value="language" onClick={()=>setShow(!show)} >Toggle</option> */}
             </Select>
           </label>
         </FormDiv>
-;
+
         <FormDiv>
           
           <label> 
-            <Para>{show}</Para> 
+            <Para>
+              {formValues.category[0].toUpperCase() + formValues.category.slice(1)}
+            </Para> 
             <Input type="text" name="name" placeholder={inputPlaceholder} onChange={handleFormChange} />
           </label>
         </FormDiv>
@@ -135,6 +136,7 @@ export default function ContributeForm({
 
         <Button text="Submit" active={true} onClick={handleSubmit} />
       </form>
+
     </>
   );
 }
