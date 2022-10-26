@@ -27,8 +27,6 @@ const HalfPageDiv = styled.div`
 export default function Contribute({
   ...props
 }) {
-  
-
   return (
     <>
       <Head>
@@ -38,10 +36,9 @@ export default function Contribute({
       </Head>
 
       <StyledContainer>
-        
         <ContributeForm />
-        
       </StyledContainer>
+
       <Navbar 
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
         activePage={'Contribute'} 

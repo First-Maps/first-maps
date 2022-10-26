@@ -4,7 +4,6 @@ import Head from 'next/head'
 import styled from "styled-components"
 
 import { Navbar } from '../components/Navbar/Navbar'
-import ContributeForm from '../components/ContributeForm'
 
 const StyledContainer = styled.div`
   min-height: calc(100vh - 60px);
@@ -23,8 +22,6 @@ const StyledContainer = styled.div`
 export default function Explore({
   ...props
 }) {
-  
-
   return (
     <>
       <Head>
@@ -34,11 +31,10 @@ export default function Explore({
       </Head>
 
       <StyledContainer>
-        
         <h1>Explore</h1>
         <sub>Coming soon...</sub>
-        
       </StyledContainer>
+
       <Navbar 
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
         activePage={'Explore'} 

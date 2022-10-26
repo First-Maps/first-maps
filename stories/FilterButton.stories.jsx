@@ -1,6 +1,6 @@
-import React from 'react';
+import React from 'react'
 
-import { FilterButton as FilterButtonComponent } from '../components/Search/FilterButton';
+import { FilterButton as FilterButtonComponent } from '../components/Search/FilterButton'
 
 export default {
   title: 'Components/Search/FilterButton',
@@ -10,14 +10,14 @@ export default {
   },
 }
 
-const Template = (args) => <FilterButtonComponent {...args} />;
+const Template = (args) => <FilterButtonComponent {...args} />
 
-export const FilterButtonInactive = Template.bind({});
+export const FilterButtonInactive = Template.bind({})
 FilterButtonInactive.args = {
   pressed: false,
-};
+}
 
-export const FilterButtonActive = Template.bind({});
+export const FilterButtonActive = Template.bind({})
 FilterButtonActive.args = {
   pressed: true,
-};
+}

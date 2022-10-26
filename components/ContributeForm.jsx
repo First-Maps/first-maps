@@ -58,7 +58,7 @@ export default function ContributeForm({
   const [newLocation, setNewLocation] = useState(null)
 
   // used for redirecting after location submission
-  let router = useRouter();
+  let router = useRouter()
 
 
   function handleMapClick(latlng) {
@@ -195,5 +195,5 @@ export default function ContributeForm({
         <Button text="Submit" active={true} onClick={handleSubmit} />
       </form>
     </>
-  );
+  )
 }

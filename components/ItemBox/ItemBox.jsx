@@ -1,4 +1,4 @@
-import './ItemBox.jsx';
+import './ItemBox.jsx'
 
 export default function ItemBox() {
   return (
