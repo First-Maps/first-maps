@@ -1,10 +1,10 @@
 import { motion } from "framer-motion";
-import { useRef, useEffect, useState,} from "react";
+import React, { useRef, useEffect, useState,} from "react";
 import styled from "styled-components";
 import CarouselItems from "./CarouselItems";
 
 
-export default function Carousel(){
+export default function Carousel({onClick=()=>{}}){
 
     const [width, setWidth] = useState(0);
     const carousel = useRef();
@@ -28,6 +28,7 @@ export default function Carousel(){
                     <Item>
                         <CarouselItems
                         key={CarouselItems}
+                        onClick={onClick}
                         label='Western Albenaki (Ojibwe)'
                         />
                     </Item>

@@ -2,7 +2,6 @@
 import styled from 'styled-components'
 import ItemBox from '../ItemBox/ItemBox'
 import Header from '../Header/Header'
-import { LanguagePageHeader } from '../../stories/Header.stories'
 
 const StyledContainer = styled.div`
   min-height: calc(100vh - 60px);
@@ -19,18 +18,21 @@ const StyledContainer = styled.div`
 `
 
 export default function ExploreLanguages({
-    ...props
+    // ...props
+    onClick=()=>{},
+
 }) {
     return (
         <>
 
             <StyledContainer>
-                <LanguagePageHeader
+                <Header
                     label='Languages'
                     text='↽ Back to Explore'
                     dir="column-reverse"
                     ali="flex-start"
                     padl="0"
+                    onClick={onClick}
                 />
 
                 <ItemBox

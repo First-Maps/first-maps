@@ -25,11 +25,13 @@ export default function ItemBox({
   label,
   width='115px',
   height='137px',
-  margb='1.5em'
+  margb='1.5em',
+  onClick=()=>{},
+
 }){
   const [show, setShow] = useState(true)
   return (
-        <BubbleBox margb={margb} onClick={()=>setShow(false)} wid={width} hei={height}>
+        <BubbleBox margb={margb} onClick={onClick} wid={width} hei={height}>
           <LangText>{label}</LangText>
         </BubbleBox>
   )

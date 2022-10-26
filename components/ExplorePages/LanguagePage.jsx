@@ -1,9 +1,10 @@
 import styled from 'styled-components'
 import Header from '../Header/Header'
-import { LanguageHeader } from '../../stories/Header.stories'
 import VideoPlayer from '../VideoPlayer/VideoPlayer'
+import React from 'react'
 import BodyText from '../BodyText/Bodytext'
 import { text } from 'express'
+import ItemBox from '../ItemBox/ItemBox'
 
 const StyledContainer = styled.div`
   min-height: calc(100vh - 60px);
@@ -20,22 +21,29 @@ const StyledContainer = styled.div`
 `
 
 export default function LanguagePage({
+  label
 }) {
     return (
         <>
 
             <StyledContainer>
-                <LanguageHeader
+                <Header
                     label='Western Albenaki (Algonquin)'
                     text='↽ Back to Explore'
                     dir="column-reverse"
                     ali="flex-start"
                     padl="0"
                 />
-                <VideoPlayer
+                {/* <VideoPlayer
                     url={'https://www.youtube.com/watch?v=YspD--5nMEI'}
+                /> */}
+                <ItemBox
+                  label='test'
+                  width= "331.67px"
+                  height= "230px"
                 />
-                <BodyText>{text}</BodyText>
+
+                {/* <BodyText>{label}</BodyText> */}
             </StyledContainer>
             {/* <Navbar
           navPages={['Home', 'Explore', 'Contribute', 'Profile']}
