@@ -13,6 +13,10 @@ const FormDiv = styled.div`
   padding: 1em;
   background-color: white;
   border-radius: 1em;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #2F2F2F;
+  }
 `
 
 const Para = styled.p`
@@ -25,6 +29,10 @@ const Select = styled.select`
   border: 1px solid #707070;
   border-radius: 1em;
   background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #2F2F2F;
+  }
 `
 
 const Input = styled.input`
