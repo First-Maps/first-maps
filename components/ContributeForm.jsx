@@ -84,6 +84,8 @@ export default function ContributeForm({
   }
   
 
+  const [show,setShow]=useState(true)
+
   return (
     <>
       <h3>{heading}</h3>
@@ -92,7 +94,7 @@ export default function ContributeForm({
         You can help other communities by contributing accurate translations (or
         relevant information) of different First Nation languages, particularly
         Basic, by filling out a form below. Also, there are initiatives to
-        provide clean water to communities in need if you wish to donate.
+        provide clean water to communities in need if you wish to donate. !
       </p>
 
       <h5>Choose a point on the map</h5>
@@ -106,8 +108,9 @@ export default function ContributeForm({
             <Para>Type of location</Para>
             <Select type="text" name="category" placeholder={inputPlaceholder} onChange={handleFormChange} >
               <option value="">--Please choose an option--</option>
-              <option value='culture'>Culture</option>
-              <option value="language">Language</option>
+              {/* <option value='culture' onClick={()=>setShow(true)} >Culture</option>
+              <option value="language" onClick={()=>setShow(false)} >Language</option> */}
+              <option value="language" onClick={()=>setShow(!show)} >Toggle</option>
             </Select>
           </label>
         </FormDiv>
