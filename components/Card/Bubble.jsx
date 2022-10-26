@@ -8,7 +8,7 @@ const MainCard = styled.div`
   // padding: 20;
   width: 260px;
   height: 550px;
-  background-color: #E5E5E5;
+  background-color: #333333;
   border-radius: 16px;
   display: flex;
   flex-direction: column;

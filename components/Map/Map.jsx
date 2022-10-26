@@ -38,7 +38,7 @@ const MyTileLayer = styled(TileLayer)`
 const MyPopup = styled(Popup)`
   &[style] {
     .leaflet-popup-content-wrapper { 
-      background: #E5E5E5;
+      background: #333333;
       border-radius: 1em;
     }
 
