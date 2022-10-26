@@ -110,7 +110,7 @@ to insert a location of interest, make sure your JSON follows this format:
   "name":"Squamish Village",
   "description": "a village",
   "category": "settlement",
-  "coordinates": [49.234522, 122.446365]
+  "coordinates": [122.446365, 49.234522]
 }
 ```
 
@@ -120,4 +120,13 @@ longitude first, then latitude. Lonsdale Quay in Vancouver would be:
 
 Note: this is opposite to the normal convention pretty much everywhere else.
 
-the real one
+
+
+
+# mongoDB, maptiler and coordinates
+mongoDb stores coordinates in geoJSON format. geoJSON format is [longitude, latitude].
+
+Maptiler uses [latitude, longitude] format.
+
+Right now, we are swapping the order in the map.jsx file. 
+

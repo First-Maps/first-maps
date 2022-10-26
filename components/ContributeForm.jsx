@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from "styled-components"
-import { useState, useNavigate } from 'react'
+import { useState } from 'react'
+import {useRouter} from 'next/router'
 import axios from 'axios'
 
 import Map from './Map'
@@ -12,6 +13,10 @@ const FormDiv = styled.div`
   padding: 1em;
   background-color: white;
   border-radius: 1em;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #2F2F2F;
+  }
 `
 
 const Para = styled.p`
@@ -24,6 +29,10 @@ const Select = styled.select`
   border: 1px solid #707070;
   border-radius: 1em;
   background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #2F2F2F;
+  }
 `
 
 const Input = styled.input`
@@ -43,6 +52,11 @@ const Textarea = styled.textarea`
   resize: none;
 `
 
+const ErrorPara = styled.p`
+  color: red;
+  margin: 0;
+`
+
 export default function ContributeForm({
   heading="Contribute",
   inputPlaceholder = 'Enter text...',
@@ -51,10 +65,16 @@ export default function ContributeForm({
 }) {
   const [newLocation, setNewLocation] = useState(null)
 
+  // used for redirecting after location submission
+  let router = useRouter()
+
+
   function handleMapClick(latlng) {
-    setNewLocation([latlng.lng, latlng.lat])
+    // map expects latitude-first
+    setNewLocation([latlng.lat, latlng.lng])
     setFormValues({
       ...formValues,
+      // database expects longitude-first
       coordinates: [latlng.lng, latlng.lat]
     })
   }
@@ -64,6 +84,13 @@ export default function ContributeForm({
     description: '',
     category: '',
     coordinates: [],
+  })
+
+  const [formError, setFormError] = useState({
+    name: false,
+    description: false,
+    category: false,
+    coordinates: false,
   })
 
   function handleFormChange(e) {
@@ -77,12 +104,34 @@ export default function ContributeForm({
 
   async function handleSubmit(e) {
     e.preventDefault()
-    const res = await axios.post('/api/contribute', formValues)
+    
+    if (
+      formValues.name === ''
+      || formValues.description === ''
+      || formValues.category === ''
+      || !Array.isArray(formValues.coordinates)
+      || formValues.coordinates.length !== 2
+    ) {
+      const coordinatesGood = (
+        Array.isArray(formValues.coordinates) 
+        && formValues.coordinates.length === 2
+      )
 
+      setFormError({
+        name: formValues.name ? false : true,
+        description: formValues.description ? false : true,
+        category: formValues.category ? false : true,
+        coordinates: coordinatesGood ? false : true,
+      })
+
+      return
+    }
+
+    const res = await axios.post('/api/contribute', formValues)
     // redirect to the home page
-    navigate('/', {replace: true})
-  }
-  
+    navigate('/', {replace: true}) //router.push('/')
+  } 
+
 
 
   return (
@@ -97,15 +146,27 @@ export default function ContributeForm({
       </p>
 
       <h5>Choose a point on the map</h5>
-      <Map allowAddingMarkers={true} handleMapClick={handleMapClick} newMarkerPosition={newLocation} />
-      {newLocation && (<p>New location: {newLocation.join(', ')}</p>)}
-
+      <Map
+        allowAddingMarkers={true}
+        handleMapClick={handleMapClick}
+        newMarkerPosition={newLocation}
+      />
+      {newLocation && <p>New location: {newLocation[1]}, {newLocation[0]}</p>}
+      {formError.coordinates && <ErrorPara>
+        Please pick a location on the map
+      </ErrorPara>}
 
       <form>
-      <FormDiv>
+        <FormDiv>
           <label>
             <Para>Type of location</Para>
-            <Select type="text" name="category" placeholder={inputPlaceholder} onChange={handleFormChange} >
+            <Select
+              type="text"
+              name="category"
+              placeholder={inputPlaceholder}
+              onChange={handleFormChange}
+              required
+            >
               <option value="">--Please choose an option--</option>
               {/* reminder: restore this stuff before ever merging your repo to the main */}
               <option value='culture'  >Culture</option>
@@ -115,6 +176,7 @@ export default function ContributeForm({
               {/* <option value="language" onClick={()=>setShow(!show)} >Toggle</option> */}
             </Select>
           </label>
+          {formError.category && <ErrorPara>A category is required</ErrorPara>}
         </FormDiv>
 
         <FormDiv>
@@ -125,18 +187,25 @@ export default function ContributeForm({
             </Para> 
             <Input type="text" name="name" placeholder={inputPlaceholder} onChange={handleFormChange} />
           </label>
+          {formError.name && <ErrorPara>A name is required</ErrorPara>}
         </FormDiv>
 
         <FormDiv>
           <label>
             <Para>Description</Para>
-            <Textarea name="description" placeholder={inputPlaceholder} onChange={handleFormChange} />
+            <Textarea
+              name="description"
+              placeholder={inputPlaceholder}
+              onChange={handleFormChange}
+              required
+            />
           </label>
+          {formError.description && <ErrorPara>A description is required</ErrorPara>}
         </FormDiv>
 
         <Button text="Submit" active={true} onClick={handleSubmit} />
       </form>
 
     </>
-  );
+  )
 }
