@@ -11,6 +11,7 @@ const NavContainer = styled.div`
   align-items: center;
   height: 60px;
   min-width: 100%;
+  overflow: hidden;
 
   @media (min-width: 768px) {
     justify-content: left;

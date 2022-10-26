@@ -35,8 +35,8 @@ const NameCard = styled.p`
 
 
 export default function Bubble({
-    img = 'http://www.placekitten.com/266',
-    content = 'Coast Salish peoples inhabit the Northwest Coast of North America, from the mouth of the Columbia River in Oregon, north to Bute Inlet in British Columbia. Coast Salish territories includes much of the ecologically diverse Georgia Basin and Puget Sound known as the Salish Sea (right).',
+    img = 'https://i.pinimg.com/originals/c8/c2/ba/c8c2baff7972c012360cfb5943f1020a.jpg',
+    content = 'Tell Me About Yourself',
     name = 'Community Name',
     theme = '' //set to 'light' for light text
 }) {

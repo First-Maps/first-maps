@@ -8,6 +8,10 @@ import "leaflet/dist/images/marker-shadow.png"
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, ZoomControl } from "react-leaflet"
 import { useMapEvents } from "react-leaflet"
 
+import Bubble from '../Card/Bubble'
+
+// import L from "leaflet"
+
 // this is how we can style exotic components that styled-components doesn't support directly
 const MyMapContainer = styled(MapContainer)`
   &[style] {
@@ -54,6 +58,14 @@ const MyPopup = styled(Popup)`
     }
   }
 `
+
+// function GetIcon(iconSize){
+//   return L.icon({
+//     iconUrl: require('../../public/marker-icon.png'),
+//     iconSize: [iconSize]
+//   })
+// }
+// lat lang error?? ??
 
 export default function Map({
   fullSize,
@@ -137,9 +149,10 @@ export default function Map({
             description={marker.description} 
             category={marker.category} 
             key={index}
+            // icon={GetIcon(25)}
           >
             <MyPopup>
-              <h2>{marker.name}</h2>
+              {/* <h2>{marker.name}</h2>
               <div className="popup-text-content">
                 <p>Description: {marker.description}</p>
                 <p>Category: {marker.category}</p>
@@ -151,8 +164,12 @@ export default function Map({
                   </p>
                 }
                 <p>Coordinates: { marker.coordinates.join(', ') }</p>
-              </div>
+              </div> */}
+              <Bubble 
+              name={marker.name}
+              content={marker.description}
 
+              />
             </MyPopup>
             <Tooltip>{marker.name}</Tooltip>
           </Marker>
