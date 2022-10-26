@@ -38,7 +38,6 @@ export const NavItem = ({
   handleSelectPage,
   ...props
 }) => {
-
   return (
     <Link href={label === "Home" ? "/" : `/${label.toLowerCase()}`}>
       <Anchor active={active} {...props}>

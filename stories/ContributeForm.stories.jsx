@@ -1,4 +1,4 @@
-import ContributeForm from "../components/Contribute/ContributeForm"
+import ContributeForm from "../components/ContributeForm"
 
 export default {
   title: "Components/ContributeForm",

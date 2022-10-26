@@ -1,13 +1,13 @@
 // make the contribute write to both databases at the same time. 
 
-import dbConnect from "../../../utils/dbConnect";
-import dev_LocationOfInterest from '../../../models/dev_LocationOfInterest';
+import dbConnect from "../../../utils/dbConnect"
+import dev_LocationOfInterest from '../../../models/dev_LocationOfInterest'
 
-dbConnect();
+dbConnect()
 
 
 export default async (req, res) => {
-    const { method } = req;
+    const { method } = req
 
     switch (method) {
         case 'POST':
@@ -23,7 +23,7 @@ export default async (req, res) => {
             } catch (error) {
                 res.status(400).json({ "error message": error.toString() })
             }
-            break;
+            break
         default:
             res.status(400).json({ success: false, message: "This route does not exist" })
     }
