@@ -84,7 +84,7 @@ export default function ContributeForm({
   }
   
 
-  const [show,setShow]=useState(true)
+  const [show,setShow]=useState('')
 
   return (
     <>
@@ -109,8 +109,8 @@ export default function ContributeForm({
             <Select type="text" name="category" placeholder={inputPlaceholder} onChange={handleFormChange} >
               <option value="">--Please choose an option--</option>
               {/* reminder: restore this stuff before ever merging your repo to the main */}
-              <option value='culture' onClick={()=>setShow(true)} >Culture</option>
-              <option value="language" onClick={()=>setShow(false)} >Language</option> 
+              <option value='culture' onClick={()=>setShow('culture')} >Culture</option>
+              <option value="language" onClick={()=>setShow('language')} >Language</option> 
               {/* <option value='culture' onClick={()=>setShow(true)} >Culture</option>
               <option value="language" onClick={()=>setShow(false)} >Language</option> */}
               {/* <option value="language" onClick={()=>setShow(!show)} >Toggle</option> */}
@@ -119,8 +119,9 @@ export default function ContributeForm({
         </FormDiv>
 ;
         <FormDiv>
-          <label>
-            <Para>Title</Para>
+          
+          <label> 
+            <Para>{show}</Para> 
             <Input type="text" name="name" placeholder={inputPlaceholder} onChange={handleFormChange} />
           </label>
         </FormDiv>
