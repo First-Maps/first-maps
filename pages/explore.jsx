@@ -1,11 +1,12 @@
-import React from 'react'
-import { useState } from 'react'
+import React,{useState} from 'react'
 import Head from 'next/head'
 import styled from "styled-components"
+import ExploreLanguages from '../components/ExplorePages/ExploreLanguages'
 
 import { Navbar } from '../components/Navbar/Navbar'
-import ContributeForm from '../components/ContributeForm'
 import Carousel from '../components/Carousel/Carousel'
+import Header from '../components/Header/Header'
+import ItemBox from '../components/ItemBox/ItemBox'
 
 const StyledContainer = styled.div`
   min-height: calc(100vh - 60px);
@@ -24,8 +25,7 @@ const StyledContainer = styled.div`
 export default function Explore({
   ...props
 }) {
-  
-
+  const [page, setPage] = useState(true)
   return (
     <>
       <Head>
@@ -35,14 +35,32 @@ export default function Explore({
       </Head>
 
       <StyledContainer>
-        
-        <h1>Explore</h1>
-        <Carousel/>
-        
+        {
+        page ? (<><div>
+            <Header
+              label="Languages"
+              text="see all ➤"
+              onClick={() => setPage(false)}
+            ></Header>
+          </div><Carousel />
+            <Header
+              label="Arts and Culture"
+              text="see all ➤" />
+              <ItemBox
+              label='Kelli Clifton Gitgaata (Hartle y Bay/Tsimshian)'
+              width="331.67px"
+              height="230px" /></>) : null
+        }
+
+        {
+        <ExploreLanguages/>
+        }
+
+
       </StyledContainer>
-      <Navbar 
+      <Navbar
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
-        activePage={'Explore'} 
+        activePage={'Explore'}
       />
     </>
   )

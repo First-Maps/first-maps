@@ -25,5 +25,16 @@ export const LanguageHeader = Template.bind({})
 LanguageHeader.args = {
   label:'Western Albenaki (Algonquin)',
   text:'↽ Back to Explore',
-  dir:'column'
+  dir:"column-reverse",
+  ali:"flex-start",
+  padl:"0"
+}
+
+export const LanguagePageHeader = Template.bind({})
+LanguagePageHeader.args = {
+  label:'Languages',
+  text:'↽ Back to Explore',
+  dir:"column-reverse",
+  ali:"flex-start",
+  padl:"0"
 }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
-
+import { useState } from 'react';
 const HeaderText = styled.p`
 font-family: sans-serif;
 font-size: 23.5px;
@@ -11,7 +11,8 @@ const SeeAll = styled.p`
 font-family: sans-serif;
 color: #F8893C; 
 font-size: 16px;
-padding-left: 80px;
+padding-left:${props=>props.padl};
+cursor: pointer;
 // order: 0;
 // align-self: flex-start;
 // position: relative;
@@ -21,23 +22,44 @@ padding-left: 80px;
 
 const HeaderBox = styled.div`
 display: flex;
-align-items: center;
+align-items:${props=>props.ali};
+justify-content: start;
 flex-direction:${props=>props.dir};
 `;
 
 export default function Header({
 label,
 text,
-dir="row"
+dir="row",
+ali="center",
+padl="80px",
+onClick=()=>{},
 
 }){
+    const [show, setShow] = useState(true)
     return(
-        <HeaderBox dir={dir}>
+        // <div onClick={()=>setShow(false)}>
+        <HeaderBox dir={dir} ali={ali}>
             <HeaderText>{label}</HeaderText>
-            <SeeAll>{text}</SeeAll>
+            <SeeAll onClick={onClick} padl={padl}>{text}</SeeAll>
         </HeaderBox>
+        // </div>
     )
 }
+
+// export function Header2({
+// label,
+// text,
+// dir="column-reverse"
+
+// }){
+//     return(
+//         <HeaderBox dir={dir}>
+//             <SeeAll>{text}</SeeAll>
+//             <HeaderText>{label}</HeaderText>
+//         </HeaderBox>
+//     )
+// }
 
 Header.propTypes = {
     label: PropTypes.string,
