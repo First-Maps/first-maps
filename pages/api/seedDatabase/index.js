@@ -1,11 +1,11 @@
-import dbConnect from "../../../utils/dbConnect";
-import seed from '../../../utils/addLocationsFromAPI';
+import dbConnect from "../../../utils/dbConnect"
+import seed from '../../../utils/addLocationsFromAPI'
 
-dbConnect();
+dbConnect()
 
 
 export default async (req, res) => {
-    const { method } = req;
+    const { method } = req
 
     switch (method) {
         case 'POST':
@@ -15,7 +15,7 @@ export default async (req, res) => {
             } catch (error) {
                 res.status(400).json({ "error message": error })
             }
-            break;
+            break
         default:
             res.status(400).json({ success: false, message: "This route does not exist" })
     }

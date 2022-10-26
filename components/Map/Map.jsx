@@ -76,7 +76,9 @@ export default function Map({
   // fetch locationsOfInterest data from database, setMarkers to the data.
   useEffect(() => {
     (async () => {
-
+      if (markers.length > 0) {
+        return
+      }
       try {
         let request;
         let locationsOfInterestArray;
@@ -90,16 +92,16 @@ export default function Map({
           locationsOfInterestArray = request.data.results
         } else if(databaseToFetchFrom === "dev") {
           request = await axios.get("/api/devLocationsOfInterest")
-          locationsOfInterestArray = request.data.data
-
+          locationsOfInterestArray = request.data.data;
         } else {
           console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
         }
 
         // reverses cordinates to match leaflet's format
         locationsOfInterestArray.map((location) => {
+          // the map expects latitude-first, but the db has longitude-first
           location.coordinates = [location.coordinates[1], location.coordinates[0]]
-        });
+        })
         
         setMarkers(locationsOfInterestArray);
 
@@ -130,7 +132,12 @@ export default function Map({
 
       {markers.map((marker, index) => {
         return (
-          <Marker position={marker.coordinates} description={marker.description} category={marker.category} key={index}>
+          <Marker 
+            position={marker.coordinates} 
+            description={marker.description} 
+            category={marker.category} 
+            key={index}
+          >
             <MyPopup>
               <h2>{marker.name}</h2>
               <div className="popup-text-content">
@@ -152,9 +159,16 @@ export default function Map({
         )
       })}
 
-      {newMarkerPosition && <Marker position={newMarkerPosition} />}
-
       {allowAddingMarkers && <MapClick />}
+
+      {
+        allowAddingMarkers 
+        && newMarkerPosition 
+        && <Marker 
+          position={newMarkerPosition} 
+          key={newMarkerPosition[0]} 
+        />
+      }
 
     </MyMapContainer>
   )

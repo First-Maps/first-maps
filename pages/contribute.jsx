@@ -14,8 +14,13 @@ const StyledContainer = styled.div`
   padding: 1.5em;
   background-color: #F2F2F2;
   overflow-y: scroll;
+
   @media (min-width: 768px) {
     height: 100vh;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #1F1F1F;
   }
 `
 
@@ -27,8 +32,6 @@ const HalfPageDiv = styled.div`
 export default function Contribute({
   ...props
 }) {
-  
-
   return (
     <>
       <Head>
@@ -38,10 +41,9 @@ export default function Contribute({
       </Head>
 
       <StyledContainer>
-        
         <ContributeForm />
-        
       </StyledContainer>
+
       <Navbar 
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
         activePage={'Contribute'} 
