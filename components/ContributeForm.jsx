@@ -94,7 +94,7 @@ export default function ContributeForm({
         You can help other communities by contributing accurate translations (or
         relevant information) of different First Nation languages, particularly
         Basic, by filling out a form below. Also, there are initiatives to
-        provide clean water to communities in need if you wish to donate. !
+        provide clean water to communities in need if you wish to donate!
       </p>
 
       <h5>Choose a point on the map</h5>
