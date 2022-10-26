@@ -1,20 +1,19 @@
 import styled from "styled-components"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
 import "leaflet/dist/leaflet.css"
 import "leaflet/dist/images/marker-shadow.png"
 
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, ZoomControl } from "react-leaflet"
-import { useMapEvents } from "react-leaflet"
+import { useMapEvents, useMap } from "react-leaflet"
 
 // this is how we can style exotic components that styled-components doesn't support directly
 const MyMapContainer = styled(MapContainer)`
   &[style] {
     min-width: 100%;
-    min-height: ${
-      props => props.fullSize ? "calc(100vh - 60px)" : "calc(40vh - 60px)"
-    };
+    min-height: ${props => props.fullSize ? "calc(100vh - 60px)" : "calc(40vh - 60px)"
+  };
     @media (min-width: 768px) {
       min-height: ${props => props.fullSize ? "100vh" : "50vh"};
     }
@@ -59,11 +58,17 @@ export default function Map({
   fullSize,
   handleMapClick,
   newMarkerPosition,
-  allowAddingMarkers
+  allowAddingMarkers,
+  currentResult,
 }) {
+  const mapRef = useRef();
   const center = [49.2833, -123.1152]
 
   const [markers, setMarkers] = useState([])
+  const [currentLocation, setCurrentLocation] = useState({})
+  const [lastResult, setLastResult] = useState({
+    coordinates: [0, 0],
+  })
 
   const MapClick = () => {
     const map = useMapEvents({
@@ -73,10 +78,26 @@ export default function Map({
     })
   }
 
+  const MoveEnd = () => {
+    const map = useMapEvents({
+      moveend: (e) => {
+        setCurrentLocation(e.target.getCenter())
+      }
+    })
+    if (currentResult.coordinates && currentResult.coordinates[0] !== lastResult.coordinates[0]) {
+      setLastResult(currentResult);
+      map.flyTo(currentResult.coordinates, 12)
+      // console.log((map._targets)) 
+    }
+  }
+
+
   // fetch locationsOfInterest data from database, setMarkers to the data.
   useEffect(() => {
     (async () => {
-
+      if (markers.length > 0) {
+        return
+      }
       try {
         let request;
         let locationsOfInterestArray;
@@ -87,25 +108,25 @@ export default function Map({
         // call API based on chosen database 
         if (databaseToFetchFrom === "staging") {
           request = await axios.get("/api/locationsOfInterest")
-          locationsOfInterestArray = request.data.results
-        } else if(databaseToFetchFrom === "dev") {
+          locationsOfInterestArray = request.data.Results
+        } else if (databaseToFetchFrom === "dev") {
           request = await axios.get("/api/devLocationsOfInterest")
-          locationsOfInterestArray = request.data.data
-
+          locationsOfInterestArray = request.data.Results;
         } else {
           console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
         }
 
         // reverses cordinates to match leaflet's format
         locationsOfInterestArray.map((location) => {
+          // the map expects latitude-first, but the db has longitude-first
           location.coordinates = [location.coordinates[1], location.coordinates[0]]
-        });
-        
+        })
+
         setMarkers(locationsOfInterestArray);
 
       } catch (error) {
         console.error(error)
-        
+
         if (axios.isCancel(error)) {
           return
         }
@@ -115,6 +136,7 @@ export default function Map({
 
   return (
     <MyMapContainer
+      ref={mapRef}
       center={center}
       zoom={12}
       scrollWheelZoom={true}
@@ -130,20 +152,26 @@ export default function Map({
 
       {markers.map((marker, index) => {
         return (
-          <Marker position={marker.coordinates} description={marker.description} category={marker.category} key={index}>
+          <Marker
+            position={marker.coordinates}
+            name={marker.name}
+            description={marker.description}
+            category={marker.category}
+            key={index}
+          >
             <MyPopup>
               <h2>{marker.name}</h2>
               <div className="popup-text-content">
                 <p>Description: {marker.description}</p>
                 <p>Category: {marker.category}</p>
-                { 
-                  marker.languages.length > 0 
-                  && 
+                {
+                  marker.languages.length > 0
+                  &&
                   <p>
-                    Languages: { marker.languages.map((language) => language.name).join(", ")}
+                    Languages: {marker.languages.map((language) => language.name).join(", ")}
                   </p>
                 }
-                <p>Coordinates: { marker.coordinates.join(', ') }</p>
+                <p>Coordinates: {marker.coordinates.join(', ')}</p>
               </div>
 
             </MyPopup>
@@ -151,10 +179,17 @@ export default function Map({
           </Marker>
         )
       })}
-
-      {newMarkerPosition && <Marker position={newMarkerPosition} />}
-
+      {!allowAddingMarkers && <MoveEnd />}
+      
       {allowAddingMarkers && <MapClick />}
+      {
+        allowAddingMarkers
+        && newMarkerPosition
+        && <Marker
+          position={newMarkerPosition}
+          key={newMarkerPosition[0]}
+        />
+      }
 
     </MyMapContainer>
   )

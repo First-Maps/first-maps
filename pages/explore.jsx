@@ -172,5 +172,3 @@ export default function Explore({
     </>
   )
 }
-
-// () => setPage(false)

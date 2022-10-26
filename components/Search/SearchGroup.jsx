@@ -15,7 +15,6 @@ const SearchGroupContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
   @media (min-width: 768px) {
     flex-direction: row;
     align-items: flex-end;
@@ -26,7 +25,7 @@ const SearchGroupContainer = styled.div`
 const SearchBarContainer = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: top;
   box-sizing: border-box;
   padding: 1em 1em 0.5em 1em;
 `
@@ -44,18 +43,26 @@ const SearchToggleContainer = styled.div`
   }
 `
 
+const SearchContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
 export const SearchGroup = ({
   filterToggles,
   activeFilter,
   searchFilters,
+  handleResultClick,
   ...props
 }) => {
   return (
     <SearchGroupContainer>
       <SearchBarContainer>
-        <Search />
-        <FilterButton 
-          pressed={activeFilter} 
+        <SearchContainer>
+          <Search handleResultClick={handleResultClick}/>
+        </SearchContainer>
+        <FilterButton
+          pressed={activeFilter}
           handleClick={props.handleActivateFilter}
         />
       </SearchBarContainer>
@@ -85,9 +92,11 @@ SearchGroup.propTypes = {
   ),
   activeFilter: PropTypes.bool,
   searchFilters: PropTypes.object,
+  handleResultClick: PropTypes.func,
 }
 
 SearchGroup.defaultProps = {
   filterToggles: [],
   activeFilter: false,
+  handleResultClick: () => {},
 }
