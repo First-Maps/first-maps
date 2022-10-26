@@ -19,7 +19,7 @@ export default async (req, res) => {
                     coordinates: req.body.coordinates,
                 }
                 const newLocation = await dev_LocationOfInterest.create(newLocationObj)
-                res.status(201).json({ success: true, data: newLocation })
+                res.status(201).json({ success: true, Results: newLocation })
             } catch (error) {
                 res.status(400).json({ "error message": error.toString() })
             }

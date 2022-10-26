@@ -19,7 +19,7 @@ export default async (req, res) => {
         if (!location) {
           return res.status(400).json({ success: false })
         }
-        res.status(200).json({success: true, data: location})
+        res.status(200).json({success: true, Results: location})
 
       } catch (error) {
         res.status(400).json({ success: false })
@@ -36,7 +36,7 @@ export default async (req, res) => {
         if (!location) {
           return res.status(400).json({ success: false })
         }
-        res.status(200).json({success: true, data: location})
+        res.status(200).json({success: true, Results: location})
 
       } catch(error){
         res.status(400).json({ success: false })
@@ -51,7 +51,7 @@ export default async (req, res) => {
         if (!deletedLocation) {
           return res.status(400).json({ success: false })
         }
-        res.status(200).json({success: true, data: {}})
+        res.status(200).json({success: true, Results: {}})
 
       } catch(error){
         res.status(400).json({success: false})

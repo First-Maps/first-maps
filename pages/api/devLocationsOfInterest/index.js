@@ -10,7 +10,7 @@ export default async (req, res) => {
     case "GET":
       try {
         const locationsOfInterest = await dev_LocationOfInterest.find({})
-        res.status(200).json({ success: true, data: locationsOfInterest })
+        res.status(200).json({ success: true, Results: locationsOfInterest })
       } catch (error) {
         res.status(400).json({ "error message": error.toString() })
       }
@@ -72,7 +72,7 @@ export default async (req, res) => {
 
         await dev_LocationOfInterest.create(reqBodyObj)
 
-        res.status(201).json({ success: true, data: reqBodyObj })
+        res.status(201).json({ success: true, Results: reqBodyObj })
       } catch (error) {
         res.status(400).json({ "error message": error.toString() })
       }
