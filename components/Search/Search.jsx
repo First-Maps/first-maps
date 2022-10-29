@@ -70,11 +70,11 @@ export const Search = ({
   const [data, setData] = useState([])
 
   const fetchData = async () => {
-    let request;
-    let locationsOfInterestArray;
+    let request
+    let locationsOfInterestArray
 
     // CHOOSE A DATABASE TO FETCH FROM: "staging" or "dev"
-    let databaseToFetchFrom = "dev";
+    let databaseToFetchFrom = "dev"
 
     // call API based on chosen database 
     if (databaseToFetchFrom === "staging") {
@@ -82,7 +82,7 @@ export const Search = ({
       locationsOfInterestArray = request.data.Results
     } else if (databaseToFetchFrom === "dev") {
       request = await axios.get("/api/devLocationsOfInterest")
-      locationsOfInterestArray = request.data.Results;
+      locationsOfInterestArray = request.data.Results
     } else {
       console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
     }
@@ -92,11 +92,11 @@ export const Search = ({
       // the map expects latitude-first, but the db has longitude-first
       location.coordinates = [location.coordinates[1], location.coordinates[0]]
     })
-    setData(locationsOfInterestArray);
+    setData(locationsOfInterestArray)
   }
 
   useEffect(() => {
-    fetchData();
+    fetchData()
   }, [])
 
   const handleFilter = (event) => {

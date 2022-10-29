@@ -61,7 +61,7 @@ export default function Map({
   allowAddingMarkers,
   currentResult,
 }) {
-  const mapRef = useRef();
+  const mapRef = useRef()
   const center = [49.2833, -123.1152]
 
   const [markers, setMarkers] = useState([])
@@ -85,7 +85,7 @@ export default function Map({
       }
     })
     if (currentResult.coordinates && currentResult.coordinates[0] !== lastResult.coordinates[0]) {
-      setLastResult(currentResult);
+      setLastResult(currentResult)
       map.flyTo(currentResult.coordinates, 12)
       // console.log((map._targets)) 
     }
@@ -99,11 +99,11 @@ export default function Map({
         return
       }
       try {
-        let request;
-        let locationsOfInterestArray;
+        let request
+        let locationsOfInterestArray
 
         // CHOOSE A DATABASE TO FETCH FROM: "staging" or "dev"
-        let databaseToFetchFrom = "dev";
+        let databaseToFetchFrom = "dev"
 
         // call API based on chosen database 
         if (databaseToFetchFrom === "staging") {
@@ -111,7 +111,7 @@ export default function Map({
           locationsOfInterestArray = request.data.Results
         } else if (databaseToFetchFrom === "dev") {
           request = await axios.get("/api/devLocationsOfInterest")
-          locationsOfInterestArray = request.data.Results;
+          locationsOfInterestArray = request.data.Results
         } else {
           console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
         }
@@ -122,7 +122,7 @@ export default function Map({
           location.coordinates = [location.coordinates[1], location.coordinates[0]]
         })
 
-        setMarkers(locationsOfInterestArray);
+        setMarkers(locationsOfInterestArray)
 
       } catch (error) {
         console.error(error)
@@ -144,8 +144,8 @@ export default function Map({
       fullSize={fullSize}
     >
       <MyTileLayer
-        attribution='&copy; <a href="https://www.maptiler.com/copyright">MapTiler</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=27UbwLtYuQZu5sAt2zAj"
+        attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        url="https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png"
       />
 
       <ZoomControl position="bottomright" />
