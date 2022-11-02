@@ -5,7 +5,6 @@ import CarouselItems from "./CarouselItems";
 
 
 export default function Carousel({onClick=()=>{}}){
-
     const [width, setWidth] = useState(0);
     const carousel = useRef();
 
@@ -13,7 +12,7 @@ export default function Carousel({onClick=()=>{}}){
         setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth)
     }, []);
     
-    console.log(CarouselItems)
+
     return (
     <Box>
         <OuterCarousel
@@ -23,13 +22,14 @@ export default function Carousel({onClick=()=>{}}){
             drag='x'
             dragConstraints={{right:0, left: - width}}
             >
-            {CarouselItems.map(CarouselItems =>{
+            {CarouselItems.map((CarouselItem, index) => {
                 return(
-                    <Item>
-                        <CarouselItems
-                        key={CarouselItems}
-                        onClick={onClick}
-                        label='Western Albenaki (Ojibwe)'
+                    <Item
+                        key={index}
+                    >
+                        <CarouselItem
+                            onClick={onClick}
+                            label='Western Albenaki (Ojibwe)'
                         />
                     </Item>
                 )
