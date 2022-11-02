@@ -6,7 +6,7 @@ import dev_LocationOfInterest from '../../../models/dev_LocationOfInterest'
 dbConnect()
 
 
-export default async (req, res) => {
+export default async function contribute (req, res) {
     const { method } = req
 
     switch (method) {

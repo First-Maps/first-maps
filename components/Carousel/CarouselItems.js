@@ -1,3 +1,5 @@
 import ItemBox from "../ItemBox/ItemBox";
 
-export default [ItemBox,ItemBox,ItemBox,ItemBox,ItemBox,ItemBox, ]
+const CarouselItems = [ItemBox,ItemBox,ItemBox,ItemBox,ItemBox,ItemBox, ]
+
+export default CarouselItems

@@ -8,7 +8,7 @@ import getLanguageData from "../../../utils/getLanguageData"
 dbConnect()
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default async (req, res) => {
+export default async function locationsOfInterest (req, res) {
   const { method } = req
 
   switch (method) {

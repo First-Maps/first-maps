@@ -4,7 +4,7 @@ import seed from '../../../utils/addLocationsFromAPI'
 dbConnect()
 
 
-export default async (req, res) => {
+export default async function seedDatabase (req, res) {
     const { method } = req
 
     switch (method) {

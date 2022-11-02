@@ -107,6 +107,7 @@ export default function Map({
       if (markers.length > 0) {
         return
       }
+
       try {
         let request
         let locationsOfInterestArray

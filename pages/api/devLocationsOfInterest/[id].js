@@ -5,7 +5,7 @@ import LocationOfInterest from '../../../models/LocationOfInterest'
 
 dbConnect()
 
-export default async (req, res) => {
+export default async function devLocationsOfInterestId (req, res) {
   const {
     query: { id },
     method

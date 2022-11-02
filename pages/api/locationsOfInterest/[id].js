@@ -6,7 +6,7 @@ dbConnect()
 
 // eslint-disable-next-line import/no-anonymous-default-export
 
-export default async (req, res) => {
+export default async function locationsOfInterestId (req, res) {
   const {
     query: { id },
     method
