@@ -104,7 +104,6 @@ export default function Map({
   // fetch locationsOfInterest data from database, setMarkers to the data.
   useEffect(() => {
     (async () => {
-
       if (markers.length > 0) {
         return
       }
@@ -141,7 +140,7 @@ export default function Map({
           return
         }
       }
-    })();
+    })()
   }, [])
 
   function locateUser(event) {

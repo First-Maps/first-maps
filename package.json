@@ -23,7 +23,6 @@
     "react-feather": "^2.0.10",
     "react-is": "^18.2.0",
     "react-leaflet": "^4.1.0",
-    "react-leaflet-current-location-control": "^0.0.14",
     "react-player": "^2.11.0",
     "styled-components": "^5.3.6",
     "webpack": "^5.74.0"
