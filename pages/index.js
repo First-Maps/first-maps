@@ -12,7 +12,7 @@ const StyledMain = styled.main`
   flex: 1;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100vh;
 `
 

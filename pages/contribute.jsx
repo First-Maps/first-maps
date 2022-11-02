@@ -7,7 +7,7 @@ import { Navbar } from '../components/Navbar/Navbar'
 import ContributeForm from '../components/ContributeForm'
 
 const StyledContainer = styled.div`
-  max-height: calc(100vh - 60px);
+  max-height: calc(100vh - 60px - 60px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;

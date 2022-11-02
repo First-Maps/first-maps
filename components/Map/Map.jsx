@@ -13,7 +13,7 @@ import { useMapEvents } from "react-leaflet"
 const MyMapContainer = styled(MapContainer)`
   &[style] {
     min-width: 100%;
-    min-height: ${props => props.fullSize ? "calc(100% - 60px)" : "calc(40vh - 60px)"
+    min-height: ${props => props.fullSize ? "calc(100% - 60px - 60px)" : "calc(40vh - 60px)"
   };
     @media (min-width: 768px) {
       min-height: ${props => props.fullSize ? "100vh" : "50vh"};
