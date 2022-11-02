@@ -129,7 +129,7 @@ export default function ContributeForm({
 
     const res = await axios.post('/api/contribute', formValues)
     // redirect to the home page
-    router.push('/')
+    router.push('/') //navigate('/', {replace: true}) 
   }
 
 
@@ -176,7 +176,7 @@ export default function ContributeForm({
 
         <FormDiv>
           <label>
-            <Para>Title</Para>
+            <Para>Para</Para>
             <Input
               type="text"
               name="name"
@@ -190,7 +190,10 @@ export default function ContributeForm({
 
         <FormDiv>
           <label>
-            <Para>Description</Para>
+            <Para>
+              Title
+              {/* {formValues.category[0].toUpperCase() + formValues.category.slice(1)} */}
+            </Para>
             <Textarea
               name="description"
               placeholder={inputPlaceholder}
@@ -206,3 +209,4 @@ export default function ContributeForm({
     </>
   )
 }
+//test
