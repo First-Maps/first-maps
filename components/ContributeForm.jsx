@@ -129,8 +129,9 @@ export default function ContributeForm({
 
     const res = await axios.post('/api/contribute', formValues)
     // redirect to the home page
-    router.push('/')
-  }
+    navigate('/', {replace: true}) //router.push('/')
+  } 
+
 
 
   return (
@@ -141,7 +142,7 @@ export default function ContributeForm({
         You can help other communities by contributing accurate translations (or
         relevant information) of different First Nation languages, particularly
         Basic, by filling out a form below. Also, there are initiatives to
-        provide clean water to communities in need if you wish to donate.
+        provide clean water to communities in need if you wish to donate!
       </p>
 
       <h5>Choose a point on the map</h5>
@@ -167,23 +168,24 @@ export default function ContributeForm({
               required
             >
               <option value="">--Please choose an option--</option>
-              <option value="culture">Culture</option>
-              <option value="language">Language</option>
+              {/* reminder: restore this stuff before ever merging your repo to the main */}
+              <option value='culture'  >Culture</option>
+              <option value="language" >Language</option> 
+              {/* <option value='culture' onClick={()=>setShow(true)} >Culture</option>
+              <option value="language" onClick={()=>setShow(false)} >Language</option> */}
+              {/* <option value="language" onClick={()=>setShow(!show)} >Toggle</option> */}
             </Select>
           </label>
           {formError.category && <ErrorPara>A category is required</ErrorPara>}
         </FormDiv>
 
         <FormDiv>
-          <label>
-            <Para>Title</Para>
-            <Input
-              type="text"
-              name="name"
-              placeholder={inputPlaceholder}
-              onChange={handleFormChange}
-              required
-            />
+          
+          <label> 
+            <Para>
+              {formValues.category[0].toUpperCase() + formValues.category.slice(1)}
+            </Para> 
+            <Input type="text" name="name" placeholder={inputPlaceholder} onChange={handleFormChange} />
           </label>
           {formError.name && <ErrorPara>A name is required</ErrorPara>}
         </FormDiv>
@@ -203,6 +205,7 @@ export default function ContributeForm({
 
         <Button text="Submit" active={true} onClick={handleSubmit} />
       </form>
+
     </>
   )
 }
