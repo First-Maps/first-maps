@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components"
 import { useState } from 'react'
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 
 import Map from './Map'
