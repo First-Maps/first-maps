@@ -151,9 +151,9 @@ export default function Explore({
               />
               <div> 
               <VideoPlayer 
-              url="https://www.youtube.com/watch?v=YspD--5nMEI" 
-              width='331.67px'
-              height='230px'
+                url="https://www.youtube.com/watch?v=YspD--5nMEI" 
+                width='331.67px'
+                height='230px'
               />
               </div>
               <Bodytext
@@ -162,8 +162,6 @@ export default function Explore({
             </div>
           )
         }
-
-
       </StyledContainer>
       <Navbar
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}

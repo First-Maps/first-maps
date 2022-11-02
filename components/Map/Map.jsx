@@ -13,7 +13,7 @@ import { useMapEvents } from "react-leaflet"
 const MyMapContainer = styled(MapContainer)`
   &[style] {
     min-width: 100%;
-    min-height: ${props => props.fullSize ? "calc(100vh - 60px)" : "calc(40vh - 60px)"
+    min-height: ${props => props.fullSize ? "calc(100% - 60px)" : "calc(40vh - 60px)"
   };
     @media (min-width: 768px) {
       min-height: ${props => props.fullSize ? "100vh" : "50vh"};
@@ -145,14 +145,12 @@ export default function Map({
   }, [])
 
   function locateUser(event) {
-    console.log('map loaded')
     navigator.geolocation.getCurrentPosition((position) => {
       console.log('coordinates from browser', position.coords)
     }, (error) => {
       axios.get("https://ipgeolocation.abstractapi.com/v1/?api_key=c44875213f7047a6bf726151678530cb")
         .then((response) => {
           const { latitude, longitude } = response.data
-          console.log('coordinates from api:', latitude, longitude)
           event.target.flyTo([latitude, longitude], event.target.getZoom())
         }).catch((error) => {
           console.log(error)
@@ -211,7 +209,7 @@ export default function Map({
       {allowAddingMarkers && <MapClick />}
       {allowAddingMarkers
         && newMarkerPosition
-        && <Marker position={newMarkerPosition} key={newMarkerPosition[0]}/>}
+        && <Marker position={newMarkerPosition} key={newMarkerPosition[0]} />}
 
     </MyMapContainer>
   )
