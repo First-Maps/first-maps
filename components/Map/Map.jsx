@@ -59,13 +59,6 @@ const MyPopup = styled(Popup)`
   }
 `
 
-// function GetIcon(iconSize){
-//   return L.icon({
-//     iconUrl: require('../../public/marker-icon.png'),
-//     iconSize: [iconSize]
-//   })
-// }
-// lat lang error?? ??
 
 export default function Map({
   fullSize,
@@ -152,19 +145,6 @@ export default function Map({
             // icon={GetIcon(25)}
           >
             <MyPopup>
-              {/* <h2>{marker.name}</h2>
-              <div className="popup-text-content">
-                <p>Description: {marker.description}</p>
-                <p>Category: {marker.category}</p>
-                { 
-                  marker.languages.length > 0 
-                  && 
-                  <p>
-                    Languages: { marker.languages.map((language) => language.name).join(", ")}
-                  </p>
-                }
-                <p>Coordinates: { marker.coordinates.join(', ') }</p>
-              </div> */}
               <Bubble 
               name={marker.name}
               content={marker.description}

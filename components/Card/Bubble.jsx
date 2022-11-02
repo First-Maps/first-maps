@@ -1,7 +1,7 @@
-import styled from 'styled-components';
-import  Head  from '../Text/Header';
-import Buttons from '../Buttons/Buttons';
-import { useState } from 'react';
+import styled from 'styled-components'
+import  Head  from '../Text/Header'
+import Buttons from '../Buttons/Buttons'
+import { useState } from 'react'
 
 const MainCard = styled.div`
   margin: 0 auto;
@@ -45,17 +45,17 @@ export default function Bubble({
   const handleShow = () => {setShow(true)};
   const handleHideShow = () => {setShow(false)};
   return (<>
-    {
-      show ? <MainCard> 
-        <PhotoCard src={img} />
-      </MainCard> : <MainCard>
+  {
+    show ? <MainCard> 
       <PhotoCard src={img} />
-      <Head light={theme} txt={name}/>
-      <NameCard>{content}</NameCard>
-      <Buttons onclick={() => handleShow()} txt='Learn More' />
-    </MainCard>
+    </MainCard> : <MainCard>
+    <PhotoCard src={img} />
+    <Head light={theme} txt={name}/>
+    <NameCard>{content}</NameCard>
+    <Buttons onclick={() => handleShow()} txt='Learn More' />
+  </MainCard>
 
-    }
-    </>
-    )
-}
+  }
+  </>
+  )
+  }
