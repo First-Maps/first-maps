@@ -36,8 +36,12 @@ export default function Explore({
       <StyledContainer>
         
         <h1>Explore</h1>
-        <sub>Coming soon...</sub>
-        
+        <div className="languages">
+          
+        </div>
+        <div className="ArtsAndCulture">
+
+        </div>
       </StyledContainer>
       <Navbar 
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
