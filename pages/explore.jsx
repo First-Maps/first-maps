@@ -151,19 +151,17 @@ export default function Explore({
               />
               <div> 
               <VideoPlayer 
-              url="https://www.youtube.com/watch?v=YspD--5nMEI" 
-              width='331.67px'
-              height='230px'
+                url="https://www.youtube.com/watch?v=YspD--5nMEI" 
+                width='331.67px'
+                height='230px'
               />
               </div>
               <Bodytext
-                label='Abenaki (Eastern: Alənαpαtəwéwαkan, Western: Alnôbaôdwawôgan) is an endangered Algonquian language of Quebec and the northern states of New England.  The language has Eastern and Western forms which differ in vocabulary and phonology and are sometimes considered distinct languages.'
+                label='Abenaki (Eastern: Alənαpαtəwéwαkan, Western: Alnôbaôdwawôgan) is an endangered Algonquian language of Quebec and the northern states of New England. The language has Eastern and Western forms which differ in vocabulary and phonology and are sometimes considered distinct languages.'
               />
             </div>
           )
         }
-
-
       </StyledContainer>
       <Navbar
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
