@@ -6,7 +6,8 @@ import "leaflet/dist/leaflet.css"
 import "leaflet/dist/images/marker-shadow.png"
 
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, ZoomControl } from "react-leaflet"
-import { useMapEvents, useMap } from "react-leaflet"
+import { useMapEvents } from "react-leaflet"
+
 
 // this is how we can style exotic components that styled-components doesn't support directly
 const MyMapContainer = styled(MapContainer)`
@@ -23,9 +24,18 @@ const MyMapContainer = styled(MapContainer)`
 // dark mode for the map
 const MyTileLayer = styled(TileLayer)`
   &[style] {
+    filter: 
+      brightness(0.9)
+      contrast(1.3)
+      saturate(1.3);
+
     @media (prefers-color-scheme: dark) {
-      filter: brightness(0.65) invert(1) contrast(4) hue-rotate(180deg)
-        saturate(0.4);
+      filter: 
+        brightness(0.67)
+        invert() 
+        contrast(3.4)
+        hue-rotate(167deg)
+        saturate(0.6);
     }
   }
 `
@@ -91,7 +101,6 @@ export default function Map({
     }
   }
 
-
   // fetch locationsOfInterest data from database, setMarkers to the data.
   useEffect(() => {
     (async () => {
@@ -134,6 +143,22 @@ export default function Map({
     })()
   }, [])
 
+  function locateUser(event) {
+    console.log('map loaded')
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log('coordinates from browser', position.coords)
+    }, (error) => {
+      axios.get("https://ipgeolocation.abstractapi.com/v1/?api_key=c44875213f7047a6bf726151678530cb")
+        .then((response) => {
+          const { latitude, longitude } = response.data
+          console.log('coordinates from api:', latitude, longitude)
+          event.target.flyTo([latitude, longitude], event.target.getZoom())
+        }).catch((error) => {
+          console.log(error)
+        })
+    }, { timeout: 500 })
+  }
+
   return (
     <MyMapContainer
       ref={mapRef}
@@ -142,6 +167,7 @@ export default function Map({
       scrollWheelZoom={true}
       zoomControl={false}
       fullSize={fullSize}
+      whenReady={(event) => {locateUser(event)}}
     >
       <MyTileLayer
         attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
@@ -182,14 +208,9 @@ export default function Map({
       {!allowAddingMarkers && <MoveEnd />}
       
       {allowAddingMarkers && <MapClick />}
-      {
-        allowAddingMarkers
+      {allowAddingMarkers
         && newMarkerPosition
-        && <Marker
-          position={newMarkerPosition}
-          key={newMarkerPosition[0]}
-        />
-      }
+        && <Marker position={newMarkerPosition} key={newMarkerPosition[0]}/>}
 
     </MyMapContainer>
   )
