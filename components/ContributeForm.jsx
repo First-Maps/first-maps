@@ -176,7 +176,7 @@ export default function ContributeForm({
 
         <FormDiv>
           <label>
-            <Para>Para</Para>
+            <Para>Title</Para>
             <Input
               type="text"
               name="name"
@@ -191,7 +191,6 @@ export default function ContributeForm({
         <FormDiv>
           <label>
             <Para>
-              Title
               {/* {formValues.category[0].toUpperCase() + formValues.category.slice(1)} */}
             </Para>
             <Textarea
