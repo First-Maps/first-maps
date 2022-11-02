@@ -29,7 +29,7 @@ const Anchor = styled.a`
   height: 100%;
   width: 100%;
   cursor: pointer;
-  color: ${props => props.active ? "#F8893C" : "4D"};
+  color: ${props => props.active ? "#F8893C" : "4D4D4D"}
 `
 
 export const NavItem = ({

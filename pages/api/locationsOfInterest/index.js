@@ -16,6 +16,7 @@ export default async (req, res) => {
       try {
         // find all locationsOfInterest
         const locationsOfInterest = await LocationOfInterest.find({})
+        console.log("locationsOfInterest", locationsOfInterest)
 
         // below is the code for lazy loading of language data if it doesn't exist in the database
         // but it won't be triggered because we have the same logic in the post route
@@ -52,7 +53,7 @@ export default async (req, res) => {
           }
         }
 
-        res.status(200).json({ success: true, results: locationsOfInterest })
+        res.status(200).json({ success: true, Results: locationsOfInterest })
       } catch (error) {
         res.status(400).json({ "error message": error.toString() })
       }
@@ -75,7 +76,7 @@ export default async (req, res) => {
         })
 
         const locationOfInterest = await LocationOfInterest.create(location)
-        res.status(201).json({ success: true, results: locationOfInterest })
+        res.status(201).json({ success: true, Results: locationOfInterest })
       } catch (error) {
         res.status(400).json({ "error message": error.toString() })
       }
