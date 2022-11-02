@@ -129,7 +129,7 @@ export default function ContributeForm({
 
     const res = await axios.post('/api/contribute', formValues)
     // redirect to the home page
-    navigate('/', {replace: true}) //router.push('/') //navigate('/', {replace: true}) 
+    router.push('/') // navigate('/', {replace: true}) 
   } 
 
 
@@ -206,4 +206,3 @@ export default function ContributeForm({
     </>
   )
 }
-//test
