@@ -1,4 +1,6 @@
 // lorem ipsum, but native arts/culture/language/history specific text copied from wikipedia
+// will likely be written into the db later on
+
 let nativeIpsum = {
 	"arts": [
 		`Around 4000 BCE nomads known as the Pre-Dorset or the Arctic small tool tradition (ASTT) crossed over the Bering Strait from Siberia into Alaska, the Canadian Arctic, Greenland, and Labrador. Very little remains of them, and only a few preserved artifacts carved in ivory could be considered works of art.`,

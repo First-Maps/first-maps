@@ -78,27 +78,53 @@ function isLocationInBounds(coordinate, north = 60.5000, south = 47.440567, east
  * Calls the native-lands api to get a list of locations. 
  * For each location, it calculates the middle of the territory and checks whether it is within the given bounds. 
  * If it is, it adds the location to the database.
-//  */
+ */
 export default async function seed(){
 	try {
 		// get locations of interest from API
   	let response = await axios.get("https://native-land.ca/api/index.php?maps=territories")
 	 	const locationsArray = response.data
-      
+
+    const categories = ['arts','culture','language','history'] // the 4 possible categories for a location of interest
+
   	// loop through all locations, locations are represented by a polygon
   	for(let locationObj of locationsArray){
 			let middleOfPolygon = findMiddleOfPolygon(locationObj) // find middle of polygon
     	let isInBounds = isLocationInBounds(middleOfPolygon) // check if the middle of the polygon is within given bounds
 				
-			// if the middle of the polygon is within the bounds, insert it into the database
-    	if(isInBounds){
-				locationObj.middleOfPolygon = middleOfPolygon // add to the location object
-				let name = locationObj.properties.Name
-				let coordinates = locationObj.middleOfPolygon
+			// if the middle of the polygon is NOT in bounds, ignore it
+    	if(!isInBounds){
+        continue;
+      }
 
-				// insert into database
-				await dev_LocationOfInterest.create({ name, coordinates })
-			}
+      let category = categories[Math.floor(Math.random() * categories.length)] // generate a random category from the categories array
+
+      locationObj.middleOfPolygon = middleOfPolygon // add to the location object
+
+      let name = locationObj.properties.Name
+      let coordinates = locationObj.middleOfPolygon
+
+      let descriptions = nativeIpsum[category] // array of descriptions from the randomly generated category, from /utils/nativeIpsum.js
+      let description = descriptions[Math.floor(Math.random() * descriptions.length)] // select a random description
+
+      // if description length greater than 500 characters, truncate it. 
+      if (description.length > 500){
+        description = description.substring(0, 500)
+      }
+      console.log({ 
+        name, 
+        coordinates, 
+        category, 
+        description 
+      })
+
+      // insert into database
+      await dev_LocationOfInterest.create({ 
+        name, 
+        coordinates, 
+        category, 
+        description 
+      })
 	  }
 
   } catch (error) {
@@ -109,17 +135,3 @@ export default async function seed(){
   }
 }
 
-
-// export default async function seed(){
-//   const locationsOfInterest = await dev_LocationOfInterest.find({})
-//   let categories = ['arts','culture','language','history']
-
-  
-//   for(let location of locationsOfInterest){
-//     let randomCategory = categories[Math.floor(Math.random() * categories.length)]
-//     let randomDescription = nativeIpsum[Math.floor(Math.random() * nativeIpsum.length)]
-
-//     console.log(randomCategory, '\n',randomDescription.substring(0, 100))
-//   }
-  
-// }
