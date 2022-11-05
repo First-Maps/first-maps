@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+// libraries
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styled from "styled-components"
+import axios from 'axios'
+
+// components
 import ExploreLanguages from '../components/ExplorePages/ExploreLanguages'
 import Bodytext from '../components/BodyText/Bodytext'
-
 import { Navbar } from '../components/Navbar/Navbar'
 import Carousel from '../components/Carousel/Carousel'
 import Header from '../components/Header/Header'
@@ -36,6 +39,8 @@ export default function Explore({
   const [Arts, setArts] = useState(false)
   const [Lang, setLang] = useState(false)
 
+
+
   const StateHandler = () => {
     setPage(false);
     setLanguages(true);
@@ -63,6 +68,50 @@ export default function Explore({
     setArts(false);
     setLang(true);
   };
+
+  
+  // fetch locationsOfInterest data from databas
+  useEffect(() => {
+    (async () => {
+     
+      try {
+        let request
+        let locationsOfInterestArray
+
+        // CHOOSE A DATABASE TO FETCH FROM: "staging" or "dev"
+        let databaseToFetchFrom = "dev"
+
+        // call API based on chosen database 
+        if (databaseToFetchFrom === "staging") {
+          request = await axios.get("/api/locationsOfInterest")
+          locationsOfInterestArray = request.data.Results
+        } else if (databaseToFetchFrom === "dev") {
+          request = await axios.get("/api/devLocationsOfInterest")
+          locationsOfInterestArray = request.data.Results
+        } else {
+          console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
+        }
+
+        // reverses cordinates to match leaflet's format
+        locationsOfInterestArray.map((location) => {
+          // the map expects latitude-first, but the db has longitude-first
+          location.coordinates = [location.coordinates[1], location.coordinates[0]]
+        })
+
+      } catch (error) {
+        console.error(error)
+
+        if (axios.isCancel(error)) {
+          return
+        }
+      }
+    })()
+  }, [])
+
+
+
+
+
 
   return (
     <>

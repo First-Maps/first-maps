@@ -1,7 +1,7 @@
 // this file takes care of dynamic routes
 
 import dbConnect from "../../../utils/dbConnect"
-import LocationOfInterest from '../../../models/LocationOfInterest'
+import dev_LocationOfInterest from '../../../models/dev_LocationOfInterest'
 
 dbConnect()
 
@@ -14,52 +14,52 @@ export default async function devLocationsOfInterestId (req, res) {
   switch (method) {
     case 'GET':
       try {
-        const location = await LocationOfInterest.findById(id)
+        let category = id.toString() // get the category from the url
 
-        if (!location) {
-          return res.status(400).json({ success: false })
-        }
-        res.status(200).json({success: true, Results: location})
+        const locationsByCategory = await dev_LocationOfInterest.find({category : category}) // query the database, return all with the given category
+
+        res.status(200).json({success: true, Results: locationsByCategory}) // return the results
 
       } catch (error) {
-        res.status(400).json({ success: false })
+        res.status(400).json({ success: false, message: error.toString() })
       }
       break
+
+    // methods below are copied, they need to be updated before they can be used
+    // case 'PUT':
+    //   try{
+    //     const location = await devLocationsOfInterest.findByIdAndUpdate(id, req.body, {
+    //       new: true,
+    //       runValidators: true
+    //     })
+
+    //     if (!location) {
+    //       return res.status(400).json({ success: false })
+    //     }
+    //     res.status(200).json({success: true, Results: location})
+
+    //   } catch(error){
+    //     res.status(400).json({ success: false })
+    //   }
+    //   break
     
-    case 'PUT':
-      try{
-        const location = await LocationOfInterest.findByIdAndUpdate(id, req.body, {
-          new: true,
-          runValidators: true
-        })
+    // case 'DELETE':
+    //   try {
+    //     // delete one location
+    //     const deletedLocation = await LocationOfInterest.deleteOne({ _id: id })
 
-        if (!location) {
-          return res.status(400).json({ success: false })
-        }
-        res.status(200).json({success: true, Results: location})
+    //     if (!deletedLocation) {
+    //       return res.status(400).json({ success: false })
+    //     }
+    //     res.status(200).json({success: true, Results: {}})
 
-      } catch(error){
-        res.status(400).json({ success: false })
-      }
-      break
-    
-    case 'DELETE':
-      try {
-        // delete one location
-        const deletedLocation = await LocationOfInterest.deleteOne({ _id: id })
-
-        if (!deletedLocation) {
-          return res.status(400).json({ success: false })
-        }
-        res.status(200).json({success: true, Results: {}})
-
-      } catch(error){
-        res.status(400).json({success: false})
-      }
-      break
+    //   } catch(error){
+    //     res.status(400).json({success: false})
+    //   }
+    //   break
     
     default:
-      res.status(400).json({ success: false })
+      res.status(400).json({ success: false, message: "method not allowed" })
       break
   }
 }

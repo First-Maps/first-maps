@@ -111,12 +111,6 @@ export default async function seed(){
       if (description.length > 500){
         description = description.substring(0, 500)
       }
-      console.log({ 
-        name, 
-        coordinates, 
-        category, 
-        description 
-      })
 
       // insert into database
       await dev_LocationOfInterest.create({ 
