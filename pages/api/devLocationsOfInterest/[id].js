@@ -16,7 +16,7 @@ export default async function devLocationsOfInterestId (req, res) {
       try {
         let category = id.toString() // get the category from the url
 
-        const locationsByCategory = await dev_LocationOfInterest.find({category : category}) // query the database, return all with the given category
+        const locationsByCategory = await dev_LocationOfInterest.find({category : category}).limit(10) // query the database, return all with the given category
 
         res.status(200).json({success: true, Results: locationsByCategory}) // return the results
 
