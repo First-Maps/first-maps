@@ -1,9 +1,12 @@
 import axios from 'axios'
 import dbConnect from './dbConnect.js'
 import dev_LocationOfInterest from '../models/dev_LocationOfInterest.js'
+import nativeIpsum from './nativeIpsum.js'
+import seedDatabase from '../pages/api/seedDatabase/index.js'
+
+
 
 dbConnect()
-
 
 
 /**
@@ -75,7 +78,7 @@ function isLocationInBounds(coordinate, north = 60.5000, south = 47.440567, east
  * Calls the native-lands api to get a list of locations. 
  * For each location, it calculates the middle of the territory and checks whether it is within the given bounds. 
  * If it is, it adds the location to the database.
- */
+//  */
 export default async function seed(){
 	try {
 		// get locations of interest from API
@@ -105,3 +108,18 @@ export default async function seed(){
 	  }
   }
 }
+
+
+// export default async function seed(){
+//   const locationsOfInterest = await dev_LocationOfInterest.find({})
+//   let categories = ['arts','culture','language','history']
+
+  
+//   for(let location of locationsOfInterest){
+//     let randomCategory = categories[Math.floor(Math.random() * categories.length)]
+//     let randomDescription = nativeIpsum[Math.floor(Math.random() * nativeIpsum.length)]
+
+//     console.log(randomCategory, '\n',randomDescription.substring(0, 100))
+//   }
+  
+// }
