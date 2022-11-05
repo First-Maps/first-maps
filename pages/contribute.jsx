@@ -7,15 +7,20 @@ import { Navbar } from '../components/Navbar/Navbar'
 import ContributeForm from '../components/ContributeForm'
 
 const StyledContainer = styled.div`
-  max-height: calc(100vh - 60px);
+  max-height: calc(100vh - 60px - 60px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
   padding: 1.5em;
   background-color: #F2F2F2;
   overflow-y: scroll;
+
   @media (min-width: 768px) {
     height: 100vh;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #1F1F1F;
   }
 `
 
@@ -27,8 +32,6 @@ const HalfPageDiv = styled.div`
 export default function Contribute({
   ...props
 }) {
-  
-
   return (
     <>
       <Head>
@@ -38,10 +41,9 @@ export default function Contribute({
       </Head>
 
       <StyledContainer>
-        
         <ContributeForm />
-        
       </StyledContainer>
+
       <Navbar 
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
         activePage={'Contribute'} 

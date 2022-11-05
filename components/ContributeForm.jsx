@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from "styled-components"
 import { useState } from 'react'
-import {useRouter} from 'next/router'
+import { useRouter } from 'next/router'
 import axios from 'axios'
 
 import Map from './Map'
@@ -13,6 +13,10 @@ const FormDiv = styled.div`
   padding: 1em;
   background-color: white;
   border-radius: 1em;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #2F2F2F;
+  }
 `
 
 const Para = styled.p`
@@ -25,6 +29,10 @@ const Select = styled.select`
   border: 1px solid #707070;
   border-radius: 1em;
   background-color: white;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #2F2F2F;
+  }
 `
 
 const Input = styled.input`
@@ -58,7 +66,7 @@ export default function ContributeForm({
   const [newLocation, setNewLocation] = useState(null)
 
   // used for redirecting after location submission
-  let router = useRouter();
+  let router = useRouter()
 
 
   function handleMapClick(latlng) {
@@ -87,6 +95,7 @@ export default function ContributeForm({
 
   function handleFormChange(e) {
     const { name, value } = e.target
+
     setFormValues({
       ...formValues,
       [name]: value,
@@ -120,8 +129,8 @@ export default function ContributeForm({
 
     const res = await axios.post('/api/contribute', formValues)
     // redirect to the home page
-    router.push('/')
-  }
+    router.push('/') // navigate('/', {replace: true}) 
+  } 
 
 
   return (
@@ -195,5 +204,5 @@ export default function ContributeForm({
         <Button text="Submit" active={true} onClick={handleSubmit} />
       </form>
     </>
-  );
+  )
 }

@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 
 import "leaflet/dist/leaflet.css"
@@ -8,13 +8,13 @@ import "leaflet/dist/images/marker-shadow.png"
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, ZoomControl } from "react-leaflet"
 import { useMapEvents } from "react-leaflet"
 
+
 // this is how we can style exotic components that styled-components doesn't support directly
 const MyMapContainer = styled(MapContainer)`
   &[style] {
     min-width: 100%;
-    min-height: ${
-      props => props.fullSize ? "calc(100vh - 60px)" : "calc(40vh - 60px)"
-    };
+    min-height: ${props => props.fullSize ? "calc(100% - 60px - 60px)" : "calc(40vh - 60px)"
+  };
     @media (min-width: 768px) {
       min-height: ${props => props.fullSize ? "100vh" : "50vh"};
     }
@@ -24,9 +24,18 @@ const MyMapContainer = styled(MapContainer)`
 // dark mode for the map
 const MyTileLayer = styled(TileLayer)`
   &[style] {
+    filter: 
+      brightness(0.9)
+      contrast(1.3)
+      saturate(1.3);
+
     @media (prefers-color-scheme: dark) {
-      filter: brightness(0.65) invert(1) contrast(4) hue-rotate(180deg)
-        saturate(0.4);
+      filter: 
+        brightness(0.67)
+        invert() 
+        contrast(3.4)
+        hue-rotate(167deg)
+        saturate(0.6);
     }
   }
 `
@@ -59,11 +68,17 @@ export default function Map({
   fullSize,
   handleMapClick,
   newMarkerPosition,
-  allowAddingMarkers
+  allowAddingMarkers,
+  currentResult,
 }) {
+  const mapRef = useRef()
   const center = [49.2833, -123.1152]
 
   const [markers, setMarkers] = useState([])
+  const [currentLocation, setCurrentLocation] = useState({})
+  const [lastResult, setLastResult] = useState({
+    coordinates: [0, 0],
+  })
 
   const MapClick = () => {
     const map = useMapEvents({
@@ -73,26 +88,40 @@ export default function Map({
     })
   }
 
+  const MoveEnd = () => {
+    const map = useMapEvents({
+      moveend: (e) => {
+        setCurrentLocation(e.target.getCenter())
+      }
+    })
+    if (currentResult.coordinates && currentResult.coordinates[0] !== lastResult.coordinates[0]) {
+      setLastResult(currentResult)
+      map.flyTo(currentResult.coordinates, 12)
+      // console.log((map._targets)) 
+    }
+  }
+
   // fetch locationsOfInterest data from database, setMarkers to the data.
   useEffect(() => {
     (async () => {
       if (markers.length > 0) {
         return
       }
+
       try {
-        let request;
-        let locationsOfInterestArray;
+        let request
+        let locationsOfInterestArray
 
         // CHOOSE A DATABASE TO FETCH FROM: "staging" or "dev"
-        let databaseToFetchFrom = "dev";
+        let databaseToFetchFrom = "dev"
 
         // call API based on chosen database 
         if (databaseToFetchFrom === "staging") {
           request = await axios.get("/api/locationsOfInterest")
-          locationsOfInterestArray = request.data.results
-        } else if(databaseToFetchFrom === "dev") {
+          locationsOfInterestArray = request.data.Results
+        } else if (databaseToFetchFrom === "dev") {
           request = await axios.get("/api/devLocationsOfInterest")
-          locationsOfInterestArray = request.data.data;
+          locationsOfInterestArray = request.data.Results
         } else {
           console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
         }
@@ -102,12 +131,12 @@ export default function Map({
           // the map expects latitude-first, but the db has longitude-first
           location.coordinates = [location.coordinates[1], location.coordinates[0]]
         })
-        
-        setMarkers(locationsOfInterestArray);
+
+        setMarkers(locationsOfInterestArray)
 
       } catch (error) {
         console.error(error)
-        
+
         if (axios.isCancel(error)) {
           return
         }
@@ -115,27 +144,44 @@ export default function Map({
     })()
   }, [])
 
+  function locateUser(event) {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log('coordinates from browser', position.coords)
+    }, (error) => {
+      axios.get("https://ipgeolocation.abstractapi.com/v1/?api_key=c44875213f7047a6bf726151678530cb")
+        .then((response) => {
+          const { latitude, longitude } = response.data
+          event.target.flyTo([latitude, longitude], event.target.getZoom())
+        }).catch((error) => {
+          console.log(error)
+        })
+    }, { timeout: 500 })
+  }
+
   return (
     <MyMapContainer
+      ref={mapRef}
       center={center}
       zoom={12}
       scrollWheelZoom={true}
       zoomControl={false}
       fullSize={fullSize}
+      whenReady={(event) => {locateUser(event)}}
     >
       <MyTileLayer
-        attribution='&copy; <a href="https://www.maptiler.com/copyright">MapTiler</a> | &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=27UbwLtYuQZu5sAt2zAj"
+        attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        url="https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png"
       />
 
       <ZoomControl position="bottomright" />
 
       {markers.map((marker, index) => {
         return (
-          <Marker 
-            position={marker.coordinates} 
-            description={marker.description} 
-            category={marker.category} 
+          <Marker
+            position={marker.coordinates}
+            name={marker.name}
+            description={marker.description}
+            category={marker.category}
             key={index}
           >
             <MyPopup>
@@ -143,14 +189,14 @@ export default function Map({
               <div className="popup-text-content">
                 <p>Description: {marker.description}</p>
                 <p>Category: {marker.category}</p>
-                { 
-                  marker.languages.length > 0 
-                  && 
+                {
+                  marker.languages.length > 0
+                  &&
                   <p>
-                    Languages: { marker.languages.map((language) => language.name).join(", ")}
+                    Languages: {marker.languages.map((language) => language.name).join(", ")}
                   </p>
                 }
-                <p>Coordinates: { marker.coordinates.join(', ') }</p>
+                <p>Coordinates: {marker.coordinates.join(', ')}</p>
               </div>
 
             </MyPopup>
@@ -158,17 +204,12 @@ export default function Map({
           </Marker>
         )
       })}
-
+      {!allowAddingMarkers && <MoveEnd />}
+      
       {allowAddingMarkers && <MapClick />}
-
-      {
-        allowAddingMarkers 
-        && newMarkerPosition 
-        && <Marker 
-          position={newMarkerPosition} 
-          key={newMarkerPosition[0]} 
-        />
-      }
+      {allowAddingMarkers
+        && newMarkerPosition
+        && <Marker position={newMarkerPosition} key={newMarkerPosition[0]} />}
 
     </MyMapContainer>
   )

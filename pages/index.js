@@ -12,7 +12,7 @@ const StyledMain = styled.main`
   flex: 1;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   height: 100vh;
 `
 
@@ -24,6 +24,7 @@ export default function Home() {
     { key: "language", label: "Language" },
   ]
 
+  const [currentResult, setCurrentResult] = useState({})
   const [activeFilter, setActiveFilter] = useState(false)
   const [searchFilters, setSearchFilters] = useState(
     {
@@ -32,6 +33,10 @@ export default function Home() {
       language: false,
     }
   )
+
+  function handleResultClick(result) {
+    setCurrentResult(result)
+  }
 
   function handleActivateFilter() {
     setActiveFilter(!activeFilter)
@@ -72,12 +77,14 @@ export default function Home() {
           filterToggles={filterToggles} 
           handleActivateFilter={handleActivateFilter} 
           searchFilters={searchFilters}
-          handleSelectFilter={handleSelectFilter} 
+          handleSelectFilter={handleSelectFilter}
+          handleResultClick={handleResultClick}
         />
 
         <Map 
           fullSize={true}
           allowAddingMarkers={false}
+          currentResult={currentResult}
         />
 
         <Navbar 
