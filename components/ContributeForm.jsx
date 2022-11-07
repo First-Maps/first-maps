@@ -105,6 +105,19 @@ export default function ContributeForm({
     })
   }
 
+  function handleImageChange(e) {
+    const files = e.target.files
+    if (files > 5) {
+      setFormError({
+        ...formError,
+        images: true
+      })
+      e.target.files = null
+    }
+    setImages(files)
+  }
+
+
   async function handleSubmit(e) {
     e.preventDefault()
     
@@ -232,19 +245,7 @@ export default function ContributeForm({
             <Input 
               type="file" 
               name="image" 
-              onChange={e => {
-                const files = e.target.files
-                console.log('e.target.files:', files)
-                if (files > 5) {
-                  console.log('too many files')
-                  setFormError({
-                    ...formError,
-                    images: true
-                  })
-                  e.target.files = null
-                }
-                setImages(files)
-              }} 
+              onChange={handleImageChange}
               accept="image/*"
               multiple
             />
