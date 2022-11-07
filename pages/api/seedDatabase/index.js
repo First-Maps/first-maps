@@ -11,7 +11,7 @@ export default async function seedDatabase (req, res) {
         case 'POST':
             try {
                 seed()
-                res.status(201).json({ success: true, Results: `Database Seeding Was Successful` })
+                res.status(201).json({ success: true, results: `Database Seeding Was Successful` })
             } catch (error) {
                 res.status(400).json({ "error message": error })
             }
