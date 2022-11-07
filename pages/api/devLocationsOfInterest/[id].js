@@ -19,7 +19,7 @@ export default async function devLocationsOfInterestId (req, res) {
         if (!location) {
           return res.status(400).json({ success: false })
         }
-        res.status(200).json({success: true, Results: location})
+        res.status(200).json({success: true, results: location})
 
       } catch (error) {
         res.status(400).json({ success: false })
@@ -36,7 +36,7 @@ export default async function devLocationsOfInterestId (req, res) {
         if (!location) {
           return res.status(400).json({ success: false })
         }
-        res.status(200).json({success: true, Results: location})
+        res.status(200).json({success: true, results: location})
 
       } catch(error){
         res.status(400).json({ success: false })
@@ -51,7 +51,7 @@ export default async function devLocationsOfInterestId (req, res) {
         if (!deletedLocation) {
           return res.status(400).json({ success: false })
         }
-        res.status(200).json({success: true, Results: {}})
+        res.status(200).json({success: true, results: {}})
 
       } catch(error){
         res.status(400).json({success: false})

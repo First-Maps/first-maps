@@ -53,7 +53,7 @@ export default async function locationsOfInterest (req, res) {
           }
         }
 
-        res.status(200).json({ success: true, Results: locationsOfInterest })
+        res.status(200).json({ success: true, results: locationsOfInterest })
       } catch (error) {
         res.status(400).json({ "error message": error.toString() })
       }
@@ -76,7 +76,7 @@ export default async function locationsOfInterest (req, res) {
         })
 
         const locationOfInterest = await LocationOfInterest.create(location)
-        res.status(201).json({ success: true, Results: locationOfInterest })
+        res.status(201).json({ success: true, results: locationOfInterest })
       } catch (error) {
         res.status(400).json({ "error message": error.toString() })
       }
