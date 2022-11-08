@@ -5,6 +5,8 @@ import dev_LocationOfInterest from '../../../models/dev_LocationOfInterest'
 
 dbConnect()
 
+
+
 export default async function devLocationsOfInterestId (req, res) {
   const {
     query: { id },
@@ -13,11 +15,15 @@ export default async function devLocationsOfInterestId (req, res) {
 
   switch (method) {
     case 'GET':
+      // takes category from params, queries db for all locations in that category
+
       try {
         let category = id.toString() // get the category from the url
 
-        const locationsByCategory = await dev_LocationOfInterest.find({category : category}).limit(10) // query the database, return all with the given category
-
+        // query the database, return all with the given category
+        const locationsByCategory = await dev_LocationOfInterest.find({
+          category : category
+        }).limit(10) 
         res.status(200).json({success: true, Results: locationsByCategory}) // return the results
 
       } catch (error) {
@@ -25,7 +31,7 @@ export default async function devLocationsOfInterestId (req, res) {
       }
       break
 
-    // ***UPDATE CODE BELOW BEFORE USING< THEYRE COPIED FROM SOMEWHERE ELSE***
+    // ***UPDATE CODE BELOW BEFORE USING THIS IS COPIED FROM SOMEWHERE ELSE***
     // case 'PUT':
     //   try{
     //     const location = await devLocationsOfInterest.findByIdAndUpdate(id, req.body, {

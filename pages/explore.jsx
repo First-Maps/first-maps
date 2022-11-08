@@ -69,48 +69,7 @@ export default function Explore({
     setLang(true);
   };
 
-  
-  // fetch locationsOfInterest data from database
-  useEffect(() => {
-    (async () => {
-     
-      try {
-        let request
-        let locationsOfInterestArray
-
-        // CHOOSE A DATABASE TO FETCH FROM: "staging" or "dev"
-        let databaseToFetchFrom = "dev"
-
-        // call API based on chosen database 
-        if (databaseToFetchFrom === "staging") {
-          request = await axios.get("/api/locationsOfInterest")
-          locationsOfInterestArray = request.data.Results
-        } else if (databaseToFetchFrom === "dev") {
-          request = await axios.get("/api/devLocationsOfInterest")
-          locationsOfInterestArray = request.data.Results
-        } else {
-          console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
-        }
-
-        // reverses cordinates to match leaflet's format
-        locationsOfInterestArray.map((location) => {
-          // the map expects latitude-first, but the db has longitude-first
-          location.coordinates = [location.coordinates[1], location.coordinates[0]]
-        })
-
-      } catch (error) {
-        console.error(error)
-
-        if (axios.isCancel(error)) {
-          return
-        }
-      }
-    })()
-  }, [])
-
-
-
-
+  // TODO: load data from API, 10 items from each category. API routes already build
 
 
   return (
@@ -152,6 +111,7 @@ export default function Explore({
               width="331.67px"
               height="230px"
               onClick={ItemArt}
+
             />
           </>) : null
         }
