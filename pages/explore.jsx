@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+// libraries
+import React, { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styled from "styled-components"
+import axios from 'axios'
+
+// components
 import ExploreLanguages from '../components/ExplorePages/ExploreLanguages'
 import Bodytext from '../components/BodyText/Bodytext'
-
 import { Navbar } from '../components/Navbar/Navbar'
 import Carousel from '../components/Carousel/Carousel'
 import Header from '../components/Header/Header'
@@ -36,6 +39,8 @@ export default function Explore({
   const [Arts, setArts] = useState(false)
   const [Lang, setLang] = useState(false)
 
+
+
   const StateHandler = () => {
     setPage(false);
     setLanguages(true);
@@ -63,6 +68,9 @@ export default function Explore({
     setArts(false);
     setLang(true);
   };
+
+  // TODO: load data from API, 10 items from each category. API routes already build
+
 
   return (
     <>
@@ -104,6 +112,7 @@ export default function Explore({
               width="331.67px"
               height="230px"
               onClick={ItemArt}
+
             />
           </>) : null
         }
