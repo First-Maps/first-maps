@@ -118,10 +118,10 @@ export default function Map({
         // call API based on chosen database 
         if (databaseToFetchFrom === "staging") {
           request = await axios.get("/api/locationsOfInterest")
-          locationsOfInterestArray = request.data.Results
+          locationsOfInterestArray = request.data.results
         } else if (databaseToFetchFrom === "dev") {
           request = await axios.get("/api/devLocationsOfInterest")
-          locationsOfInterestArray = request.data.Results
+          locationsOfInterestArray = request.data.results
         } else {
           console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
         }
@@ -186,6 +186,7 @@ export default function Map({
           >
             <MyPopup>
               <h2>{marker.name}</h2>
+
               <div className="popup-text-content">
                 <p>Description: {marker.description}</p>
                 <p>Category: {marker.category}</p>
@@ -199,6 +200,21 @@ export default function Map({
                 <p>Coordinates: {marker.coordinates.join(', ')}</p>
               </div>
 
+              {
+                marker.images.length > 0 
+                &&
+                marker.images.map((image, index) => {
+                  return <img 
+                    src={image.imageLink} 
+                    style={{
+                      height: "80px", 
+                      marginTop: "0.5em",
+                      marginRight: "0.5em",
+                    }}
+                    key={index}
+                  />
+                })
+              }
             </MyPopup>
             <Tooltip>{marker.name}</Tooltip>
           </Marker>

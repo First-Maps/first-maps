@@ -81,6 +81,7 @@ export default function Explore({
       </Head>
 
       <StyledContainer>
+
         {
           page ? (<><div>
             <Header

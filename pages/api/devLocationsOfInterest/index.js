@@ -1,7 +1,23 @@
 import dbConnect from "../../../utils/dbConnect"
 import dev_LocationOfInterest from '../../../models/dev_LocationOfInterest'
 
+import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
+import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3"
+
 dbConnect()
+
+const bucketName = process.env.S3_BUCKET_NAME
+const region = process.env.S3_BUCKET_REGION
+const accessKeyId = process.env.S3_ACCESS_KEY
+const secretAccessKey = process.env.S3_SECRET_ACCESS_KEY
+
+const s3 = new S3Client({
+  region,
+  credentials: {
+    accessKeyId,
+    secretAccessKey
+  }
+})
 
 export default async function devLocationsOfInterest (req, res) {
   const { method } = req
@@ -9,8 +25,21 @@ export default async function devLocationsOfInterest (req, res) {
   switch (method) {
     case "GET":
       try {
-        const locationsOfInterest = await dev_LocationOfInterest.find({})
-        res.status(200).json({ success: true, Results: locationsOfInterest })
+        const locationsOfInterest = JSON.parse(JSON.stringify(await dev_LocationOfInterest.find({})))
+        for (const location of locationsOfInterest) {
+          const images = location.images
+          if (images.length > 0) {
+            for (let image of images) {
+              const command = new GetObjectCommand({
+                Bucket: bucketName,
+                Key: image.name
+              })
+              image.imageLink = await getSignedUrl(s3, command, { expiresIn: 7200 })
+            }
+          }
+        }
+
+        res.status(200).json({ success: true, results: locationsOfInterest })
       } catch (error) {
         res.status(400).json({ "error message": error.toString() })
       }
@@ -72,7 +101,7 @@ export default async function devLocationsOfInterest (req, res) {
 
         await dev_LocationOfInterest.create(reqBodyObj)
 
-        res.status(201).json({ success: true, Results: reqBodyObj })
+        res.status(201).json({ success: true, results: reqBodyObj })
       } catch (error) {
         res.status(400).json({ "error message": error.toString() })
       }

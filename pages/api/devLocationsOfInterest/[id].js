@@ -20,16 +20,23 @@ export default async function devLocationsOfInterestId (req, res) {
       try {
         let category = id.toString() // get the category from the url
 
+
         // query the database, return all with the given category
         const locationsByCategory = await dev_LocationOfInterest.find({
           category : category
         }).limit(10) 
         res.status(200).json({success: true, Results: locationsByCategory}) // return the results
 
+        if (!location) {
+          return res.status(400).json({ success: false })
+        }
+
+
       } catch (error) {
         res.status(400).json({ success: false, message: error.toString() })
       }
       break
+
 
     // ***UPDATE CODE BELOW BEFORE USING THIS IS COPIED FROM SOMEWHERE ELSE***
     // case 'PUT':
@@ -38,6 +45,7 @@ export default async function devLocationsOfInterestId (req, res) {
     //       new: true,
     //       runValidators: true
     //     })
+
 
     //     if (!location) {
     //       return res.status(400).json({ success: false })
@@ -58,7 +66,6 @@ export default async function devLocationsOfInterestId (req, res) {
     //       return res.status(400).json({ success: false })
     //     }
     //     res.status(200).json({success: true, Results: {}})
-
     //   } catch(error){
     //     res.status(400).json({success: false})
     //   }

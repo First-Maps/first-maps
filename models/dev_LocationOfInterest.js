@@ -1,6 +1,5 @@
 import mongoose from 'mongoose'
 
-
 const dev_LocationsOfInterestSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -35,7 +34,8 @@ const dev_LocationsOfInterestSchema = new mongoose.Schema({
                 type: String
             }
         }]
-    }
+    },
+    images: [{ name: String }],
 })
 
 // if the dev_LocationsOfInterestSchema db exists, export it. if not, create it and export it
