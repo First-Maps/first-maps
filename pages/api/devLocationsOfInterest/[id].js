@@ -25,7 +25,7 @@ export default async function devLocationsOfInterestId (req, res) {
       }
       break
 
-    // methods below are copied, they need to be updated before they can be used
+    // ***UPDATE CODE BELOW BEFORE USING< THEYRE COPIED FROM SOMEWHERE ELSE***
     // case 'PUT':
     //   try{
     //     const location = await devLocationsOfInterest.findByIdAndUpdate(id, req.body, {

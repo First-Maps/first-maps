@@ -70,7 +70,7 @@ export default function Explore({
   };
 
   
-  // fetch locationsOfInterest data from databas
+  // fetch locationsOfInterest data from database
   useEffect(() => {
     (async () => {
      
