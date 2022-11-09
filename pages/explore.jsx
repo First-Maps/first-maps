@@ -36,31 +36,31 @@ export default function Explore({
   const [Lang, setLang] = useState(false)
 
   const StateHandler = () => {
-    setPage(false);
-    setLanguages(true);
-    setArts(false);
-    setLang(false);
+    setPage(false)
+    setLanguages(true)
+    setArts(false)
+    setLang(false)
   };
 
   const GoBack = () => {
-    setPage(true);
-    setLanguages(false);
-    setArts(false);
-    setLang(false);
+    setPage(true)
+    setLanguages(false)
+    setArts(false)
+    setLang(false)
   };
 
   const ItemArt = () => {
-    setPage(false);
-    setLanguages(false);
-    setArts(true);
-    setLang(false);
+    setPage(false)
+    setLanguages(false)
+    setArts(true)
+    setLang(false)
   };
 
   const ItemLang = () => {
-    setPage(false);
-    setLanguages(false);
-    setArts(false);
-    setLang(true);
+    setPage(false)
+    setLanguages(false)
+    setArts(false)
+    setLang(true)
   };
 
   return (
@@ -79,9 +79,9 @@ export default function Explore({
               text="see all ➤"
               onClick={StateHandler}
             ></Header>
-          </div><Carousel 
-            onClick={ItemLang}
-          />
+          </div><Carousel
+              onClick={ItemLang}
+            />
             <Header
               label="Arts and Culture"
             />
@@ -149,12 +149,12 @@ export default function Explore({
                 padl="0"
                 onClick={GoBack}
               />
-              <div> 
-              <VideoPlayer 
-              url="https://www.youtube.com/watch?v=YspD--5nMEI" 
-              width='331.67px'
-              height='230px'
-              />
+              <div>
+                <VideoPlayer
+                  url="https://www.youtube.com/watch?v=YspD--5nMEI"
+                  width='331.67px'
+                  height='230px'
+                />
               </div>
               <Bodytext
                 label='Abenaki (Eastern: Alənαpαtəwéwαkan, Western: Alnôbaôdwawôgan) is an endangered Algonquian language of Quebec and the northern states of New England.  The language has Eastern and Western forms which differ in vocabulary and phonology and are sometimes considered distinct languages.'
@@ -162,8 +162,6 @@ export default function Explore({
             </div>
           )
         }
-
-
       </StyledContainer>
       <Navbar
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
