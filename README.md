@@ -1,26 +1,40 @@
-# First Maps
+# README
 
-## Project description
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-First Maps is an interactive resource for indigenous community members and the general public to establish and strengthen connections in the spheres of culture, art and tourism.
+## Getting Started
 
-## Links to planning tools
+First, install dependencies:
 
-Figjam: https://www.figma.com/file/H8s0RPV8PEv1Q6EUe3iXaH/FirstMaps?node-id=0%3A1 
+```bash
+yarn install
+```
 
-Figma: https://www.figma.com/file/uxJevYXydfUfKLSJWe7I2T/FirstMaps-UI 
+now, run the development server:
 
-Timeline: https://docs.google.com/spreadsheets/d/1SawcBQohCsnYX0jcq-l1ZYOQw3IP0Up-hvh2B_tQjh0/edit#gid=0
+```bash
+yarn dev
+```
 
-Trello: https://trello.com/b/3CmMC7gr/first-maps-dev-team-workspace
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Preview
+You can start editing the page by modifying `pages/index.jsx`. The page auto-updates as you edit the file.
 
-![chrome_njzufdiDDs](https://user-images.githubusercontent.com/89231041/199610728-c214724d-4a43-4fa0-9c09-bf7f19a19154.png)
-![chrome_KpQ7x5sATf](https://user-images.githubusercontent.com/89231041/199608650-f7481f45-0fba-436c-a589-b8902824836b.png)
-![chrome_P3hb8Px7Sq](https://user-images.githubusercontent.com/89231041/199610101-6eaf35ac-5c9d-40c6-b728-96792de9257a.png)
-![chrome_hn35SxC9h7](https://user-images.githubusercontent.com/89231041/199608680-1c57f59b-e989-4ace-8a98-62373c3248b3.png)
-![chrome_2ND1DUJkpd](https://user-images.githubusercontent.com/89231041/199610729-e8e9da10-25c5-4d97-a63a-0f3e4b5a0d2d.png)
+[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
+The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
+## Learn More
 
+To learn more about Next.js, take a look at the following resources:
+
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+
+## Deploy on Vercel
+
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
