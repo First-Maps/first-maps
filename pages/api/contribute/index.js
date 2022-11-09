@@ -87,9 +87,7 @@ apiRoute.post(async (req, res) => {
       }
     }
 
-    console.log('images', newLocationObj.images)
     const newLocation = await dev_LocationOfInterest.create(newLocationObj)
-    console.log('newLocation:', newLocation)
     res.status(201).json({ message: 'success' })
   } catch (error) {
     console.log(error)
