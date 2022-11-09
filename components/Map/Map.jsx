@@ -8,13 +8,7 @@ import "leaflet/dist/images/marker-shadow.png"
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, ZoomControl } from "react-leaflet"
 import { useMapEvents } from "react-leaflet"
 
-<<<<<<< HEAD
 import Bubble from '../Card/Bubble'
-
-// import L from "leaflet"
-=======
->>>>>>> dev
-
 // this is how we can style exotic components that styled-components doesn't support directly
 const MyMapContainer = styled(MapContainer)`
   &[style] {
@@ -193,26 +187,12 @@ export default function Map({
             key={index}
             // icon={GetIcon(25)}
           >
-            <MyPopup>
-<<<<<<< HEAD
+            <MyPopup 
+              keepInView={true}
+            >
               <Bubble 
               name={marker.name}
               content={marker.description}
-=======
-              <h2>{marker.name}</h2>
-              <div className="popup-text-content">
-                <p>Description: {marker.description}</p>
-                <p>Category: {marker.category}</p>
-                {
-                  marker.languages.length > 0
-                  &&
-                  <p>
-                    Languages: {marker.languages.map((language) => language.name).join(", ")}
-                  </p>
-                }
-                <p>Coordinates: {marker.coordinates.join(', ')}</p>
-              </div>
->>>>>>> dev
 
               />
             </MyPopup>

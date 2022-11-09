@@ -41,9 +41,9 @@ export default function Bubble({
     theme = '' //set to 'light' for light text
 }) {
 
-  const [show, setShow] = useState(false);
-  const handleShow = () => {setShow(true)};
-  const handleHideShow = () => {setShow(false)};
+  const [show, setShow] = useState(false)
+  const handleShow = () => {setShow(true)}
+  const handleHideShow = () => {setShow(false)}
   return (<>
   {
     show ? <MainCard> 
