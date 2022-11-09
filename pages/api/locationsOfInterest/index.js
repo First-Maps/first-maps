@@ -16,7 +16,6 @@ export default async function locationsOfInterest (req, res) {
       try {
         // find all locationsOfInterest
         const locationsOfInterest = await LocationOfInterest.find({})
-        console.log("locationsOfInterest", locationsOfInterest)
 
         // below is the code for lazy loading of language data if it doesn't exist in the database
         // but it won't be triggered because we have the same logic in the post route
@@ -30,7 +29,6 @@ export default async function locationsOfInterest (req, res) {
           })
 
           if (locationsOfInterest[i].languages.length === 0) {
-            console.log("languages absent, requesting from native-land.ca")
             const [lng, lat] = locationsOfInterest[i].coordinates
             const languageData = await getLanguageData(lat, lng)
 

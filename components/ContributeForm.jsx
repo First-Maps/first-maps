@@ -113,6 +113,7 @@ export default function ContributeForm({
         images: true
       })
       e.target.files = null
+      return
     }
     setImages(files)
   }
@@ -163,7 +164,6 @@ export default function ContributeForm({
         headers: { 'Content-Type': 'multipart/form-data' },
       })
 
-      console.log('response', response)
       router.push('/')
     } catch (error) {
       console.log(error)

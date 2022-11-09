@@ -64,6 +64,13 @@ const MyPopup = styled(Popup)`
   }
 `
 
+const FeaturedImageDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  border-radius: 1em;
+  margin: 0.5em 0;
+`
+
 export default function Map({
   fullSize,
   handleMapClick,
@@ -146,7 +153,6 @@ export default function Map({
 
   function locateUser(event) {
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log('coordinates from browser', position.coords)
     }, (error) => {
       axios.get("https://ipgeolocation.abstractapi.com/v1/?api_key=c44875213f7047a6bf726151678530cb")
         .then((response) => {
@@ -187,6 +193,18 @@ export default function Map({
             <MyPopup>
               <h2>{marker.name}</h2>
 
+              {
+                marker.images.length > 0 
+                &&
+                // just show the first image; the rest can be seen in the respective Explore page
+                <FeaturedImageDiv>
+                  <img 
+                    src={marker.images[0].imageLink} 
+                    style={{width: "100%", height: "100%", objectFit: "cover", borderRadius: "0.5em"}}
+                  />
+                </FeaturedImageDiv>
+              }
+
               <div className="popup-text-content">
                 <p>Description: {marker.description}</p>
                 <p>Category: {marker.category}</p>
@@ -199,22 +217,6 @@ export default function Map({
                 }
                 <p>Coordinates: {marker.coordinates.join(', ')}</p>
               </div>
-
-              {
-                marker.images.length > 0 
-                &&
-                marker.images.map((image, index) => {
-                  return <img 
-                    src={image.imageLink} 
-                    style={{
-                      height: "80px", 
-                      marginTop: "0.5em",
-                      marginRight: "0.5em",
-                    }}
-                    key={index}
-                  />
-                })
-              }
             </MyPopup>
             <Tooltip>{marker.name}</Tooltip>
           </Marker>
