@@ -1,5 +1,5 @@
 // libraries
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styled from "styled-components"
 import axios from 'axios'
@@ -31,153 +31,66 @@ const StyledContainer = styled.div`
   }
 `
 
-export default function Explore({
-  ...props
-}) {
-  const [page, setPage] = useState(true)
-  const [Langauges, setLanguages] = useState(false)
-  const [Arts, setArts] = useState(false)
-  const [Lang, setLang] = useState(false)
+export default function Explore({ ...props }){
+	const [languagesData, setLanguageData] = useState([])
+	const [artsData, setArtsData] = useState([])
+	const [historyData, setHistoryData] = useState([])
+	const [cultureData, setCultureData] = useState([])
+
+	// useEffect to fetch data for languages, arts, culture and history, setState for each
+	useEffect(() => {
+    (async () => {
+      // if (markers.length > 0) {
+      //   return
+      // }
+
+      try {
+        let request
+        let locationsOfInterestArray
+				let hist, lang, arts, cult = []
 
 
 
-  const StateHandler = () => {
-    setPage(false);
-    setLanguages(true);
-    setArts(false);
-    setLang(false);
-  };
+        // CHOOSE A DATABASE TO FETCH FROM: "staging" or "dev"
+        let databaseToFetchFrom = "dev" // TODO:  put it in .env.public, then use process.env.DATABASE_TO_FETCH_FROM
 
-  const GoBack = () => {
-    setPage(true);
-    setLanguages(false);
-    setArts(false);
-    setLang(false);
-  };
+        // call API based on chosen database 
+        if (databaseToFetchFrom === "staging") {
+          request = await axios.get("/api/locationsOfInterest")
+          locationsOfInterestArray = request.data.results
+        } else if (databaseToFetchFrom === "dev") {
+					
+					// not tested yet
+					hist = await axios.get("/api/locationsOfInterest/history")
+					lang = await axios.get("/api/locationsOfInterest/languages")
+					arts = await axios.get("/api/locationsOfInterest/arts")
+					cult = await axios.get("/api/locationsOfInterest/culture")
 
-  const ItemArt = () => {
-    setPage(false);
-    setLanguages(false);
-    setArts(true);
-    setLang(false);
-  };
+					// TODO: test to see if the requests work
 
-  const ItemLang = () => {
-    setPage(false);
-    setLanguages(false);
-    setArts(false);
-    setLang(true);
-  };
+          
+          locationsOfInterestArray = request.data.results
+        } else {
+          console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
+        }
+      } catch (error) {
+        console.error(error)
+        if (axios.isCancel(error)) {
+          return
+        }
+      }
+    })()
+  }, [])
 
-  // TODO: load data from API, 10 items from each category. API routes already build
 
 
   return (
-    <>
-      <Head>
-        <title>Explore | First Maps</title>
-        <meta name="description" content="First Maps: Explore" />
-        <link rel="icon" href="/location-dot-solid.svg" />
-      </Head>
-
-      <StyledContainer>
-
-        {
-          page ? (<><div>
-            <Header
-              label="Languages"
-              text="see all ➤"
-              onClick={StateHandler}
-            ></Header>
-          </div><Carousel 
-            onClick={ItemLang}
-          />
-            <Header
-              label="Arts and Culture"
-            />
-            <ItemBox
-              label='Kelli Clifton Gitgaata (Hartle y Bay/Tsimshian)'
-              width="331.67px"
-              height="230px"
-              onClick={ItemArt}
-            />
-            <ItemBox
-              label='Kelli Clifton Gitgaata (Hartle y Bay/Tsimshian)'
-              width="331.67px"
-              height="230px"
-              onClick={ItemArt}
-            />
-            <ItemBox
-              label='Kelli Clifton Gitgaata (Hartle y Bay/Tsimshian)'
-              width="331.67px"
-              height="230px"
-              onClick={ItemArt}
-
-            />
-          </>) : null
-        }
-
-        {
-          Langauges && (
-            <ExploreLanguages
-              onClick={GoBack}
-            />
-          )
-        }
-
-        {
-          Arts && (
-            <div>
-              <Header
-                label='Kelli Clifton Prince Rupert BC Canada'
-                text='↽ Back to Explore'
-                dir="column-reverse"
-                ali="flex-start"
-                padl="0"
-                onClick={GoBack}
-              />
-              <ItemBox
-                label=''
-                width="331.67px"
-                height="230px"
-              />
-
-              <Bodytext
-                label='Abenaki (Eastern: Alənαpαtəwéwαkan, Western: Alnôbaôdwawôgan) is an endangered Algonquian language of Quebec and the northern states of New England. The language has Eastern and Western forms which differ in vocabulary and phonology and are sometimes considered distinct languages.'
-              />
-            </div>
-          )
-        }
-
-        {
-          Lang && (
-            <div>
-              <Header
-                label='Western Albenaki (Algonquin)'
-                text='↽ Back to Explore'
-                dir="column-reverse"
-                ali="flex-start"
-                padl="0"
-                onClick={GoBack}
-              />
-              <div> 
-              <VideoPlayer 
-                url="https://www.youtube.com/watch?v=YspD--5nMEI" 
-                width='331.67px'
-                height='230px'
-              />
-              </div>
-              <Bodytext
-                label='Abenaki (Eastern: Alənαpαtəwéwαkan, Western: Alnôbaôdwawôgan) is an endangered Algonquian language of Quebec and the northern states of New England. The language has Eastern and Western forms which differ in vocabulary and phonology and are sometimes considered distinct languages.'
-              />
-            </div>
-          )
-        }
-      </StyledContainer>
-      <Navbar
-        navPages={['Home', 'Explore', 'Contribute', 'Profile']}
-        activePage={'Explore'}
-      />
-    </>
-  )
+  	<div>
+      <p>explore page, under construction</p>
+        <Navbar
+          navPages={['Home', 'Explore', 'Contribute', 'Profile']}
+          activePage={'Explore'}
+        />
+    </div>
+    )
 }
