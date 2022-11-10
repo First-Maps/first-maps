@@ -25,6 +25,9 @@ const StyledContainer = styled.div`
   @media (min-width: 768px) {
     height: 100vh;
   }
+  .p {
+    font-family: 'Fira Sans', sans-serif !important;
+  }
 `
 
 export default function Explore({

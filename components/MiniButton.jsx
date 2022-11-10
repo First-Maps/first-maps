@@ -1,7 +1,5 @@
 import styled from "styled-components"
-
 import { NavArrowRight } from "iconoir-react"
-
 const MyButton = styled.button`
   box-sizing: border-box;
   border-radius: 2em;
@@ -12,15 +10,12 @@ const MyButton = styled.button`
   min-width: 100%;
   color: white;
 `
-
 const ButtonText = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  font-family: 'Fira Sans', sans-serif;
 `
-
 export default function Button({
   active = true,
   text,
@@ -32,10 +27,7 @@ export default function Button({
         <div>
           {text}
         </div>
-
         &nbsp;&nbsp;
-
-        <NavArrowRight  />
       </ButtonText>
     </MyButton>
   )
