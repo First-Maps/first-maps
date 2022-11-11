@@ -32,47 +32,31 @@ const StyledContainer = styled.div`
 `
 
 export default function Explore({ ...props }){
-	const [languagesData, setLanguageData] = useState([])
-	const [artsData, setArtsData] = useState([])
-	const [historyData, setHistoryData] = useState([])
-	const [cultureData, setCultureData] = useState([])
+  const [history, setHistory] = useState([])
+  const [language, setLanguage] = useState([])
+  const [arts, setArts] = useState([])
+  const [culture, setCulture] = useState([])
 
 	// useEffect to fetch data for languages, arts, culture and history, setState for each
 	useEffect(() => {
     (async () => {
-      // if (markers.length > 0) {
-      //   return
-      // }
-
       try {
-        let request
-        let locationsOfInterestArray
-				let hist, lang, arts, cult = []
+				let histData = await axios.get("/api/devLocationsOfInterest/history")
+				let langData = await axios.get("/api/devLocationsOfInterest/language")
+        let artsData = await axios.get("/api/devLocationsOfInterest/arts")
+        let cultData = await axios.get("/api/devLocationsOfInterest/culture")
 
+        histData = histData.data.Results
+        langData = langData.data.Results
+        artsData = artsData.data.Results
+        cultData = cultData.data.Results
 
-
-        // CHOOSE A DATABASE TO FETCH FROM: "staging" or "dev"
-        let databaseToFetchFrom = "dev" // TODO:  put it in .env.public, then use process.env.DATABASE_TO_FETCH_FROM
-
-        // call API based on chosen database 
-        if (databaseToFetchFrom === "staging") {
-          request = await axios.get("/api/locationsOfInterest")
-          locationsOfInterestArray = request.data.results
-        } else if (databaseToFetchFrom === "dev") {
-					
-					// not tested yet
-					hist = await axios.get("/api/locationsOfInterest/history")
-					lang = await axios.get("/api/locationsOfInterest/languages")
-					arts = await axios.get("/api/locationsOfInterest/arts")
-					cult = await axios.get("/api/locationsOfInterest/culture")
-
-					// TODO: test to see if the requests work
-
-          
-          locationsOfInterestArray = request.data.results
-        } else {
-          console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
-        }
+        setHistory(histData)
+        setLanguage(langData)
+        setArts(artsData)
+        setCulture(cultData)
+        
+        console.log(history, language, arts, culture)
       } catch (error) {
         console.error(error)
         if (axios.isCancel(error)) {
@@ -86,7 +70,10 @@ export default function Explore({ ...props }){
 
   return (
   	<div>
-      <p>explore page, under construction</p>
+      
+        
+        
+        
         <Navbar
           navPages={['Home', 'Explore', 'Contribute', 'Profile']}
           activePage={'Explore'}
