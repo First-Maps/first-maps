@@ -4,7 +4,7 @@ import Head from 'next/head'
 import styled from "styled-components"
 import axios from 'axios'
 
-// components
+// components, some loaded from old file. take out all of the ones you dont' use
 import ExploreLanguages from '../components/ExplorePages/ExploreLanguages'
 import Bodytext from '../components/BodyText/Bodytext'
 import { Navbar } from '../components/Navbar/Navbar'
@@ -41,15 +41,17 @@ export default function Explore({ ...props }){
 	useEffect(() => {
     (async () => {
       try {
-				let histData = await axios.get("/api/devLocationsOfInterest/history")
-				let langData = await axios.get("/api/devLocationsOfInterest/language")
-        let artsData = await axios.get("/api/devLocationsOfInterest/arts")
-        let cultData = await axios.get("/api/devLocationsOfInterest/culture")
+        // make 4 separate requests for each of the 4 categories
+				let histResponse = await axios.get("/api/devLocationsOfInterest/history")
+				let langResponse = await axios.get("/api/devLocationsOfInterest/language")
+        let artsResponse = await axios.get("/api/devLocationsOfInterest/arts")
+        let cultResponse = await axios.get("/api/devLocationsOfInterest/culture")
 
-        histData = histData.data.Results
-        langData = langData.data.Results
-        artsData = artsData.data.Results
-        cultData = cultData.data.Results
+        // get the data from the response
+        histData = histResponse.data.Results
+        langData = langResponse.data.Results
+        artsData = artsResponse.data.Results
+        cultData = cultResponse.data.Results
 
         setHistory(histData)
         setLanguage(langData)
@@ -70,14 +72,71 @@ export default function Explore({ ...props }){
 
   return (
   	<div>
-      
-        
-        
-        
-        <Navbar
-          navPages={['Home', 'Explore', 'Contribute', 'Profile']}
-          activePage={'Explore'}
-        />
+      <Head>
+        <title>Explore</title>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+      <h1>History</h1>
+      <div className="historyContainer">
+        { history ? 
+          history.map((historyItem => {
+            return <ItemBox 
+              label={historyItem.name}
+              description={historyItem.description}
+              width="331.67px"
+              height="230px"
+            />
+          }))
+          : "null" 
+        }
+      </div>
+      <h1>Language</h1>
+      <div className="languageContainer">
+        { language ? 
+          language.map((languagItem => {
+            return <ItemBox 
+              label={languagItem.name}
+              description={languagItem.description}
+              width="331.67px"
+              height="230px"
+            />
+          }))
+          : null
+        }
+      </div>
+      <h1>Arts</h1>
+      <div className="artsContainer">
+        { arts ? 
+          arts.map((artsItem => {
+            return <ItemBox 
+              label={artsItem.name}
+              description={artsItem.description}
+              width="331.67px"
+              height="230px"
+            />
+          }))
+          : null 
+        }
+      </div>
+      <h1>Culture</h1>
+      <div className="cultureContainer">
+        { culture ? 
+          culture.map((artsItem => {
+            return <ItemBox 
+              label={artsItem.name}
+              description={artsItem.description}
+              width="331.67px"
+              height="230px"
+            />
+          }))
+          : null
+        }
+      </div>
+  
+      <Navbar
+        navPages={['Home', 'Explore', 'Contribute', 'Profile']}
+        activePage={'Explore'}
+      />
     </div>
     )
 }
