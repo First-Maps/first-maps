@@ -48,10 +48,10 @@ export default function Explore({ ...props }){
         let cultResponse = await axios.get("/api/devLocationsOfInterest/culture")
 
         // get the data from the response
-        histData = histResponse.data.Results
-        langData = langResponse.data.Results
-        artsData = artsResponse.data.Results
-        cultData = cultResponse.data.Results
+        let histData = histResponse.data.Results
+        let langData = langResponse.data.Results
+        let artsData = artsResponse.data.Results
+        let cultData = cultResponse.data.Results
 
         setHistory(histData)
         setLanguage(langData)
