@@ -23,8 +23,7 @@ export default async function devLocationsOfInterestId (req, res) {
         // query the database, return all with the given category
         const locationsByCategory = await dev_LocationOfInterest.find({
           category  
-        })
-          .limit(10) 
+        }).limit(10) 
 
         res.status(200).json({success: true, Results: locationsByCategory}) // return the results
 
@@ -34,7 +33,7 @@ export default async function devLocationsOfInterestId (req, res) {
       break
 
 
-    // ***UPDATE CODE BELOW BEFORE USING THIS IS COPIED FROM SOMEWHERE ELSE***
+    // ***UPDATE CODE BELOW BEFORE USING THIS IS COPIED FROM SOMEWHERE ELSE **
     // case 'PUT':
     //   try{
     //     const location = await devLocationsOfInterest.findByIdAndUpdate(id, req.body, {
