@@ -80,6 +80,7 @@ export default function Explore({ ...props }){
               description={historyItem.description}
               width="331.67px"
               height="230px"
+              key={historyItem._id}
             />
           }))
           : "null" 
@@ -94,6 +95,7 @@ export default function Explore({ ...props }){
               description={languagItem.description}
               width="331.67px"
               height="230px"
+              key={languagItem._id}
             />
           }))
           : null
@@ -108,6 +110,7 @@ export default function Explore({ ...props }){
               description={artsItem.description}
               width="331.67px"
               height="230px"
+              key={artsItem._id}
             />
           }))
           : null 
@@ -122,6 +125,7 @@ export default function Explore({ ...props }){
               description={artsItem.description}
               width="331.67px"
               height="230px"
+              key={artsItem._id}
             />
           }))
           : null
