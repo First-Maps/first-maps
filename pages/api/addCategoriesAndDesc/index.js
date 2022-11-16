@@ -1,5 +1,5 @@
 import dbConnect from "../../../utils/dbConnect";
-import addDataToMarkers from '../../../utils/addCategoriesAndDesc';
+//import addDataToMarkers from '../../../utils/addCategoriesAndDesc';
 import dev_LocationOfInterest from '../../../models/dev_LocationOfInterest';
 
 dbConnect();
@@ -12,7 +12,7 @@ export default async (req, res) => {
 		case 'POST':
 			try {
 				const loi = await dev_LocationOfInterest.find({ category: "arts" })
-				addDataToMarkers()
+				//addDataToMarkers()
 				res.status(201).json({ success: true, data: loi })
 			} catch (error) {
 				res.status(400).json({ "error message": error })
