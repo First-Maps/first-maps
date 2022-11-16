@@ -9,13 +9,13 @@ import { Navbar } from '../../components/Navbar/Navbar'
 import ItemBox from '../../components/ItemBox/ItemBox'
 
 // Styled Components
-// section for the categories, vertical column, centered
+
+// vertical carousel slider
 const StyledCategorySection = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 20px;
-  background-color: #F2F2F2;
+
 `
 // max width, fixed at bottom of screen
 const StyledNavBarSection = styled.div`
@@ -24,6 +24,17 @@ const StyledNavBarSection = styled.div`
   bottom: 0;
   background-color: #F2F2F2;
   margin-bottom: 0;
+`
+
+const StyledContainer = styled.div`
+  max-height: calc(100vh - 60px - 60px);
+  min-height: calc(100vh - 60px - 60px);
+  width: 100vw;
+  margin: 0;
+  padding: 1.5em;
+  background-color: #F2F2F2;
+  display: flex;
+  flex-direction: column;
 `
 
 export default function Explore({ ...props }){
@@ -49,10 +60,10 @@ export default function Explore({ ...props }){
         let cultData = cultResponse.data.Results
 
         // concate data to 10 items
-        histData = histData.slice(0, 3)
-        langData = langData.slice(0, 3)
-        artsData = artsData.slice(0, 3)
-        cultData = cultData.slice(0, 3)
+        histData = histData.slice(0, 10)
+        langData = langData.slice(0, 10)
+        artsData = artsData.slice(0, 10)
+        cultData = cultData.slice(0, 10)
 
         setHistory(histData)
         setLanguage(langData)
@@ -77,6 +88,9 @@ export default function Explore({ ...props }){
         <title>Explore</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <StyledContainer>
+
       <h1>History</h1>
       <StyledCategorySection>
         { history ? 
@@ -91,24 +105,26 @@ export default function Explore({ ...props }){
           }))
           : "null" 
         }
-      </StyledCategorySection>
+      </StyledCategorySection>  
+      
       <h1>Language</h1>
-      
-        { language ? 
-          language.map((languagItem => {
-            return <ItemBox 
-              label={languagItem.name}
-              description={languagItem.description}
-              width="331.67px"
-              height="230px"
-              key={languagItem._id}
-            />
-          }))
-          : null
-        }
-      
+        <StyledCategorySection>
+          { language ? 
+            language.map((languagItem => {
+              return <ItemBox 
+                label={languagItem.name}
+                description={languagItem.description}
+                width="331.67px"
+                height="230px"
+                key={languagItem._id}
+              />
+            }))
+            : null
+          }
+        </StyledCategorySection>
+
       <h1>Arts</h1>
-      
+      <StyledCategorySection>  
         { arts ? 
           arts.map((artsItem => {
             return <ItemBox 
@@ -121,9 +137,10 @@ export default function Explore({ ...props }){
           }))
           : null 
         }
-      
+        </StyledCategorySection>  
+
       <h1>Culture</h1>
-      
+      <StyledCategorySection>  
         { culture ? 
           culture.map((artsItem => {
             return <ItemBox 
@@ -136,33 +153,17 @@ export default function Explore({ ...props }){
           }))
           : null
         }
-      
-      <StyledNavBarSection>
-        <Navbar
-          navPages={['Home', 'Explore', 'Contribute', 'Profile']}
-          activePage={'Explore'}
-        />
-      </StyledNavBarSection>
+        </StyledCategorySection>  
+
+        <StyledNavBarSection>
+          <Navbar
+            navPages={['Home', 'Explore', 'Contribute', 'Profile']}
+            activePage={'Explore'}
+          />
+        </StyledNavBarSection>
+      </StyledContainer>
     </div>
     )
 }
 
 
-
-// const StyledContainer = styled.div`
-// //   max-height: calc(100vh - 60px - 60px);
-// //   width: 100vw;
-// //   max-width: 100vw;
-// //   margin: 0;
-// //   padding: 1.5em;
-// //   background-color: #F2F2F2;
-// //   overflow-y: scroll;
-
-// //   @media (min-width: 768px) {
-// //     height: 100vh;
-// //   }
-
-// //   @media (prefers-color-scheme: dark) {
-// //     background-color: #1F1F1F;
-// //   }
-// // `
