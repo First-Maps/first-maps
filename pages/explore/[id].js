@@ -67,8 +67,8 @@ export default function Explore({ ...props }){
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>{queryStr}</h1>
-      <div className="categoryDataContainer">
-        
+      
+      <StyledItembox>
 				{ categoryData ? 
           categoryData.map((categoryDataItem => {
             return <ItemBox 
@@ -81,11 +81,9 @@ export default function Explore({ ...props }){
           }))
           : <p>Loading...</p>
         }
-
-      </div>
-     
-			
-      <Navbar 
+      </StyledItembox>
+      
+      <Navbar
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
         activePage={'Explore'}
       />

@@ -33,7 +33,7 @@ export default async function devLocationsOfInterestId (req, res) {
       break
 
 
-    // ***UPDATE CODE BELOW BEFORE USING THIS IS COPIED FROM SOMEWHERE ELSE **
+    // ***UPDATE CODE BELOW BEFORE USING, THIS IS COPIED FROM SOMEWHERE ELSE **
     // case 'PUT':
     //   try{
     //     const location = await devLocationsOfInterest.findByIdAndUpdate(id, req.body, {
