@@ -2,7 +2,8 @@ import styled from 'styled-components'
 import Head, {Sub} from '../Text/Header'
 import Buttons from '../Buttons/Buttons'
 import ItemBox from '../ItemBox/ItemBox'
-import { useState } from 'react'
+import useLocalStorage from '../../hooks/useLocalStorage'
+import { useRouter } from 'next/router'
 
 const Body = styled.div`
   width: 100vw;
@@ -88,7 +89,12 @@ export const Select = ({
     },
   ]
 
-  const [item, selectItem] = useState({})
+  const [item, selectItem] = useLocalStorage('item',{
+    Culture : false,
+    Arts : false,
+    Language : false,
+    History : false,
+  })
 
 
   const itemHandle = (types) => {
@@ -99,6 +105,7 @@ export const Select = ({
     })
   }
 
+  const r = useRouter()
 
   return <>
     <Head txt='What Interests You Today?'/>
@@ -112,6 +119,6 @@ export const Select = ({
 
 
 
-    <Buttons txt='Continue' />
+    <Buttons txt='Continue' onclick={() => r.push('/')}/>
   </>
 }
