@@ -12,30 +12,55 @@ import ItemBox from '../../components/ItemBox/ItemBox'
 
 // vertical carousel slider
 const StyledCategorySection = styled.div`
+  border: red solid 1px;
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  min-height: 300px;
+  overflow: scroll;
 `
 // max width, fixed at bottom of screen
 const StyledNavBarSection = styled.div`
   width: 100%;
-  position: fixed;
-  bottom: 0;
+  
+  bottom: 60px;
+  left: 0;
+  display: flex;
+  justify-content: space-around;
+
   background-color: #F2F2F2;
-  margin-bottom: 0;
 `
 
 const StyledContainer = styled.div`
   max-height: calc(100vh - 60px - 60px);
   min-height: calc(100vh - 60px - 60px);
   width: 100vw;
+  max-width: 100vw;
   margin: 0;
   padding: 1.5em;
   background-color: #F2F2F2;
-  display: flex;
-  flex-direction: column;
+  overflow-y: scroll;
+
+  @media (min-width: 768px) {
+    height: 100vh;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #1F1F1F;
+  }
 `
+
+// const StyledContainer = styled.div`
+//   max-height: calc(100vh - 60px - 60px);
+//   min-height: calc(100vh - 60px - 60px);
+//   width: 100vw;
+//   margin: 0;
+//   padding: 1.5em;
+//   background-color: #F2F2F2;
+//   display: flex;
+//   flex-direction: column;
+  
+// `
 
 export default function Explore({ ...props }){
   const [history, setHistory] = useState([])
@@ -83,7 +108,7 @@ export default function Explore({ ...props }){
 
 
   return (
-  	<div>
+  	<>
       <Head>
         <title>Explore</title>
         <link rel="icon" href="/favicon.ico" />
@@ -162,7 +187,7 @@ export default function Explore({ ...props }){
           />
         </StyledNavBarSection>
       </StyledContainer>
-    </div>
+    </>
     )
 }
 
