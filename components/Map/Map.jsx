@@ -9,6 +9,8 @@ import "leaflet/dist/images/marker-shadow.png"
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, ZoomControl } from "react-leaflet"
 import { useMapEvents } from "react-leaflet"
 
+import Button from '../Button'
+
 import Bubble from '../Card/Bubble'
 // this is how we can style exotic components that styled-components doesn't support directly
 const MyMapContainer = styled(MapContainer)`

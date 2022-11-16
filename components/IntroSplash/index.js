@@ -5,6 +5,7 @@ import ItemBox from '../ItemBox/ItemBox'
 import useLocalStorage from '../../hooks/useLocalStorage'
 import { useRouter } from 'next/router'
 
+
 const Body = styled.div`
   width: 100vw;
   height: 100vh;
@@ -44,6 +45,25 @@ const BeginHead = styled(Head)`
   min-height: 92;
 `
 
+const SelectWrap = styled.div`
+  width: 20em;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  
+  `
+const SelectAll = styled.div`
+background-color: white;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`
 
 export default function Splash(){
 
@@ -76,16 +96,21 @@ export const Select = ({
   
   const types = [
     {
-      category: 'Culture'
+      category: 'Culture',
+      img: '../option_3.png'
     },
     {
-      category: 'Arts'
+      category: 'Arts',
+      img: '../option_1.png'
+
     },
     {
-      category: 'Language'
+      category: 'Language',
+      img: '../option_2.png'
     },
     {
-      category: 'History'
+      category: 'History',
+      img: '../option_4.png'
     },
   ]
 
@@ -108,17 +133,23 @@ export const Select = ({
   const r = useRouter()
 
   return <>
-    <Head txt='What Interests You Today?'/>
-      {types.map((e, i) =>{
-        return (
-          <ItemBox label={e.category} key={e.category} width='137px' height='137px' img='../marker-icon.png' onClick={() => itemHandle(e.category)}/>    
+    <SelectAll>
 
-        )
-        
-      })}
+      <Head light='' txt='What Interests You Today?'/>
 
 
+      <SelectWrap>
+        {types.map((e, i) =>{
+          return (
+              <ItemBox label={e.category} key={e.category} width='137px' height='137px' img={e.img} onClick={() => itemHandle(e.category)}/>    
 
-    <Buttons txt='Continue' onclick={() => r.push('/')}/>
+              
+              )
+              
+            })}
+      </SelectWrap>
+      <Buttons txt='Continue' onclick={() => r.push('/')}/>
+
+    </SelectAll>
   </>
 }

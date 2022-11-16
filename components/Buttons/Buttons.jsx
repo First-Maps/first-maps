@@ -23,7 +23,7 @@ const ButtonWrapper = Styled.div`
     display: flex;
     width: 238px;
     height: 26px;
-    justify-content: flex-start;
+    justify-content: center;
 
 `
 export default function Buttons({
