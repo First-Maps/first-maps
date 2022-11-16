@@ -10,35 +10,22 @@ import ItemBox from '../../components/ItemBox/ItemBox'
 
 // Styled Components
 
-// vertical carousel slider
-/* const StyledCategorySection = styled.div`
-  border: red solid 1px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  min-height: 300px;
-  overflow: scroll;
-` */
-
 const StyledCategorySection = styled.div`
-  border: red solid 1px;
   min-height: 300px;
   max-height: 300px;
   overflow-y: scroll;
   display: flex;
   flex-direction: row;
   align-items: center;
+  border-radius: 1.5rem;
 `
 
-// max width, fixed at bottom of screen
 const StyledNavBarSection = styled.div`
   width: 100%;
-  
   bottom: 60px;
-  left: 0;
   display: flex;
+  left: 0;
   justify-content: space-around;
-
   background-color: #F2F2F2;
 `
 
@@ -61,31 +48,39 @@ const StyledContainer = styled.div`
   }
 `
 
-// const StyledContainer = styled.div`
-//   max-height: calc(100vh - 60px - 60px);
-//   min-height: calc(100vh - 60px - 60px);
-//   width: 100vw;
-//   margin: 0;
-//   padding: 1.5em;
-//   background-color: #F2F2F2;
-//   display: flex;
-//   flex-direction: column;
-  
-// `
+const StyledItemBox = styled.div`
+  width: 331.67px;
+  height: 230px;
+  margin: 0 1em;
+`
 
-export default function Explore({ ...props }){
+const StyledReturnHeading = styled.p`
+  font-size: 0.75em;
+  color: #F8893C;
+`
+
+const StyledCategoryHeading = styled.div`
+  display: inline
+`
+
+// TODO: style the 'see all' link
+// TODO: add links to the posts, see all links, headings and back to explore
+
+
+
+export default function Explore({ ...props }) {
   const [history, setHistory] = useState([])
   const [language, setLanguage] = useState([])
   const [arts, setArts] = useState([])
   const [culture, setCulture] = useState([])
 
-	// useEffect to fetch data for languages, arts, culture and history, setState for each
-	useEffect(() => {
+  // useEffect to fetch data for languages, arts, culture and history, setState for each
+  useEffect(() => {
     (async () => {
       try {
-        // make 4 separate requests for each of the 4 categories
-				let histResponse = await axios.get("/api/devLocationsOfInterest/history")
-				let langResponse = await axios.get("/api/devLocationsOfInterest/language")
+        // TODO: Make this a single request to the server
+        let histResponse = await axios.get("/api/devLocationsOfInterest/history")
+        let langResponse = await axios.get("/api/devLocationsOfInterest/language")
         let artsResponse = await axios.get("/api/devLocationsOfInterest/arts")
         let cultResponse = await axios.get("/api/devLocationsOfInterest/culture")
 
@@ -105,7 +100,7 @@ export default function Explore({ ...props }){
         setLanguage(langData)
         setArts(artsData)
         setCulture(cultData)
-        
+
         // console.log(history, language, arts, culture)
       } catch (error) {
         console.error(error)
@@ -119,87 +114,97 @@ export default function Explore({ ...props }){
 
 
   return (
-  	<>
+    <>
       <Head>
         <title>Explore</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <StyledContainer>
-
-      <h1>History</h1>
-      <StyledCategorySection>
-        { history ? 
-          history.map((historyItem => {
-            return <ItemBox 
-              label={historyItem.name}
-              description={historyItem.description}
-              width="331.67px"
-              height="230px"
-              key={historyItem._id}
-            />
-          }))
-          : "null" 
-        }
-      </StyledCategorySection>  
-      
-      <h1>Language</h1>
+        <StyledReturnHeading>
+          <p>{"< Back To Explore"}</p>
+        </StyledReturnHeading>
+        <h1>History</h1> <span>{"see all >"}</span>
         <StyledCategorySection>
-          { language ? 
+          {history ?
+            history.map((historyItem => {
+              return <StyledItemBox>
+                <ItemBox
+                  label={historyItem.name}
+                  description={historyItem.description}
+                  width="331.67px"
+                  height="230px"
+                  key={historyItem._id}
+                />
+              </StyledItemBox>
+            }))
+            : "null"
+          }
+        </StyledCategorySection>
+
+        <h1>Language</h1> <span>{"see all >"}</span>
+        <StyledCategorySection>
+          {language ?
             language.map((languagItem => {
-              return <ItemBox 
-                label={languagItem.name}
-                description={languagItem.description}
-                width="331.67px"
-                height="230px"
-                key={languagItem._id}
-              />
+              return <StyledItemBox>
+                <ItemBox
+                  label={languagItem.name}
+                  description={languagItem.description}
+                  width="331.67px"
+                  height="230px"
+                  key={languagItem._id}
+                />
+              </StyledItemBox>
             }))
             : null
           }
         </StyledCategorySection>
 
-      <h1>Arts</h1>
-      <StyledCategorySection>  
-        { arts ? 
-          arts.map((artsItem => {
-            return <ItemBox 
-              label={artsItem.name}
-              description={artsItem.description}
-              width="331.67px"
-              height="230px"
-              key={artsItem._id}
-            />
-          }))
-          : null 
-        }
-        </StyledCategorySection>  
+        <h1>Arts</h1> <span>{"see all >"}</span>
+        <StyledCategorySection>
+          {arts ?
+            arts.map((artsItem => {
+              return <StyledItemBox>
+                <ItemBox
+                  label={artsItem.name}
+                  description={artsItem.description}
+                  width="331.67px"
+                  height="230px"
+                  key={artsItem._id}
+                />
+              </StyledItemBox>
+            }))
+            : null
+          }
+        </StyledCategorySection>
 
-      <h1>Culture</h1>
-      <StyledCategorySection>  
-        { culture ? 
-          culture.map((artsItem => {
-            return <ItemBox 
-              label={artsItem.name}
-              description={artsItem.description}
-              width="331.67px"
-              height="230px"
-              key={artsItem._id}
-            />
-          }))
-          : null
-        }
-        </StyledCategorySection>  
+        <h1>Culture</h1> <span>{"see all >"}</span>
+        <StyledCategorySection>
+          {culture ?
+            culture.map((artsItem => {
+              return <StyledItemBox>
+                <ItemBox
+                  label={artsItem.name}
+                  description={artsItem.description}
+                  width="331.67px"
+                  height="230px"
+                  key={artsItem._id}
+                />
+              </StyledItemBox>
+            }))
+            : null
+          }
+        </StyledCategorySection>
 
       </StyledContainer>
-        <StyledNavBarSection>
-          <Navbar
-            navPages={['Home', 'Explore', 'Contribute', 'Profile']}
-            activePage={'Explore'}
-          />
-        </StyledNavBarSection>
+      <StyledNavBarSection>
+        <Navbar
+          navPages={['Home', 'Explore', 'Contribute', 'Profile']}
+          activePage={'Explore'}
+        />
+      </StyledNavBarSection>
     </>
-    )
+  )
 }
 
 
