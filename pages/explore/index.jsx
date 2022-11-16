@@ -64,7 +64,7 @@ const StyledCategoryHeading = styled.div`
 `
 
 // TODO: style the 'see all' link
-// TODO: add links to the posts, see all links, headings and back to explore
+// TODO: add links to the posts, see all links, headings and back t0
 
 
 
