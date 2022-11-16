@@ -8,22 +8,22 @@ import axios from 'axios'
 import { Navbar } from '../../components/Navbar/Navbar'
 import ItemBox from '../../components/ItemBox/ItemBox'
 
-const StyledContainer = styled.div`
-  max-height: calc(100vh - 60px - 60px);
-  width: 100vw;
-  max-width: 100vw;
-  margin: 0;
-  padding: 1.5em;
+// Styled Components
+// section for the categories, vertical column, centered
+const StyledCategorySection = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
   background-color: #F2F2F2;
-  overflow-y: scroll;
-
-  @media (min-width: 768px) {
-    height: 100vh;
-  }
-
-  @media (prefers-color-scheme: dark) {
-    background-color: #1F1F1F;
-  }
+`
+// max width, fixed at bottom of screen
+const StyledNavBarSection = styled.div`
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  background-color: #F2F2F2;
+  margin-bottom: 0;
 `
 
 export default function Explore({ ...props }){
@@ -49,17 +49,17 @@ export default function Explore({ ...props }){
         let cultData = cultResponse.data.Results
 
         // concate data to 10 items
-        histData10 = histData.slice(0, 10)
-        langData10 = langData.slice(0, 10)
-        artsData10 = artsData.slice(0, 10)
-        cultData10 = cultData.slice(0, 10)
+        histData = histData.slice(0, 3)
+        langData = langData.slice(0, 3)
+        artsData = artsData.slice(0, 3)
+        cultData = cultData.slice(0, 3)
 
         setHistory(histData)
         setLanguage(langData)
         setArts(artsData)
         setCulture(cultData)
         
-        console.log(history, language, arts, culture)
+        // console.log(history, language, arts, culture)
       } catch (error) {
         console.error(error)
         if (axios.isCancel(error)) {
@@ -78,7 +78,7 @@ export default function Explore({ ...props }){
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <h1>History</h1>
-      <div className="historyContainer">
+      <StyledCategorySection>
         { history ? 
           history.map((historyItem => {
             return <ItemBox 
@@ -91,9 +91,9 @@ export default function Explore({ ...props }){
           }))
           : "null" 
         }
-      </div>
+      </StyledCategorySection>
       <h1>Language</h1>
-      <div className="languageContainer">
+      
         { language ? 
           language.map((languagItem => {
             return <ItemBox 
@@ -106,9 +106,9 @@ export default function Explore({ ...props }){
           }))
           : null
         }
-      </div>
+      
       <h1>Arts</h1>
-      <div className="artsContainer">
+      
         { arts ? 
           arts.map((artsItem => {
             return <ItemBox 
@@ -121,9 +121,9 @@ export default function Explore({ ...props }){
           }))
           : null 
         }
-      </div>
+      
       <h1>Culture</h1>
-      <div className="cultureContainer">
+      
         { culture ? 
           culture.map((artsItem => {
             return <ItemBox 
@@ -136,12 +136,33 @@ export default function Explore({ ...props }){
           }))
           : null
         }
-      </div>
-  
-      <Navbar
-        navPages={['Home', 'Explore', 'Contribute', 'Profile']}
-        activePage={'Explore'}
-      />
+      
+      <StyledNavBarSection>
+        <Navbar
+          navPages={['Home', 'Explore', 'Contribute', 'Profile']}
+          activePage={'Explore'}
+        />
+      </StyledNavBarSection>
     </div>
     )
 }
+
+
+
+// const StyledContainer = styled.div`
+// //   max-height: calc(100vh - 60px - 60px);
+// //   width: 100vw;
+// //   max-width: 100vw;
+// //   margin: 0;
+// //   padding: 1.5em;
+// //   background-color: #F2F2F2;
+// //   overflow-y: scroll;
+
+// //   @media (min-width: 768px) {
+// //     height: 100vh;
+// //   }
+
+// //   @media (prefers-color-scheme: dark) {
+// //     background-color: #1F1F1F;
+// //   }
+// // `
