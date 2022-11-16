@@ -37,7 +37,7 @@ const Select = styled.select`
 
 const Input = styled.input`
   width: 100%;
-  height: 2.5em;
+  min-height: 3em;
   border: 1px solid #707070;
   border-radius: 0.5em;
   padding: 0.5em 1em;
@@ -79,11 +79,13 @@ export default function ContributeForm({
     })
   }
 
+  const [images, setImages] = useState()
+
   const [formValues, setFormValues] = useState({
     name: '',
     description: '',
     category: '',
-    coordinates: [],
+    coordinates: []
   })
 
   const [formError, setFormError] = useState({
@@ -91,6 +93,7 @@ export default function ContributeForm({
     description: false,
     category: false,
     coordinates: false,
+    images: false,
   })
 
   function handleFormChange(e) {
@@ -102,6 +105,20 @@ export default function ContributeForm({
     })
   }
 
+  function handleImageChange(e) {
+    const files = e.target.files
+    if (files > 5) {
+      setFormError({
+        ...formError,
+        images: true
+      })
+      e.target.files = null
+      return
+    }
+    setImages(files)
+  }
+
+
   async function handleSubmit(e) {
     e.preventDefault()
     
@@ -111,26 +128,47 @@ export default function ContributeForm({
       || formValues.category === ''
       || !Array.isArray(formValues.coordinates)
       || formValues.coordinates.length !== 2
+      || (images && images.length > 5)
     ) {
       const coordinatesGood = (
         Array.isArray(formValues.coordinates) 
         && formValues.coordinates.length === 2
       )
 
+      const imagesGood = images.length <= 5
+
       setFormError({
         name: formValues.name ? false : true,
         description: formValues.description ? false : true,
         category: formValues.category ? false : true,
         coordinates: coordinatesGood ? false : true,
+        images: imagesGood ? false : true,
       })
 
       return
     }
 
-    const res = await axios.post('/api/contribute', formValues)
-    // redirect to the home page
-    router.push('/')
-  }
+    const formData = new FormData()
+    formData.append('name', formValues.name)
+    formData.append('description', formValues.description)
+    formData.append('category', formValues.category)
+    formData.append('coordinates', formValues.coordinates)
+    if (images) {
+      for (let i = 0; i < images.length; i++) {
+        formData.append('images', images[i])
+      }
+    }
+
+    try {
+      const response = await axios.post('/api/contribute', formData, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      })
+
+      router.push('/')
+    } catch (error) {
+      console.log(error)
+    }
+  } 
 
 
   return (
@@ -199,6 +237,20 @@ export default function ContributeForm({
             />
           </label>
           {formError.description && <ErrorPara>A description is required</ErrorPara>}
+        </FormDiv>
+
+        <FormDiv>
+          <label>
+            <Para>Upload images</Para>
+            <Input 
+              type="file" 
+              name="image" 
+              onChange={handleImageChange}
+              accept="image/*"
+              multiple
+            />
+          </label>
+          {formError.images && <ErrorPara>You can&apos;t upload more than 5 images</ErrorPara>}
         </FormDiv>
 
         <Button text="Submit" active={true} onClick={handleSubmit} />

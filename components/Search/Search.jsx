@@ -79,10 +79,10 @@ export const Search = ({
     // call API based on chosen database 
     if (databaseToFetchFrom === "staging") {
       request = await axios.get("/api/locationsOfInterest")
-      locationsOfInterestArray = request.data.Results
+      locationsOfInterestArray = request.data.results
     } else if (databaseToFetchFrom === "dev") {
       request = await axios.get("/api/devLocationsOfInterest")
-      locationsOfInterestArray = request.data.Results
+      locationsOfInterestArray = request.data.results
     } else {
       console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
     }

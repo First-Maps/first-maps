@@ -6,7 +6,7 @@ dbConnect()
 
 // eslint-disable-next-line import/no-anonymous-default-export
 
-export default async (req, res) => {
+export default async function locationsOfInterestId (req, res) {
   const {
     query: { id },
     method
@@ -20,7 +20,7 @@ export default async (req, res) => {
         if (!location) {
           return res.status(400).json({ success: false })
         }
-        res.status(200).json({success: true, Results: location})
+        res.status(200).json({success: true, results: location})
 
       } catch (error) {
         res.status(400).json({ success: false })
@@ -37,7 +37,7 @@ export default async (req, res) => {
         if (!location) {
           return res.status(400).json({ success: false })
         }
-        res.status(200).json({success: true, Results: location})
+        res.status(200).json({success: true, results: location})
 
       } catch(error){
         res.status(400).json({ success: false })
@@ -52,7 +52,7 @@ export default async (req, res) => {
         if (!deletedLocation) {
           return res.status(400).json({ success: false })
         }
-        res.status(200).json({success: true, Results: {}})
+        res.status(200).json({success: true, results: {}})
 
       } catch(error){
         res.status(400).json({success: false})

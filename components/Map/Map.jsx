@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
+import Link from 'next/link'
 
 import "leaflet/dist/leaflet.css"
 import "leaflet/dist/images/marker-shadow.png"
@@ -13,7 +14,7 @@ import Bubble from '../Card/Bubble'
 const MyMapContainer = styled(MapContainer)`
   &[style] {
     min-width: 100%;
-    min-height: ${props => props.fullSize ? "calc(100vh - 60px)" : "calc(40vh - 60px)"
+    min-height: ${props => props.fullSize ? "calc(100% - 60px - 60px)" : "calc(40vh - 60px)"
   };
     @media (min-width: 768px) {
       min-height: ${props => props.fullSize ? "100vh" : "50vh"};
@@ -64,6 +65,11 @@ const MyPopup = styled(Popup)`
   }
 `
 
+const FeaturedImageDiv = styled.div`
+  width: 100%;
+  height: 100%;
+  margin: 0.5em 0;
+`
 
 export default function Map({
   fullSize,
@@ -108,6 +114,7 @@ export default function Map({
       if (markers.length > 0) {
         return
       }
+
       try {
         let request
         let locationsOfInterestArray
@@ -118,10 +125,10 @@ export default function Map({
         // call API based on chosen database 
         if (databaseToFetchFrom === "staging") {
           request = await axios.get("/api/locationsOfInterest")
-          locationsOfInterestArray = request.data.Results
+          locationsOfInterestArray = request.data.results
         } else if (databaseToFetchFrom === "dev") {
           request = await axios.get("/api/devLocationsOfInterest")
-          locationsOfInterestArray = request.data.Results
+          locationsOfInterestArray = request.data.results
         } else {
           console.error('`databaseToFetchFrom` is not a valid database. See Map.jsx')
         }
@@ -145,14 +152,11 @@ export default function Map({
   }, [])
 
   function locateUser(event) {
-    console.log('map loaded')
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log('coordinates from browser', position.coords)
     }, (error) => {
       axios.get("https://ipgeolocation.abstractapi.com/v1/?api_key=c44875213f7047a6bf726151678530cb")
         .then((response) => {
           const { latitude, longitude } = response.data
-          console.log('coordinates from api:', latitude, longitude)
           event.target.flyTo([latitude, longitude], event.target.getZoom())
         }).catch((error) => {
           console.log(error)
@@ -187,14 +191,39 @@ export default function Map({
             key={index}
             // icon={GetIcon(25)}
           >
-            <MyPopup 
-              keepInView={true}
-            >
-              <Bubble 
-              name={marker.name}
-              content={marker.description}
+            <MyPopup>
+              <h2>{marker.name}</h2>
 
-              />
+              {
+                marker.images.length > 0 
+                &&
+                // just show the first image; the rest can be seen in the respective Explore page
+                <FeaturedImageDiv>
+                  <img 
+                    src={marker.images[0].imageLink} 
+                    style={{width: "100%", height: "180px", objectFit: "cover", borderRadius: "0.5em"}}
+                  />
+                </FeaturedImageDiv>
+              }
+
+              <div className="popup-text-content">
+                <p>Category: {marker.category}</p>
+                <p>Description: {marker.description}</p>
+                {
+                  marker.languages.length > 0
+                  &&
+                  <p>
+                    Languages: {marker.languages.map((language) => language.name).join(", ")}
+                  </p>
+                }
+                {/* <p>Coordinates: {marker.coordinates.join(', ')}</p> */}
+              </div>
+
+              <div>
+                <Link href={`/explore/${marker.category}/${marker.name.split(' ').join('%20')}`} passHref legacyBehavior>
+                  <Button text='Explore' small={true} arrow={false} active={false} />
+                </Link>
+              </div>
             </MyPopup>
             <Tooltip>{marker.name}</Tooltip>
           </Marker>
@@ -205,7 +234,7 @@ export default function Map({
       {allowAddingMarkers && <MapClick />}
       {allowAddingMarkers
         && newMarkerPosition
-        && <Marker position={newMarkerPosition} key={newMarkerPosition[0]}/>}
+        && <Marker position={newMarkerPosition} key={newMarkerPosition[0]} />}
 
     </MyMapContainer>
   )
