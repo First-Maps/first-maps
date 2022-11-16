@@ -53,7 +53,7 @@ export default function Explore({ ...props }){
         setArts(artsData)
         setCulture(cultData)
         
-        console.log(history, language, arts, culture)
+        // console.log(history, language, arts, culture)
       } catch (error) {
         console.error(error)
         if (axios.isCancel(error)) {

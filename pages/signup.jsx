@@ -4,7 +4,7 @@ import Head from 'next/head'
 import styled from "styled-components"
 
 import Link from 'next/link'
-import LoginButton from '../components/LoginButton/LoginButton';
+import SignupButton from '../components/LoginButton/LoginButton';
 
 const StyledContainer = styled.div`
   display: flex;
@@ -33,7 +33,7 @@ const Logo = styled.img`
   height: 86px;
   margin: 0 0 2.5em 0;
 `
-const LoginText = styled.div`
+const SignupText = styled.div`
 font-style: normal;
 font-weight: 600;
 font-size: 36px;
@@ -57,14 +57,14 @@ const Fotter = styled.div`
   }
 `
 
-export default function Login({
+export default function Signup({
   ...props
 }) {
   return (
     <>
       <Head>
-        <title>Login | First Maps</title>
-        <meta name="description" content="First Maps: Login" />
+        <title>Signup | First Maps</title>
+        <meta name="description" content="First Maps: Signup" />
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
 
@@ -72,44 +72,44 @@ export default function Login({
         <Logo 
           src="/logo.png"
         />
-        <LoginText>
-          Log In
-        </LoginText>
-        <LoginButton
+        <SignupText>
+          Sing Up
+        </SignupText>
+        <SignupButton
           text="Continue with Email"
           Logo="Email.png"
           color={"#FE672F"}
           onClick={() => {
-            console.log("Log In with Email")
+            console.log("Sing Up with Email")
           }}
         />
-        <LoginButton
+        <SignupButton
           text="Continue with Google"
           Logo="Google.png"
           color={"#4285F4"}
           onClick={() => {
-            console.log("Log In with Google")
+            console.log("Sing Up with Google")
           }}
         />
-        <LoginButton
+        <SignupButton
           text="Continue with Facebook"
           Logo="Facebook.png"
           color={"#3B5998"}
           onClick={() => {
-            console.log("Log In with Facebook")
+            console.log("Sing Up with Facebook")
           }}
         />
-        <LoginButton
+        <SignupButton
           text="Continue with Apple"
           Logo="Apple.png"
           color={"#000000"}
           onClick={() => {
-            console.log("Log In with Apple")
+            console.log("Sing Up with Apple")
           }}
         />
 
         <Fotter>
-          Don't have an account?<Link href="/signup">Sign Up</Link>
+          Already have an account?<Link href="/login">Log In</Link>
         </Fotter>
       </StyledContainer>
     </>
