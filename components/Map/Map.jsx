@@ -220,7 +220,7 @@ export default function Map({
               </div>
 
               <div>
-                <Link href={`/explore/${marker.name.split(' ').join('%20')}`} passHref legacyBehavior>
+                <Link href={`/explore/${marker.category}/${marker.name.split(' ').join('%20')}`} passHref legacyBehavior>
                   <Button text='Explore' small={true} arrow={false} active={false} />
                 </Link>
               </div>
