@@ -5,13 +5,9 @@ import styled from "styled-components"
 import axios from 'axios'
 
 // components, some loaded from old file. take out all of the ones you dont' use
-import ExploreLanguages from '../components/ExplorePages/ExploreLanguages'
-import Bodytext from '../components/BodyText/Bodytext'
-import { Navbar } from '../components/Navbar/Navbar'
-import Carousel from '../components/Carousel/Carousel'
-import Header from '../components/Header/Header'
-import ItemBox from '../components/ItemBox/ItemBox'
-import VideoPlayer from '../components/VideoPlayer'
+import { Navbar } from '../../components/Navbar/Navbar'
+import ItemBox from '../../components/ItemBox/ItemBox'
+
 
 const StyledContainer = styled.div`
   max-height: calc(100vh - 60px - 60px);
