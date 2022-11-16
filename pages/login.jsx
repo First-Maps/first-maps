@@ -3,8 +3,6 @@ import { useState } from 'react'
 import Head from 'next/head'
 import styled from "styled-components"
 
-import { Navbar } from '../components/Navbar/Navbar'
-
 const StyledContainer = styled.div`
   max-height: calc(100vh - 60px - 60px);
   min-height: calc(100vh - 60px - 60px);
@@ -24,26 +22,21 @@ const StyledContainer = styled.div`
   }
 `
 
-export default function Profile({
+export default function Login({
   ...props
 }) {
   return (
     <>
       <Head>
-        <title>Profile | First Maps</title>
-        <meta name="description" content="First Maps: Profile" />
+        <title>Login | First Maps</title>
+        <meta name="description" content="First Maps: Login" />
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
 
       <StyledContainer>
-        <h1>Profile</h1>
+        <h1>Login</h1>
         <sub>Coming soon...</sub>
       </StyledContainer>
-
-      <Navbar 
-        navPages={['Home', 'Explore', 'Contribute', 'Profile']}
-        activePage={'Profile'} 
-      />
     </>
   )
 }
