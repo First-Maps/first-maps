@@ -15,22 +15,30 @@ export default function Explore({ ...props }){
 	const [categoryData, setcategoryData] = useState(false)
 	let router = useRouter()
 	let queryStr = useRouter().query.id // get the query string from the url
+  
 
-  // styled components
-	// make the container centered column
+  // Styled Components
 	const StyledItembox = styled.div`
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		justify-content: center;
+		justify-content: center;  
 	`
-	// navbar fixed at bottom of screen
   const StyledNavBar = styled.div`
     position: fixed;
     bottom: 0;
     width: 100%;
+    `
+  const StyledHeading = styled.h1`
+    font-size: 0.5em;
+    color: #F8893C
+    padding-left: 1.5rem;
   `
-
+  const StyledBackToExplore = styled.div`
+    font-size:0.5em;
+    color: #F8893C;
+    padding-left: 1.5rem;
+  `
 	
 
 	useEffect(() => {
@@ -40,7 +48,7 @@ export default function Explore({ ...props }){
 		if(!router.isReady){
 			return
 		}
-		
+    
 		// if the query string is empty is not 'arts', 'history', 'language', or 'culture', redirect to the explore page
 		if (queryStr == undefined || (queryStr != 'arts' && queryStr != 'history' && queryStr != 'language' && queryStr != 'culture')) {
 			router.push('/explore')
@@ -64,7 +72,6 @@ export default function Explore({ ...props }){
     }
   }, [router.isReady])
 
-	
 
   return (
   	<div>
@@ -72,7 +79,11 @@ export default function Explore({ ...props }){
         <title>Explore</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <h1>{queryStr}</h1>
+      
+      <StyledBackToExplore>
+        <h1>{queryStr}</h1>
+        <h1>{"< Back To Explore..."}</h1>
+      </StyledBackToExplore>
       
       <StyledItembox>
 				{ categoryData ? 
