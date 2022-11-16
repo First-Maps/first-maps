@@ -11,14 +11,25 @@ import ItemBox from '../../components/ItemBox/ItemBox'
 // Styled Components
 
 // vertical carousel slider
-const StyledCategorySection = styled.div`
+/* const StyledCategorySection = styled.div`
   border: red solid 1px;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 300px;
   overflow: scroll;
+` */
+
+const StyledCategorySection = styled.div`
+  border: red solid 1px;
+  min-height: 300px;
+  max-height: 300px;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
 `
+
 // max width, fixed at bottom of screen
 const StyledNavBarSection = styled.div`
   width: 100%;
@@ -180,13 +191,13 @@ export default function Explore({ ...props }){
         }
         </StyledCategorySection>  
 
+      </StyledContainer>
         <StyledNavBarSection>
           <Navbar
             navPages={['Home', 'Explore', 'Contribute', 'Profile']}
             activePage={'Explore'}
           />
         </StyledNavBarSection>
-      </StyledContainer>
     </>
     )
 }
