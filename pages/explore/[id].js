@@ -24,7 +24,13 @@ export default function Explore({ ...props }){
 		align-items: center;
 		justify-content: center;
 	`
-	
+	// navbar fixed at bottom of screen
+  const StyledNavBar = styled.div`
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  `
+
 	
 
 	useEffect(() => {
@@ -82,11 +88,13 @@ export default function Explore({ ...props }){
           : <p>Loading...</p>
         }
       </StyledItembox>
-      
-      <Navbar
-        navPages={['Home', 'Explore', 'Contribute', 'Profile']}
-        activePage={'Explore'}
-      />
+
+      <StyledNavBar> 
+        <Navbar
+          navPages={['Home', 'Explore', 'Contribute', 'Profile']}
+          activePage={'Explore'}
+        />
+      </StyledNavBar>
     </div>
     )
 }
