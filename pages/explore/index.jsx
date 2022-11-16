@@ -48,6 +48,12 @@ export default function Explore({ ...props }){
         let artsData = artsResponse.data.Results
         let cultData = cultResponse.data.Results
 
+        // concate data to 10 items
+        histData10 = histData.slice(0, 10)
+        langData10 = langData.slice(0, 10)
+        artsData10 = artsData.slice(0, 10)
+        cultData10 = cultData.slice(0, 10)
+
         setHistory(histData)
         setLanguage(langData)
         setArts(artsData)
