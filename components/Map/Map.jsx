@@ -1,6 +1,7 @@
 import styled from "styled-components"
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
+import Link from 'next/link'
 
 import "leaflet/dist/leaflet.css"
 import "leaflet/dist/images/marker-shadow.png"
@@ -8,6 +9,7 @@ import "leaflet/dist/images/marker-shadow.png"
 import { MapContainer, TileLayer, Marker, Popup, Tooltip, ZoomControl } from "react-leaflet"
 import { useMapEvents } from "react-leaflet"
 
+import Button from '../Button'
 
 // this is how we can style exotic components that styled-components doesn't support directly
 const MyMapContainer = styled(MapContainer)`
@@ -67,7 +69,6 @@ const MyPopup = styled(Popup)`
 const FeaturedImageDiv = styled.div`
   width: 100%;
   height: 100%;
-  border-radius: 1em;
   margin: 0.5em 0;
 `
 
@@ -200,14 +201,14 @@ export default function Map({
                 <FeaturedImageDiv>
                   <img 
                     src={marker.images[0].imageLink} 
-                    style={{width: "100%", height: "100%", objectFit: "cover", borderRadius: "0.5em"}}
+                    style={{width: "100%", height: "180px", objectFit: "cover", borderRadius: "0.5em"}}
                   />
                 </FeaturedImageDiv>
               }
 
               <div className="popup-text-content">
-                <p>Description: {marker.description}</p>
                 <p>Category: {marker.category}</p>
+                <p>Description: {marker.description}</p>
                 {
                   marker.languages.length > 0
                   &&
@@ -215,7 +216,13 @@ export default function Map({
                     Languages: {marker.languages.map((language) => language.name).join(", ")}
                   </p>
                 }
-                <p>Coordinates: {marker.coordinates.join(', ')}</p>
+                {/* <p>Coordinates: {marker.coordinates.join(', ')}</p> */}
+              </div>
+
+              <div>
+                <Link href={`/explore/${marker.name.split(' ').join('%20')}`} passHref legacyBehavior>
+                  <Button text='Explore' small={true} arrow={false} active={false} />
+                </Link>
               </div>
             </MyPopup>
             <Tooltip>{marker.name}</Tooltip>

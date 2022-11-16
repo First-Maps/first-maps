@@ -8,7 +8,6 @@ import axios from 'axios'
 import { Navbar } from '../../components/Navbar/Navbar'
 import ItemBox from '../../components/ItemBox/ItemBox'
 
-
 const StyledContainer = styled.div`
   max-height: calc(100vh - 60px - 60px);
   width: 100vw;
