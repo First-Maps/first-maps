@@ -13,7 +13,7 @@ margin: 0;
 `
 
 const BubbleBox = styled.div`
-background-image: linear-gradient(to bottom, grey, transparent), url("https://d3d0lqu00lnqvz.cloudfront.net/media/media/thumbnails/41a929c8-9efb-45c7-99a3-bf0ea227c3dd.jpg");
+background-image: linear-gradient(to bottom, grey, transparent), url(${props => props.img});
 border-radius: 18px;
 cursor: pointer;
 margin-bottom:${props=>props.margb};
@@ -28,11 +28,11 @@ export default function ItemBox({
   height='137px',
   margb='1.5em',
   onClick=()=>{},
-
+  img='https://d3d0lqu00lnqvz.cloudfront.net/media/media/thumbnails/41a929c8-9efb-45c7-99a3-bf0ea227c3dd.jpg'
 }){
   const [show, setShow] = useState(true)
   return (
-        <BubbleBox margb={margb} onClick={onClick} wid={width} hei={height}>
+        <BubbleBox margb={margb} onClick={onClick} wid={width} hei={height} img={img}>
           <LangText>{label}</LangText>
         </BubbleBox>
   )
