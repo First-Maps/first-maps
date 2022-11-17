@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import styled from "styled-components"
 import axios from 'axios'
+import Link from 'next/link'
 
 // components, some loaded from old file. take out all of the ones you dont' use
 import { Navbar } from '../../components/Navbar/Navbar'
@@ -39,11 +40,9 @@ const StyledContainer = styled.div`
   padding: 1.5em;
   background-color: #F2F2F2;
   overflow-y: scroll;
-
   @media (min-width: 768px) {
     height: 100vh;
   }
-  
   @media (prefers-color-scheme: dark) {
     background-color: #1F1F1F;
   }
@@ -55,17 +54,16 @@ const StyledItemBox = styled.div`
   margin: 0 1em;
 `
 
-const StyledReturnHeading = styled.p`
-  font-size: 0.75em;
+const StyledLinkHeading = styled.p`
+  font-size: 1em;
   color: #F8893C;
 `
 
 const StyledCategoryHeading = styled.div`
-  display: inline
+  
 `
 
-// TODO: style the 'see all' link
-// TODO: add links to the posts, see all links, headings and back to explore
+// TODO: add links to the posts
 
 
 
@@ -121,11 +119,18 @@ export default function Explore({ ...props }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <StyledContainer >
+      <StyledContainer>
         <Search />
-        
-        <h1>History</h1>
-        <StyledCategorySection >
+        <StyledLinkHeading>
+          <a href="">{"< Back to Explore"}</a>
+        </StyledLinkHeading>
+        <h1>History</h1> 
+        <StyledLinkHeading>
+          <Link href="/explore/history">
+            <p>{"see all >"}</p>
+          </Link>
+        </StyledLinkHeading>    
+        <StyledCategorySection>
           {history ?
             history.map((historyItem => {
               return <StyledItemBox>
@@ -142,7 +147,12 @@ export default function Explore({ ...props }) {
           }
         </StyledCategorySection>
 
-        <h1>Language</h1>
+        <h1>Language</h1> 
+        <StyledLinkHeading>
+          <Link href="/explore/language">
+            <p>{"see all >"}</p>
+          </Link>
+        </StyledLinkHeading>    
         <StyledCategorySection>
           {language ?
             language.map((languagItem => {
@@ -161,6 +171,11 @@ export default function Explore({ ...props }) {
         </StyledCategorySection>
 
         <h1>Arts</h1>
+        <StyledLinkHeading>
+          <Link href="/explore/arts">
+            <p>{"see all >"}</p>
+          </Link>
+        </StyledLinkHeading>    
         <StyledCategorySection>
           {arts ?
             arts.map((artsItem => {
@@ -179,6 +194,11 @@ export default function Explore({ ...props }) {
         </StyledCategorySection>
 
         <h1>Culture</h1> 
+        <StyledLinkHeading>
+          <Link href="/explore/culture">
+            <p>{"see all >"}</p>
+          </Link>
+        </StyledLinkHeading>   
         <StyledCategorySection>
           {culture ?
             culture.map((artsItem => {
