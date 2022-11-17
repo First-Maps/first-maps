@@ -52,6 +52,7 @@ export default function Explore({ ...props }){
     padding: 1.5em;
     background-color: #F2F2F2;
     overflow-y: scroll;
+
     @media (min-width: 768px) {
       height: 100vh;
     }
@@ -64,6 +65,13 @@ export default function Explore({ ...props }){
     font-size: 1em;
     color: #F8893C;
   `
+  
+  const handleClick = () => {
+    // get the url of the ItemBox that was clicked
+    
+    // router.push('/')
+  }
+
 
 	useEffect(() => {
     const abortController = new AbortController()
@@ -121,6 +129,7 @@ export default function Explore({ ...props }){
                 width="331.67px"
                 height="230px"
                 key={categoryDataItem._id}
+                onClick={handleClick}
               />
             }))
             : <p>Loading...</p>
