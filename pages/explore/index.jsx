@@ -123,9 +123,7 @@ export default function Explore({ ...props }) {
 
       <StyledContainer>
         <Search />
-        <StyledReturnHeading>
-          
-        </StyledReturnHeading>
+        
         <h1>History</h1>
         <StyledCategorySection>
           {history ?
