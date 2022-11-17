@@ -121,10 +121,8 @@ export default function Explore({ ...props }) {
       </Head>
 
       <StyledContainer>
-        <StyledReturnHeading>
-          <p>{"< Back To Explore"}</p>
-        </StyledReturnHeading>
-        <h1>History</h1> <span>{"see all >"}</span>
+       
+        <h1>History</h1> 
         <StyledCategorySection>
           {history ?
             history.map((historyItem => {
@@ -142,7 +140,7 @@ export default function Explore({ ...props }) {
           }
         </StyledCategorySection>
 
-        <h1>Language</h1> <span>{"see all >"}</span>
+        <h1>Language</h1> 
         <StyledCategorySection>
           {language ?
             language.map((languagItem => {
@@ -160,7 +158,7 @@ export default function Explore({ ...props }) {
           }
         </StyledCategorySection>
 
-        <h1>Arts</h1> <span>{"see all >"}</span>
+        <h1>Arts</h1> 
         <StyledCategorySection>
           {arts ?
             arts.map((artsItem => {
@@ -178,7 +176,7 @@ export default function Explore({ ...props }) {
           }
         </StyledCategorySection>
 
-        <h1>Culture</h1> <span>{"see all >"}</span>
+        <h1>Culture</h1> 
         <StyledCategorySection>
           {culture ?
             culture.map((artsItem => {
