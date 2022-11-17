@@ -121,11 +121,11 @@ export default function Explore({ ...props }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <StyledContainer>
+      <StyledContainer >
         <Search />
         
         <h1>History</h1>
-        <StyledCategorySection>
+        <StyledCategorySection >
           {history ?
             history.map((historyItem => {
               return <StyledItemBox>
