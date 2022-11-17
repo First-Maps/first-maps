@@ -42,7 +42,7 @@ const StyledContainer = styled.div`
   @media (min-width: 768px) {
     height: 100vh;
   }
-
+  
   @media (prefers-color-scheme: dark) {
     background-color: #1F1F1F;
   }
@@ -64,7 +64,7 @@ const StyledCategoryHeading = styled.div`
 `
 
 // TODO: style the 'see all' link
-// TODO: add links to the posts, see all links, headings and back t0
+// TODO: add links to the posts, see all links, headings and back to explore
 
 
 
@@ -121,8 +121,10 @@ export default function Explore({ ...props }) {
       </Head>
 
       <StyledContainer>
-       
-        <h1>History</h1> 
+        <StyledReturnHeading>
+          
+        </StyledReturnHeading>
+        <h1>History</h1>
         <StyledCategorySection>
           {history ?
             history.map((historyItem => {
@@ -140,7 +142,7 @@ export default function Explore({ ...props }) {
           }
         </StyledCategorySection>
 
-        <h1>Language</h1> 
+        <h1>Language</h1>
         <StyledCategorySection>
           {language ?
             language.map((languagItem => {
@@ -158,7 +160,7 @@ export default function Explore({ ...props }) {
           }
         </StyledCategorySection>
 
-        <h1>Arts</h1> 
+        <h1>Arts</h1>
         <StyledCategorySection>
           {arts ?
             arts.map((artsItem => {
@@ -204,5 +206,3 @@ export default function Explore({ ...props }) {
     </>
   )
 }
-
-
