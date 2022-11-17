@@ -66,7 +66,7 @@ export default function Explore({ ...props }){
     color: #F8893C;
   `
   
-  const handleClick = () => {
+  const handleClick = (e) => {
     // get the url of the ItemBox that was clicked
     
     // router.push('/')
