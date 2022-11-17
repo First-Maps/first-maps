@@ -11,7 +11,6 @@ import ItemBox from '../../components/ItemBox/ItemBox'
 import { Search } from '../../components/Search/Search'
 
 // Styled Components
-
 const StyledCategorySection = styled.div`
   min-height: 300px;
   max-height: 300px;
