@@ -68,6 +68,7 @@ export default function Explore({ ...props }){
   
   const handleClick = (e) => {
     // get the url of the ItemBox that was clicked
+    console.log(e.target.innerHTML)
     
     // router.push('/')
   }
