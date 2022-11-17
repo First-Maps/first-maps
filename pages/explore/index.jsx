@@ -7,6 +7,7 @@ import axios from 'axios'
 // components, some loaded from old file. take out all of the ones you dont' use
 import { Navbar } from '../../components/Navbar/Navbar'
 import ItemBox from '../../components/ItemBox/ItemBox'
+import { Search } from '../../components/Search/Search'
 
 // Styled Components
 
@@ -121,6 +122,7 @@ export default function Explore({ ...props }) {
       </Head>
 
       <StyledContainer>
+        <Search />
         <StyledReturnHeading>
           
         </StyledReturnHeading>
