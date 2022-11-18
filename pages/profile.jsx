@@ -39,7 +39,6 @@ export default function Explore({
         <h1>Profile</h1>
         <sub>Coming soon...</sub>
       </StyledContainer>
-
     </>
   )
 }
