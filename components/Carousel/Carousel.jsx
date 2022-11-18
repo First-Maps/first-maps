@@ -47,7 +47,7 @@ curser: grab;
 
 const InnerCarousel = styled(motion.div)`
 display: flex;
-flex-direction: horizantal;
+flex-direction: horizontal;
 // background-color: lightblue;
 flex-wrap: nowrap;
 `

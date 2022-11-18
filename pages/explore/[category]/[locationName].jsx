@@ -15,6 +15,23 @@ export default function ExploreLocation() {
   const titleStr = `${locationName} | First Maps`
 
   const [location, setLocation] = useState(null)
+  const [images, setImages] = useState(null)
+
+  function handleImageClick(e) {
+    setImages(images.map((image, index) => {
+      if (index === e.target._id) {
+        return {
+          selected: true,
+          ...image
+        }
+      } else {
+        return {
+          selected: false,
+          ...image
+        }
+      }
+    }))
+  }
 
   useEffect(() => {
     (async () => {
@@ -22,6 +39,20 @@ export default function ExploreLocation() {
       const location = res.data.location
       console.log('location', location)
       setLocation(location)
+      if (location.images && location.images.length > 0) {
+        setImages(location.images.map((image, index) => {
+          if (index === 0) {
+            return {
+              selected: true,
+              ...image
+            }
+          }
+          return {
+            selected: false,
+            ...image
+          }
+        }))
+      }
     })()
   }, [])
 
@@ -126,4 +157,29 @@ const FullWidthImage = styled.img`
   height: auto;
   object-fit: cover;
   border-radius: 0.5em;
+`
+
+// horizontal carousel for images
+const Carousel = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`
+
+const CarouselImage = styled.img`
+  height: 80px;
+  width: auto;
+  object-fit: cover;
+  
 `
