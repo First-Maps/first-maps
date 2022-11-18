@@ -82,6 +82,10 @@ export default function Explore({ ...props }) {
         let artsResponse = await axios.get("/api/devLocationsOfInterest/arts")
         let cultResponse = await axios.get("/api/devLocationsOfInterest/culture")
 
+        let results = await axios.get("/api/devLocationsOfInterest")
+
+        console.log(results.data)
+        
         // get the data from the response
         let histData = histResponse.data.Results
         let langData = langResponse.data.Results
@@ -99,7 +103,6 @@ export default function Explore({ ...props }) {
         setArts(artsData)
         setCulture(cultData)
 
-        // console.log(history, language, arts, culture)
       } catch (error) {
         console.error(error)
         if (axios.isCancel(error)) {

@@ -12,35 +12,36 @@ import ItemBox from '../../../components/ItemBox/ItemBox'
 import { Search } from '../../../components/Search/Search'
 
 
-// Styled Components
-const StyledCategorySection = styled.div`
-  min-height: 300px;
-  max-height: 300px;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  border-radius: 1.5rem;
-`
-
-const StyledLinkHeading = styled.p`
-  font-size: 1em;
-  color: #F8893C;
-`
 
 
 export default function Explore({ ...props }){
   const [categoryData, setcategoryData] = useState(false)
   let router = useRouter()
   let queryStr = useRouter().query.category // get the query string from the url
-
+  
   // styled components
   // make the container centered column
   const StyledItembox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  `
+
+  // Styled Components
+  const StyledCategorySection = styled.div`
+    min-height: 300px;
+    max-height: 300px;
+    overflow-y: scroll;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    justify-content: center;
+    border-radius: 1.5rem;
+  `
+  
+  const StyledLinkHeading = styled.p`
+    font-size: 1em;
+    color: #F8893C;
   `
 
   const StyledContainer = styled.div`
@@ -61,15 +62,18 @@ export default function Explore({ ...props }){
     }
   `
 
-  const StyledLinkHeading = styled.p`
-    font-size: 1em;
-    color: #F8893C;
-  `
   
+  const StyledCategoryHeading = styled.h1`
+    font-size:  1rem;
+  `
+
+
   const handleClick = (e) => {
     // get the url of the ItemBox that was clicked
-    console.log(e.target.innerHTML)
+    const innerText = e.target.innerText // print out the inner text of the html element
+    console.log(innerText)
     
+    // redirect to the item page /explore/
     // router.push('/')
   }
 
@@ -114,9 +118,11 @@ export default function Explore({ ...props }){
         <link rel="icon" href="/map-solid.svg" />
       </Head>
       <StyledContainer>
-          <h1>
-            {queryStr}
-          </h1>
+          <StyledCategoryHeading>
+            <h1>
+              {queryStr}
+            </h1>
+          </StyledCategoryHeading>
         <StyledLinkHeading>
           {"< Back To Explore"}
         </StyledLinkHeading>
