@@ -2649,10 +2649,12 @@
     call-me-maybe "^1.0.1"
     glob-to-regexp "^0.3.0"
 
+
 "@next/env@13.0.4":
   version "13.0.4"
   resolved "https://registry.yarnpkg.com/@next/env/-/env-13.0.4.tgz#249a21be88fa61e1a712939db00b9d02764831f4"
   integrity sha512-N5Z3bdxBzoxrC5bwykDFITzdWuwDteOdZ+7nxixY+I1XpRX8/iQYbw2wuXMdqdfBGm2NNUpAqg8YF2e4oAC2UQ==
+
 
 "@next/eslint-plugin-next@12.3.1":
   version "12.3.1"
@@ -2725,6 +2727,7 @@
   version "13.0.4"
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-13.0.4.tgz#2c3ede793e90d632e1dbdb0e4851f6f32132fba8"
   integrity sha512-vXtbo9N1FdtZZRcv4BliU28tTYrkb1EnVpUiiFFe88I6kS9aZVTMY9Z/OtDR52rl1JF1hgs9sL/59D/TQqSATQ==
+
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -10106,17 +10109,24 @@ next-connect@^0.13.0:
     trouter "^3.2.0"
 
 next@^13.0.3:
+  version "13.0.3"
+  resolved "https://registry.yarnpkg.com/next/-/next-13.0.3.tgz#577e2f7cdd9c9dba79353cd57fd854fe7e506a44"
+  integrity sha512-rFQeepcenRxKzeKlh1CsmEnxsJwhIERtbUjmYnKZyDInZsU06lvaGw5DT44rlNp1Rv2MT/e9vffZ8vK+ytwXHA==
+  dependencies:
+    "@next/env" "13.0.3"
   version "13.0.4"
   resolved "https://registry.yarnpkg.com/next/-/next-13.0.4.tgz#52fc9d72df4642ed28e66f42f85137a624a98062"
   integrity sha512-4P0MvbjPCI1E/UPL1GrTXtYlgFnbBbY3JQ+AMY8jYE2SwyvCWctEJySoRjveznAHjrl6TIjuAJeB8u1c2StYUQ==
   dependencies:
     "@next/env" "13.0.4"
+
     "@swc/helpers" "0.4.11"
     caniuse-lite "^1.0.30001406"
     postcss "8.4.14"
     styled-jsx "5.1.0"
     use-sync-external-store "1.2.0"
   optionalDependencies:
+
     "@next/swc-android-arm-eabi" "13.0.4"
     "@next/swc-android-arm64" "13.0.4"
     "@next/swc-darwin-arm64" "13.0.4"
@@ -10130,6 +10140,7 @@ next@^13.0.3:
     "@next/swc-win32-arm64-msvc" "13.0.4"
     "@next/swc-win32-ia32-msvc" "13.0.4"
     "@next/swc-win32-x64-msvc" "13.0.4"
+
 
 nice-try@^1.0.4:
   version "1.0.5"

@@ -5,25 +5,79 @@ import styled from "styled-components"
 import axios from 'axios'
 import { useRouter } from 'next/router'
 
+
 // Componenets
 import { Navbar } from '../../../components/Navbar/Navbar'
 import ItemBox from '../../../components/ItemBox/ItemBox'
+import { Search } from '../../../components/Search/Search'
 
 
+// TODO: Conditional rendering of elements,  when there are no data to show, display a loading icom, and get rid of headings 
+// bonus points: skeleton load
 
 export default function Explore({ ...props }){
   const [categoryData, setcategoryData] = useState(false)
   let router = useRouter()
   let queryStr = useRouter().query.category // get the query string from the url
-
+  
   // styled components
   // make the container centered column
   const StyledItembox = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   `
+
+  // Styled Components
+  const StyledCategorySection = styled.div`
+    min-height: 300px;
+    max-height: 300px;
+    overflow-y: scroll;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 1.5rem;
+  `
+  
+  const StyledLinkHeading = styled.p`
+    font-size: 1em;
+    color: #F8893C;
+  `
+
+  const StyledContainer = styled.div`
+    max-height: calc(100vh - 60px - 60px);
+    min-height: calc(100vh - 60px - 60px);
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    padding: 1.5em;
+    background-color: #F2F2F2;
+    overflow-y: scroll;
+
+    @media (min-width: 768px) {
+      height: 100vh;
+    }
+    @media (prefers-color-scheme: dark) {
+      background-color: #1F1F1F;
+    }
+  `
+
+  
+  const StyledCategoryHeading = styled.h1`
+    font-size:  1rem;
+  `
+
+
+  const handleClick = (e) => {
+    // get the url of the ItemBox that was clicked
+    const innerText = e.target.innerText // print out the inner text of the html element
+    console.log(innerText)
+    
+    // redirect to the item page /explore/
+    // router.push('/')
+  }
+
 
 	useEffect(() => {
     const abortController = new AbortController()
@@ -64,27 +118,36 @@ export default function Explore({ ...props }){
         <title>Explore</title>
         <link rel="icon" href="/map-solid.svg" />
       </Head>
-      <h1>{queryStr}</h1>
-      
-      <StyledItembox>
-        { categoryData ? 
-          categoryData.map((categoryDataItem => {
-            return <ItemBox 
-              label={categoryDataItem.name}
-              description={categoryDataItem.description}
-              width="331.67px"
-              height="230px"
-              key={categoryDataItem._id}
-            />
-          }))
-          : <p>Loading...</p>
-        }
-      </StyledItembox>
-      
-      <Navbar
-        navPages={['Home', 'Explore', 'Contribute', 'Profile']}
-        activePage={'Explore'}
-      />
+      <StyledContainer>
+          <StyledCategoryHeading>
+            <h1>
+              {queryStr}
+            </h1>
+          </StyledCategoryHeading>
+        <StyledLinkHeading>
+          {"< Back To Explore"}
+        </StyledLinkHeading>
+        
+        <StyledItembox>
+          { categoryData ? 
+            categoryData.map((categoryDataItem => {
+              return <ItemBox 
+                label={categoryDataItem.name}
+                description={categoryDataItem.description}
+                width="331.67px"
+                height="230px"
+                key={categoryDataItem._id}
+                onClick={handleClick}
+              />
+            }))
+            : <p>Loading...</p>
+          }
+        </StyledItembox>
+      </StyledContainer>
+        <Navbar
+          navPages={['Home', 'Explore', 'Contribute', 'Profile']}
+          activePage={'Explore'}
+        />
     </div>
     )
 }

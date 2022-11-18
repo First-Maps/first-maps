@@ -81,10 +81,12 @@ export default function Profile({
         </ProfileTabs>
       </StyledContainer>
 
+
       <Navbar
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
         activePage={'Profile'}
       />
+
     </>
   )
 }

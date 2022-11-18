@@ -4,7 +4,6 @@ import { useState } from 'react'
 
 import Map from '../components/Map'
 import { SearchGroup } from '../components/Search/SearchGroup'
-
 import { Navbar } from '../components/Navbar/Navbar'
 
 const StyledMain = styled.main`
