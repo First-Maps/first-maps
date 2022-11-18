@@ -39,7 +39,7 @@ export const NavItem = ({
   ...props
 }) => {
   return (
-    <Link href={label === "Home" ? "/" : `/${label.toLowerCase()}`}>
+    <Link href={label === "Home" ? "/" : `/${label.toLowerCase()}`} legacyBehavior>
       <Anchor active={active} {...props}>
         {label === "Home" && <Home width="2em" height="2em" />}
         {label === "Explore" && <Compass width="2em" height="2em" />}

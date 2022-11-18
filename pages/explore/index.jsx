@@ -223,6 +223,7 @@ export default function Explore({ ...props }) {
         <Navbar
           navPages={['Home', 'Explore', 'Contribute', 'Profile']}
           activePage={'Explore'}
+          
         />
       </StyledNavBarSection>
     </>

@@ -40,10 +40,6 @@ export default function Explore({
         <sub>Coming soon...</sub>
       </StyledContainer>
 
-      <Navbar 
-        navPages={['Home', 'Explore', 'Contribute', 'Profile']}
-        activePage={'Profile'} 
-      />
     </>
   )
 }
