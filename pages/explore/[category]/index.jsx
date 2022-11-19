@@ -12,8 +12,15 @@ import ItemBox from '../../../components/ItemBox/ItemBox'
 import { Search } from '../../../components/Search/Search'
 
 
-// TODO: Conditional rendering of elements,  when there are no data to show, display a loading icom, and get rid of headings 
-// bonus points: skeleton load
+// todo: Conditional rendering of elements,  when there are no data to show, display a loading icom, and get rid of headings 
+// todo: (bonus) skeleton load
+
+
+// Helper functions
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 
 export default function Explore({ ...props }){
   const [categoryData, setcategoryData] = useState(false)
@@ -22,14 +29,25 @@ export default function Explore({ ...props }){
   let queryStr = useRouter().query.category // get the query string from the url
   
   // styled components
-  const StyledItembox = styled.div`
-    display: flex;
+  // const StyledItembox = styled.div`
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   justify-content: center;
+  // `
+  
+  // updated to 'extending styles' format
+  const StyledItembox = styled(ItemBox)`
+  display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   `
 
-  // Styled Components
+  const StyledCategoryHeading = styled.h2`
+    color: black;
+  `
+
   const StyledCategorySection = styled.div`
     min-height: 300px;
     max-height: 300px;
@@ -40,7 +58,7 @@ export default function Explore({ ...props }){
     border-radius: 1.5rem;
   `
   
-  const StyledLinkHeading = styled.div`
+  const StyledLinkHeading = styled.p`
     font-size: 1em;
     color: #F8893C;
   `
@@ -61,8 +79,6 @@ export default function Explore({ ...props }){
     @media (prefers-color-scheme: dark) {
       background-color: #1F1F1F;
     }
-
-
   `
 
  
@@ -72,7 +88,7 @@ export default function Explore({ ...props }){
     const innerText = e.target.innerText // print out the inner text of the html element
     console.log(innerText)
     
-    // redirect to the item page /explore/
+    // todo: redirect to the item page /explore/pageName
     // router.push('/')
   }
 
@@ -117,15 +133,15 @@ export default function Explore({ ...props }){
         <link rel="icon" href="/map-solid.svg" />
       </Head>
       <StyledContainer>
-      
+        <StyledCategoryHeading>
+          {capitalizeFirstLetter(queryStr)}
+        </StyledCategoryHeading>
         <StyledLinkHeading>
           {"< Back To Explore"}
         </StyledLinkHeading>
-        
-        <StyledItembox>
           { categoryData ? 
             categoryData.map((categoryDataItem => {
-              return <ItemBox 
+              return <StyledItembox 
                 label={categoryDataItem.name}
                 description={categoryDataItem.description}
                 width="331.67px"
@@ -136,7 +152,6 @@ export default function Explore({ ...props }){
             }))
             : <p>Loading...</p>
           }
-        </StyledItembox>
       </StyledContainer>
         <Navbar
           navPages={['Home', 'Explore', 'Contribute', 'Profile']}
