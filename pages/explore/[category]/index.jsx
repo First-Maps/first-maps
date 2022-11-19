@@ -17,6 +17,7 @@ import { Search } from '../../../components/Search/Search'
 
 export default function Explore({ ...props }){
   const [categoryData, setcategoryData] = useState(false)
+  
   let router = useRouter()
   let queryStr = useRouter().query.category // get the query string from the url
   
