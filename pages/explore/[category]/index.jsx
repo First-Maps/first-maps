@@ -23,10 +23,10 @@ export default function Explore({ ...props }){
   
   // styled components
   const StyledItembox = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   `
 
   // Styled Components
@@ -61,6 +61,8 @@ export default function Explore({ ...props }){
     @media (prefers-color-scheme: dark) {
       background-color: #1F1F1F;
     }
+
+
   `
 
  
