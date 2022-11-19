@@ -22,7 +22,6 @@ export default function Explore({ ...props }){
   let queryStr = useRouter().query.category // get the query string from the url
   
   // styled components
-  // make the container centered column
   const StyledItembox = styled.div`
   display: flex;
   flex-direction: column;
@@ -84,7 +83,7 @@ export default function Explore({ ...props }){
       return
     }
 
-    // if the query string is empty is not 'arts', 'history', 'language', or 'culture', redirect to the explore page
+    // if the query string is empty or is not 'arts', 'history', 'language', or 'culture', redirect to the explore page
     if (queryStr == undefined || (queryStr != 'arts' && queryStr != 'history' && queryStr != 'language' && queryStr != 'culture')) {
       router.push('/explore')
     }
