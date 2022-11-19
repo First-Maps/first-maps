@@ -40,7 +40,7 @@ export default function Explore({ ...props }){
     border-radius: 1.5rem;
   `
   
-  const StyledLinkHeading = styled.p`
+  const StyledLinkHeading = styled.div`
     font-size: 1em;
     color: #F8893C;
   `
@@ -63,11 +63,7 @@ export default function Explore({ ...props }){
     }
   `
 
-  
-  const StyledCategoryHeading = styled.h1`
-    font-size:  1rem;
-  `
-
+ 
 
   const handleClick = (e) => {
     // get the url of the ItemBox that was clicked
@@ -119,11 +115,7 @@ export default function Explore({ ...props }){
         <link rel="icon" href="/map-solid.svg" />
       </Head>
       <StyledContainer>
-          <StyledCategoryHeading>
-            <h1>
-              {queryStr}
-            </h1>
-          </StyledCategoryHeading>
+      
         <StyledLinkHeading>
           {"< Back To Explore"}
         </StyledLinkHeading>

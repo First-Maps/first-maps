@@ -53,7 +53,7 @@ const StyledItemBox = styled.div`
   margin: 0 1em;
 `
 
-const StyledLinkHeading = styled.p`
+const StyledLinkHeading = styled.div`
   font-size: 1em;
   color: #F8893C;
 `
