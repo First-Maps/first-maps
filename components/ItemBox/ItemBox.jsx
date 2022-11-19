@@ -11,7 +11,9 @@ const LangText = styled.p`
   font-family: sans-serif;
   margin: 0;
 `
-// make text in middle 
+
+
+// make text centered, make photo cover the itembox
 const BubbleBox = styled.div`
   background-image: linear-gradient(to bottom, grey, transparent), url("https://d3d0lqu00lnqvz.cloudfront.net/media/media/thumbnails/41a929c8-9efb-45c7-99a3-bf0ea227c3dd.jpg");
   border-radius: 18px;
@@ -21,6 +23,7 @@ const BubbleBox = styled.div`
   min-width: ${props => props.width};
   min-height: ${props => props.height};
   filter: drop-shadow(5px 5px 10px rgba(248, 137, 60, 0.4));
+  background-size: cover;
 `
 
 export default function ItemBox({
@@ -30,11 +33,11 @@ export default function ItemBox({
   margb='1.5em',
   margy='0',
   onClick=()=>{},
-
+  category={category}
 }){
   const [show, setShow] = useState(true)
   return (
-        <BubbleBox margb={margb} margy={margy} onClick={onClick} width={width} height={height}>
+        <BubbleBox margb={margb} margy={margy} onClick={onClick} width={width} height={height} category={category}>
           <LangText>{label}</LangText>
         </BubbleBox>
   )

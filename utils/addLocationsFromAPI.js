@@ -110,6 +110,10 @@ export default async function seed(){
       let descriptions = nativeIpsum[category] // array of descriptions from the randomly generated category, from /utils/nativeIpsum.js
       let description = descriptions[Math.floor(Math.random() * descriptions.length)] // select a random description
 
+      // sanitize the name
+      let sanitizedName = name.replace(/[^A-Z0-9]/ig, "");
+      console.log(sanitizedName)
+
       // if description length greater than 500 characters, truncate it. 
       if (description.length > 500){
         description = description.substring(0, 500)

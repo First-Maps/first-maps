@@ -5,10 +5,12 @@ import styled from "styled-components"
 import axios from 'axios'
 import Link from 'next/link'
 
-// components, some loaded from old file. take out all of the ones you dont' use
+// Components, some loaded from old file. take out all of the ones you dont' use
 import { Navbar } from '../../components/Navbar/Navbar'
 import ItemBox from '../../components/ItemBox/ItemBox'
 import { Search } from '../../components/Search/Search'
+import router from 'next/router'
+
 
 // Styled Components
 const StyledCategorySection = styled.div`
@@ -66,10 +68,6 @@ const StyledCategoryHeading = styled.div`
   
 `
 
-// TODO: add links to the posts
-
-
-
 export default function Explore({ ...props }) {
   const [history, setHistory] = useState([])
   const [language, setLanguage] = useState([])
@@ -83,32 +81,40 @@ export default function Explore({ ...props }) {
   useEffect(() => {
     (async () => {
       try {
-        // TODO: Make this a single request to the server
-        let histResponse = await axios.get("/api/devLocationsOfInterest/history")
-        let langResponse = await axios.get("/api/devLocationsOfInterest/language")
-        let artsResponse = await axios.get("/api/devLocationsOfInterest/arts")
-        let cultResponse = await axios.get("/api/devLocationsOfInterest/culture")
+        // array used to store data from given category
+        let histArray = []
+        let langArray = []
+        let artsArray = []
+        let cultArray = []
         
-        let results = await axios.get("/api/devLocationsOfInterest")
+        // fetch data from all categories
+        let response = await axios.get("/api/devLocationsOfInterest")
+        let results = response.data.results
+
+        // loop through results and push to appropriate array        
+        for(let result of results){
+          
+          // if there are 10 of each category, break out of loop
+          if(histArray.length >= 10 && langArray.length >= 10 && artsArray.length >= 10 && cultArray.length >= 10){
+            break
+          }
+
+          if(result.category === "history"){
+            histArray.push(result)
+          } else if(result.category === "language"){
+            langArray.push(result)
+          } else if(result.category === "arts"){
+            artsArray.push(result)
+          } else if(result.category === "culture"){
+            cultArray.push(result)
+          }
+        }
         
-        console.log(results.data)
-        
-        // get the data from the response
-        let histData = histResponse.data.Results
-        let langData = langResponse.data.Results
-        let artsData = artsResponse.data.Results
-        let cultData = cultResponse.data.Results
-        
-        // concate data to 10 items
-        histData = histData.slice(0, 10)
-        langData = langData.slice(0, 10)
-        artsData = artsData.slice(0, 10)
-        cultData = cultData.slice(0, 10)
-        
-        setHistory(histData)
-        setLanguage(langData)
-        setArts(artsData)
-        setCulture(cultData)
+        // set state for each category
+        setHistory(histArray)
+        setLanguage(langArray)
+        setArts(artsArray)
+        setCulture(cultArray)
         
       } catch (error) {
         console.error(error)
@@ -126,8 +132,8 @@ export default function Explore({ ...props }) {
     const innerText = e.target.innerText // print out the inner text of the html element
     console.log(innerText)
     
-    // todo: redirect to the item page /explore/pageName
-    // router.push('/')
+    // TODO: redirect to the item page /explore/pageName
+    router.push(`/explore/${innerText}`)
   }
   
   return (
@@ -136,9 +142,9 @@ export default function Explore({ ...props }) {
         <title>Explore</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <StyledContainer>
         <Search />
+
         <h1>History</h1> 
         <StyledLinkHeading>
           <Link href="/explore/history">
@@ -146,7 +152,7 @@ export default function Explore({ ...props }) {
           </Link>
         </StyledLinkHeading>    
         <StyledCategorySection>
-          {history ?
+          { history ?
             history.map((historyItem => {
               return <ItemBox
               label={historyItem.name}
@@ -156,6 +162,7 @@ export default function Explore({ ...props }) {
               margy="1em"
               key={historyItem._id}
               onClick={handleClick}
+              category="history"
             />
             }))
             : "null"
@@ -179,6 +186,7 @@ export default function Explore({ ...props }) {
               margy="1em"
               key={languagItem._id}
               onClick={handleClick}
+              category="language"
             />
             }))
             : null
@@ -202,6 +210,7 @@ export default function Explore({ ...props }) {
               margy="1em"
               key={artsItem._id}
               onClick={handleClick}
+              category="arts"
             />
             }))
             : null
@@ -225,6 +234,7 @@ export default function Explore({ ...props }) {
               margy="1em"
               key={artsItem._id}
               onClick={handleClick}
+              category="culture"
             />
             }))
             : null

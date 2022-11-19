@@ -17,10 +17,6 @@ import { Search } from '../../../components/Search/Search'
 // todo: (bonus) skeleton load
 
 
-// Helper functions
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
-}
 
 
 export default function Explore({ ...props }){
@@ -29,17 +25,14 @@ export default function Explore({ ...props }){
   let router = useRouter()
   let queryStr = useRouter().query.category // get the query string from the url
   
-  // STYLED COMPONENTS
+  
+  // STYLED COMPONENTS  
   // updated to 'extending styles' format
   const StyledItembox = styled(ItemBox)`
   display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  `
-
-  const StyledCategoryHeading = styled.h2`
-    color: black;
   `
 
   const StyledCategorySection = styled.div`
@@ -51,6 +44,11 @@ export default function Explore({ ...props }){
     align-items: center;
     border-radius: 1.5rem;
   `
+
+  const StyledCategoryHeading = styled.h2`
+    color: black;
+  `
+
   
   const StyledLinkHeading = styled.p`
     font-size: 1em;
@@ -98,6 +96,7 @@ export default function Explore({ ...props }){
     if (queryStr == undefined || (queryStr != 'arts' && queryStr != 'history' && queryStr != 'language' && queryStr != 'culture')) {
       router.push('/explore')
     }
+
     // fetch data for the category, after the query string is defined, then set the state
     ;(async () => {
       try {
@@ -126,12 +125,10 @@ export default function Explore({ ...props }){
       </Head>
       <StyledContainer>
         <StyledCategoryHeading>
-          {capitalizeFirstLetter(queryStr)}
+          { queryStr }
         </StyledCategoryHeading>
         <StyledLinkHeading>
-          <Link href="/explore">
-            <p>{"< Back to Explore"}</p>
-          </Link>
+         <Link href="/explore">...back to explore</Link>
         </StyledLinkHeading>
           { categoryData ? 
             categoryData.map((categoryDataItem => {
