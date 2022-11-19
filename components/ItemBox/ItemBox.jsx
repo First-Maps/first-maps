@@ -16,9 +16,10 @@ const BubbleBox = styled.div`
   background-image: linear-gradient(to bottom, grey, transparent), url("https://d3d0lqu00lnqvz.cloudfront.net/media/media/thumbnails/41a929c8-9efb-45c7-99a3-bf0ea227c3dd.jpg");
   border-radius: 18px;
   cursor: pointer;
-  margin-bottom:${props=>props.margb};
-  width:${props=>props.wid};
-  height:${props=>props.hei};
+  margin-bottom: ${props => props.margb};
+  margin-left: ${props => props.margy};
+  min-width: ${props => props.width};
+  min-height: ${props => props.height};
   filter: drop-shadow(5px 5px 10px rgba(248, 137, 60, 0.4));
 `
 
@@ -27,12 +28,13 @@ export default function ItemBox({
   width='115px',
   height='137px',
   margb='1.5em',
+  margy='0',
   onClick=()=>{},
 
 }){
   const [show, setShow] = useState(true)
   return (
-        <BubbleBox margb={margb} onClick={onClick} wid={width} hei={height}>
+        <BubbleBox margb={margb} margy={margy} onClick={onClick} width={width} height={height}>
           <LangText>{label}</LangText>
         </BubbleBox>
   )

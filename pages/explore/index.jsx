@@ -53,7 +53,7 @@ const StyledItemBox = styled.div`
   margin: 0 1em;
 `
 
-const StyledLinkHeading = styled.p`
+const StyledLinkHeading = styled.div`
   font-size: 1em;
   color: #F8893C;
 `
@@ -135,15 +135,14 @@ export default function Explore({ ...props }) {
         <StyledCategorySection>
           {history ?
             history.map((historyItem => {
-              return <StyledItemBox>
-                <ItemBox
-                  label={historyItem.name}
-                  description={historyItem.description}
-                  width="331.67px"
-                  height="230px"
-                  key={historyItem._id}
-                />
-              </StyledItemBox>
+              return <ItemBox
+              label={historyItem.name}
+              description={historyItem.description}
+              width="330px"
+              height="230px"
+              margy="1em"
+              key={historyItem._id}
+            />
             }))
             : "null"
           }
@@ -158,15 +157,14 @@ export default function Explore({ ...props }) {
         <StyledCategorySection>
           {language ?
             language.map((languagItem => {
-              return <StyledItemBox>
-                <ItemBox
-                  label={languagItem.name}
-                  description={languagItem.description}
-                  width="331.67px"
-                  height="230px"
-                  key={languagItem._id}
-                />
-              </StyledItemBox>
+              return <ItemBox
+              label={languagItem.name}
+              description={languagItem.description}
+              width="330px"
+              height="230px"
+              margy="1em"
+              key={languagItem._id}
+            />
             }))
             : null
           }
@@ -181,15 +179,14 @@ export default function Explore({ ...props }) {
         <StyledCategorySection>
           {arts ?
             arts.map((artsItem => {
-              return <StyledItemBox>
-                <ItemBox
-                  label={artsItem.name}
-                  description={artsItem.description}
-                  width="331.67px"
-                  height="230px"
-                  key={artsItem._id}
-                />
-              </StyledItemBox>
+              return <ItemBox
+              label={artsItem.name}
+              description={artsItem.description}
+              width="330px"
+              height="230px"
+              margy="1em"
+              key={artsItem._id}
+            />
             }))
             : null
           }
@@ -204,15 +201,14 @@ export default function Explore({ ...props }) {
         <StyledCategorySection>
           {culture ?
             culture.map((artsItem => {
-              return <StyledItemBox>
-                <ItemBox
-                  label={artsItem.name}
-                  description={artsItem.description}
-                  width="331.67px"
-                  height="230px"
-                  key={artsItem._id}
-                />
-              </StyledItemBox>
+              return <ItemBox
+              label={artsItem.name}
+              description={artsItem.description}
+              width="330px"
+              height="230px"
+              margy="1em"
+              key={artsItem._id}
+            />
             }))
             : null
           }
