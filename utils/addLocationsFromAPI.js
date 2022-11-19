@@ -10,6 +10,7 @@ dbConnect()
 
 
 /**
+ * HELPER FUNCTION
  * @param {Array} locationObj, accepts an object with information on territories, in the same
  * format returned by the native-lands API.
  * @returns {Array} returns an array of two elements, [longitude, latitude]. Representing the middle of the polygon
@@ -50,6 +51,7 @@ function findMiddleOfPolygon(locationObj) {
 
 
 /**
+ * HELPER FUNCTION
  * Checks whether given coordinates are within given bounds. 
  * By default, bounds are set to roughly outline British Columbia.
  * @param {*} coordinate in the form [longitude, latitude]
@@ -75,6 +77,7 @@ function isLocationInBounds(coordinate, north = 60.5000, south = 47.440567, east
 
 
 /**
+ * MAIN FUNCTION
  * Calls the native-lands api to get a list of locations. 
  * For each location, it calculates the middle of the territory and checks whether it is within the given bounds. 
  * If it is, it adds the location to the database.

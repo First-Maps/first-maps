@@ -21,6 +21,10 @@ const StyledCategorySection = styled.div`
   border-radius: 1.5rem;
 `
 
+const StyledSearch = styled(Search)`
+  margin-left: 1rem;
+`
+
 const StyledNavBarSection = styled.div`
   width: 100%;
   bottom: 60px;
@@ -72,6 +76,9 @@ export default function Explore({ ...props }) {
   const [arts, setArts] = useState([])
   const [culture, setCulture] = useState([])
 
+
+  
+  
   // useEffect to fetch data for languages, arts, culture and history, setState for each
   useEffect(() => {
     (async () => {
@@ -81,9 +88,9 @@ export default function Explore({ ...props }) {
         let langResponse = await axios.get("/api/devLocationsOfInterest/language")
         let artsResponse = await axios.get("/api/devLocationsOfInterest/arts")
         let cultResponse = await axios.get("/api/devLocationsOfInterest/culture")
-
+        
         let results = await axios.get("/api/devLocationsOfInterest")
-
+        
         console.log(results.data)
         
         // get the data from the response
@@ -91,18 +98,18 @@ export default function Explore({ ...props }) {
         let langData = langResponse.data.Results
         let artsData = artsResponse.data.Results
         let cultData = cultResponse.data.Results
-
+        
         // concate data to 10 items
         histData = histData.slice(0, 10)
         langData = langData.slice(0, 10)
         artsData = artsData.slice(0, 10)
         cultData = cultData.slice(0, 10)
-
+        
         setHistory(histData)
         setLanguage(langData)
         setArts(artsData)
         setCulture(cultData)
-
+        
       } catch (error) {
         console.error(error)
         if (axios.isCancel(error)) {
@@ -111,9 +118,18 @@ export default function Explore({ ...props }) {
       }
     })()
   }, [])
+  
 
-
-
+  // HANDLERS
+  const handleClick = (e) => {
+    // get the url of the ItemBox that was clicked
+    const innerText = e.target.innerText // print out the inner text of the html element
+    console.log(innerText)
+    
+    // todo: redirect to the item page /explore/pageName
+    // router.push('/')
+  }
+  
   return (
     <>
       <Head>
@@ -123,9 +139,6 @@ export default function Explore({ ...props }) {
 
       <StyledContainer>
         <Search />
-        <StyledLinkHeading>
-          <a href="">{"< Back to Explore"}</a>
-        </StyledLinkHeading>
         <h1>History</h1> 
         <StyledLinkHeading>
           <Link href="/explore/history">
@@ -142,6 +155,7 @@ export default function Explore({ ...props }) {
               height="230px"
               margy="1em"
               key={historyItem._id}
+              onClick={handleClick}
             />
             }))
             : "null"
@@ -164,6 +178,7 @@ export default function Explore({ ...props }) {
               height="230px"
               margy="1em"
               key={languagItem._id}
+              onClick={handleClick}
             />
             }))
             : null
@@ -186,6 +201,7 @@ export default function Explore({ ...props }) {
               height="230px"
               margy="1em"
               key={artsItem._id}
+              onClick={handleClick}
             />
             }))
             : null
@@ -208,6 +224,7 @@ export default function Explore({ ...props }) {
               height="230px"
               margy="1em"
               key={artsItem._id}
+              onClick={handleClick}
             />
             }))
             : null
@@ -219,7 +236,6 @@ export default function Explore({ ...props }) {
         <Navbar
           navPages={['Home', 'Explore', 'Contribute', 'Profile']}
           activePage={'Explore'}
-          
         />
       </StyledNavBarSection>
     </>

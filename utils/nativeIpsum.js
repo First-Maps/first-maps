@@ -97,6 +97,4 @@ let nativeIpsum = {
 }
 
 
-
-// export nativeIpsum
 export default nativeIpsum

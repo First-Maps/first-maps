@@ -4,6 +4,7 @@ import Head from 'next/head'
 import styled from "styled-components"
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 
 // Componenets
@@ -28,14 +29,7 @@ export default function Explore({ ...props }){
   let router = useRouter()
   let queryStr = useRouter().query.category // get the query string from the url
   
-  // styled components
-  // const StyledItembox = styled.div`
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
-  //   justify-content: center;
-  // `
-  
+  // STYLED COMPONENTS
   // updated to 'extending styles' format
   const StyledItembox = styled(ItemBox)`
   display: flex;
@@ -92,7 +86,7 @@ export default function Explore({ ...props }){
     // router.push('/')
   }
 
-
+  // get the data from the api
 	useEffect(() => {
     const abortController = new AbortController()
 
@@ -100,12 +94,10 @@ export default function Explore({ ...props }){
     if(!router.isReady){
       return
     }
-
     // if the query string is empty or is not 'arts', 'history', 'language', or 'culture', redirect to the explore page
     if (queryStr == undefined || (queryStr != 'arts' && queryStr != 'history' && queryStr != 'language' && queryStr != 'culture')) {
       router.push('/explore')
     }
-
     // fetch data for the category, after the query string is defined, then set the state
     ;(async () => {
       try {
@@ -137,7 +129,9 @@ export default function Explore({ ...props }){
           {capitalizeFirstLetter(queryStr)}
         </StyledCategoryHeading>
         <StyledLinkHeading>
-          {"< Back To Explore"}
+          <Link href="/explore">
+            <p>{"< Back to Explore"}</p>
+          </Link>
         </StyledLinkHeading>
           { categoryData ? 
             categoryData.map((categoryDataItem => {
