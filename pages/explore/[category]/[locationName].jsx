@@ -18,16 +18,16 @@ export default function ExploreLocation() {
   const [images, setImages] = useState(null)
 
   function handleImageClick(e) {
-    setImages(images.map((image, index) => {
-      if (index === e.target._id) {
+    setImages(images.map((image) => {
+      if (image.name === e.target.name) {
         return {
+          ...image,
           selected: true,
-          ...image
         }
       } else {
         return {
+          ...image,
           selected: false,
-          ...image
         }
       }
     }))
@@ -37,7 +37,6 @@ export default function ExploreLocation() {
     (async () => {
       const res = await axios.get(`/api/devLocationsOfInterest/catname/${category}/${locationName}`)
       const location = res.data.location
-      console.log('location', location)
       setLocation(location)
       if (location.images && location.images.length > 0) {
         setImages(location.images.map((image, index) => {
@@ -52,6 +51,39 @@ export default function ExploreLocation() {
             ...image
           }
         }))
+      } else {
+        setImages([
+          {
+            selected: true,
+            imageLink: '/placeholder.jpg',
+            name: '1',
+            _id: '1'
+          },
+          {
+            selected: false,
+            imageLink: '/placeholder02.jpg',
+            name: '2',
+            _id: '2'
+          },
+          {
+            selected: false,
+            imageLink: '/placeholder03.jpg',
+            name: '3',
+            _id: '3'
+          },
+          {
+            selected: false,
+            imageLink: '/placeholder04.jpg',
+            name: '4',
+            _id: '4'
+          },
+          {
+            selected: false,
+            imageLink: '/placeholder05.jpg',
+            name: '5',
+            _id: '5'
+          },
+        ])
       }
     })()
   }, [])
@@ -78,22 +110,32 @@ export default function ExploreLocation() {
         <Heading>{locationName}</Heading>
         <CategoryPara>{category}</CategoryPara>
 
-        {location && (!location.images || location.images.length === 0) &&
+        {images && images.length > 0 && (
           <div>
-            <ImagePlaceholder 
-              src='/placeholder.jpg'
+            <SelectedImage 
+              src={images.find(image => image.selected).imageLink}
             />
-          </div>
-        }
-
-        {location && location.images && location.images.length > 0 && (
-          <div>
-            <FullWidthImage src={location.images[0].imageLink} />
+          
+            <Carousel>
+              {images.map((image, index) => {
+                return (
+                  <CarouselImage
+                    key={index}
+                    src={image.imageLink}
+                    name={image.name}
+                    selected={image.selected}
+                    onClick={handleImageClick}
+                  />
+                )
+              })}
+            </Carousel>
           </div>
         )}
 
         {location && location.description && (
-          <p>{location.description}</p>
+          <DescriptionDiv>
+            <p>{location.description}</p>
+          </DescriptionDiv>
         )}
 
       </StyledContainer>
@@ -108,8 +150,8 @@ export default function ExploreLocation() {
 
 
 const StyledContainer = styled.div`
-  max-height: calc(100vh - 60px - 60px);
-  min-height: calc(100vh - 60px - 60px);
+  max-height: calc(100vh - 60px - 58px);
+  min-height: calc(100vh - 60px - 58px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -118,7 +160,11 @@ const StyledContainer = styled.div`
   overflow-y: scroll;
 
   @media (min-width: 768px) {
-    height: 100vh;
+    min-height: 100vh;
+    max-height: 100vh;
+    padding-bottom: 75px;
+    scrollbar-width: none;
+    padding: 2em;
   }
 
   @media (prefers-color-scheme: dark) {
@@ -141,22 +187,24 @@ const CategoryPara = styled.p`
   margin-top: 0;
 `
 
+const DescriptionDiv = styled.div`
+  @media (min-width: 768px) {
+    max-width: 800px;
+
+`
+
 const Heading = styled.h1`
   margin-bottom: 0;
 `
 
-const ImagePlaceholder = styled.img`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 0.5em;
-`
-
-const FullWidthImage = styled.img`
+const SelectedImage = styled.img`
   width: 100%;
   height: auto;
   object-fit: cover;
   border-radius: 0.5em;
+
+  @media (min-width: 768px) {
+    width: 256px;
 `
 
 // horizontal carousel for images
@@ -171,6 +219,7 @@ const Carousel = styled.div`
   -webkit-overflow-scrolling: touch;
   -ms-overflow-style: none;
   scrollbar-width: none;
+  margin-top: 0.5em;
   
   &::-webkit-scrollbar {
     display: none;
@@ -181,5 +230,7 @@ const CarouselImage = styled.img`
   height: 80px;
   width: auto;
   object-fit: cover;
-  
+  margin-right: 1em;
+  border-radius: 0.5em;
+  filter: ${props => props.selected ? 'brightness(100%)' : 'brightness(55%) grayscale(50%)'};
 `
