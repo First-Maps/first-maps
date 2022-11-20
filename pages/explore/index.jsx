@@ -4,12 +4,13 @@ import Head from 'next/head'
 import styled from "styled-components"
 import axios from 'axios'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 // Components, some loaded from old file. take out all of the ones you dont' use
 import { Navbar } from '../../components/Navbar/Navbar'
 import ItemBox from '../../components/ItemBox/ItemBox'
 import { Search } from '../../components/Search/Search'
-import router from 'next/router'
+
 
 
 // Styled Components
@@ -75,6 +76,8 @@ export default function Explore({ ...props }) {
   const [culture, setCulture] = useState([])
 
 
+  let router = useRouter()
+  
   
   
   // useEffect to fetch data for languages, arts, culture and history, setState for each
@@ -132,12 +135,17 @@ export default function Explore({ ...props }) {
     const innerText = e.target.innerText // print out the inner text of the html element
     
     // replace spaces with underscore
-    let s = innerText.replace(/\s/g, '_')
-    console.log(s)
+    // let locationNameFormatted = innerText.replace(/\s/g, '_')
 
+
+    console.log(e.target)
+
+    // console.log(`/explore/${queryStr}/${locationNameFormatted}`)
+    
+    
 
     // TODO: redirect to the item page /explore/pageName
-    router.push(`/explore/${s}`)
+    // router.push(`/explore/${s}`)
   }
   
   return (

@@ -78,10 +78,11 @@ export default function Explore({ ...props }){
   const handleClick = (e) => {
     // get the url of the ItemBox that was clicked
     const innerText = e.target.innerText // print out the inner text of the html element
-    console.log(innerText)
+    console.log(`The name of the location you clicked is: ${innerText}`)
+    console.log(queryStr)
     
     // todo: redirect to the item page /explore/pageName
-    // router.push('/')
+    router.push(`/explore/${queryStr}/${innerText}`)
   }
 
   // get the data from the api
