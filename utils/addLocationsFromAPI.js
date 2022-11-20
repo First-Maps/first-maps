@@ -2,8 +2,6 @@ import axios from 'axios'
 import dbConnect from './dbConnect.js'
 import dev_LocationOfInterest from '../models/dev_LocationOfInterest.js'
 import nativeIpsum from './nativeIpsum.js'
-import seedDatabase from '../pages/api/seedDatabase/index.js'
-
 
 
 dbConnect()
@@ -11,10 +9,14 @@ dbConnect()
 
 /**
  * HELPER FUNCTION
+ * removes all of the usual symbols that may interfere with the URL.
  */
 function sanitizeStringForURL(str){
   let sanitized = str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
-  sanitized = sanitized.replace(/\s/g, '_')
+  
+  // replace spaces with underscores
+  // sanitized = sanitized.replace(/\s/g, '_') 
+
   return sanitized
 }
 
@@ -97,7 +99,6 @@ export default async function seed(){
 		// get locations of interest from API
   	let response = await axios.get("https://native-land.ca/api/index.php?maps=territories")
 	 	const locationsArray = response.data
-
     const categories = ['arts','culture','language','history'] // the 4 possible categories for a location of interest
 
   	// loop through all locations, locations are represented by a polygon
@@ -123,10 +124,6 @@ export default async function seed(){
       // sanitize the name
       let sanitizedName = sanitizeStringForURL(name)
 
-      // TODO: add field to model for sanitizedName, and add sanitizedName to the model
-      // TODO: make name with spaces, remove spaces in data fetchiing in jsx
-      console.log(sanitizedName)
-
       // if description length greater than 500 characters, truncate it. 
       if (description.length > 500){
         description = description.substring(0, 500)
@@ -134,7 +131,7 @@ export default async function seed(){
 
       // insert into database
       await dev_LocationOfInterest.create({ 
-        name, 
+        name: sanitizedName, 
         coordinates, 
         category, 
         description 

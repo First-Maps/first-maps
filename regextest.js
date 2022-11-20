@@ -135,10 +135,3 @@ for(let s of res){
     let sani = sanitizeStringForURL(s)
     console.log(sani)
 }
-
-// var outString = sourceString.
-// replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '');
-
-// console.log(outString);
-
-
