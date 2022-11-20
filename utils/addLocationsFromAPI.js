@@ -11,6 +11,16 @@ dbConnect()
 
 /**
  * HELPER FUNCTION
+ */
+function sanitizeStringForURL(str){
+  let sanitized = str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
+  sanitized = sanitized.replace(/\s/g, '_')
+  return sanitized
+}
+
+
+/**
+ * HELPER FUNCTION
  * @param {Array} locationObj, accepts an object with information on territories, in the same
  * format returned by the native-lands API.
  * @returns {Array} returns an array of two elements, [longitude, latitude]. Representing the middle of the polygon
@@ -111,7 +121,10 @@ export default async function seed(){
       let description = descriptions[Math.floor(Math.random() * descriptions.length)] // select a random description
 
       // sanitize the name
-      let sanitizedName = name.replace(/[^A-Z0-9]/ig, "");
+      let sanitizedName = sanitizeStringForURL(name)
+
+      // TODO: add field to model for sanitizedName, and add sanitizedName to the model
+      // TODO: make name with spaces, remove spaces in data fetchiing in jsx
       console.log(sanitizedName)
 
       // if description length greater than 500 characters, truncate it. 

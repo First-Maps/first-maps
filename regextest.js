@@ -119,7 +119,8 @@ let res = [
     `Nadu&#8/217;en`
 ]
 
-
+// TODO: two versions, one leaves the space where it is (for the title), 
+// TODO: other replaces it with underscore, for the URL
 
 function sanitizeStringForURL(str){
     let sanitized = str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
