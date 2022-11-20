@@ -31,8 +31,8 @@ const StyledNavBarSection = styled.div`
 `
 
 const StyledContainer = styled.div`
-  max-height: calc(100vh - 60px - 60px);
-  min-height: calc(100vh - 60px - 60px);
+  max-height: calc(100vh - 60px - 58px);
+  min-height: calc(100vh - 60px - 58px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -40,7 +40,8 @@ const StyledContainer = styled.div`
   background-color: #F2F2F2;
   overflow-y: scroll;
   @media (min-width: 768px) {
-    height: 100vh;
+    min-height: 100vh;
+    padding-bottom: 75px;
   }
   @media (prefers-color-scheme: dark) {
     background-color: #1F1F1F;
@@ -48,7 +49,7 @@ const StyledContainer = styled.div`
 `
 
 const StyledItemBox = styled.div`
-  width: 331.67px;
+  width: 330px;
   height: 230px;
   margin: 0 1em;
 `

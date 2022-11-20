@@ -7,7 +7,8 @@ import { Navbar } from '../components/Navbar/Navbar'
 import ContributeForm from '../components/ContributeForm'
 
 const StyledContainer = styled.div`
-  max-height: calc(100vh - 60px - 60px);
+  max-height: calc(100vh - 60px - 58px);
+  min-height: calc(100vh - 60px - 58px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -16,7 +17,8 @@ const StyledContainer = styled.div`
   overflow-y: scroll;
 
   @media (min-width: 768px) {
-    height: 100vh;
+    min-height: 100vh;
+    padding-bottom: 75px;
   }
 
   @media (prefers-color-scheme: dark) {

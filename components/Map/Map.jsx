@@ -15,7 +15,7 @@ import Button from '../Button'
 const MyMapContainer = styled(MapContainer)`
   &[style] {
     min-width: 100%;
-    min-height: ${props => props.fullSize ? "calc(100% - 60px - 60px)" : "calc(40vh - 60px)"
+    min-height: ${props => props.fullSize ? "calc(100% - 60px - 58px)" : "calc(40vh - 60px)"
   };
     @media (min-width: 768px) {
       min-height: ${props => props.fullSize ? "100vh" : "50vh"};
@@ -70,6 +70,19 @@ const FeaturedImageDiv = styled.div`
   width: 100%;
   height: 100%;
   margin: 0.5em 0;
+`
+
+const PopupButtonDiv = styled.div`
+  margin: 1.5em 0 2em 0;
+`
+
+const PopupButton = styled.a`
+  border-radius: 2em;
+  padding: 0.75em 1em;
+  border: 0;
+  background-image: linear-gradient(to right, #878787 0%, #333 100%);
+  min-width: 6em;
+  color: white !important;
 `
 
 export default function Map({
@@ -206,6 +219,18 @@ export default function Map({
                 </FeaturedImageDiv>
               }
 
+              {
+                marker.images.length === 0 
+                &&
+                // just show the first image; the rest can be seen in the respective Explore page
+                <FeaturedImageDiv>
+                  <img 
+                    src='/placeholder.jpg'
+                    style={{width: "100%", height: "180px", objectFit: "cover", borderRadius: "0.5em"}}
+                  />
+                </FeaturedImageDiv>
+              }
+
               <div className="popup-text-content">
                 <p>Category: {marker.category}</p>
                 <p>Description: {marker.description}</p>
@@ -219,11 +244,11 @@ export default function Map({
                 {/* <p>Coordinates: {marker.coordinates.join(', ')}</p> */}
               </div>
 
-              <div>
+              <PopupButtonDiv>
                 <Link href={`/explore/${marker.category}/${marker.name.split(' ').join('%20')}`} passHref legacyBehavior>
-                  <Button text='Explore' small={true} arrow={false} active={false} />
+                  <PopupButton text='Explore' small={true} arrow={false} active={false}>Explore</PopupButton>
                 </Link>
-              </div>
+              </PopupButtonDiv>
             </MyPopup>
             <Tooltip>{marker.name}</Tooltip>
           </Marker>
