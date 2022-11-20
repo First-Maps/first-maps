@@ -26,6 +26,8 @@ export default async function devLocationsOfInterest (req, res) {
     case "GET":
       try {
         const locationsOfInterest = JSON.parse(JSON.stringify(await dev_LocationOfInterest.find({})))
+        
+        // Photo Storage/retrieval
         for (const location of locationsOfInterest) {
           const images = location.images
           if (images.length > 0) {
@@ -37,11 +39,6 @@ export default async function devLocationsOfInterest (req, res) {
               image.imageLink = await getSignedUrl(s3, command, { expiresIn: 7200 })
             }
           }
-        }
-
-        // get names for regex testing, delete this later TODO: delete
-        for(let location of locationsOfInterest){
-          console.log(location.name)
         }
 
         res.status(200).json({ success: true, results: locationsOfInterest })

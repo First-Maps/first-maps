@@ -130,10 +130,14 @@ export default function Explore({ ...props }) {
   const handleClick = (e) => {
     // get the url of the ItemBox that was clicked
     const innerText = e.target.innerText // print out the inner text of the html element
-    console.log(innerText)
     
+    // replace spaces with underscore
+    let s = innerText.replace(/\s/g, '_')
+    console.log(s)
+
+
     // TODO: redirect to the item page /explore/pageName
-    router.push(`/explore/${innerText}`)
+    router.push(`/explore/${s}`)
   }
   
   return (
@@ -155,6 +159,7 @@ export default function Explore({ ...props }) {
           { history ?
             history.map((historyItem => {
               return <ItemBox
+
               label={historyItem.name}
               description={historyItem.description}
               width="330px"
