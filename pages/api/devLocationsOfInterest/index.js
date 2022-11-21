@@ -30,6 +30,7 @@ export default async function devLocationsOfInterest (req, res) {
         
         // Photo Storage/retrieval
         for (const location of locationsOfInterest) {
+          console.log(location.name)
           const images = location.images
           if (images.length > 0) {
             for (let image of images) {

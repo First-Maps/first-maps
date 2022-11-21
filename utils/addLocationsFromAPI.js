@@ -15,7 +15,7 @@ function sanitizeStringForURL(str){
   let sanitized = str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
   
   // replace spaces with underscores
-  // sanitized = sanitized.replace(/\s/g, '_') 
+  sanitized = sanitized.replace(/\s/g, '_') 
 
   return sanitized
 }

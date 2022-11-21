@@ -130,14 +130,15 @@ export default function Explore({ ...props }) {
   
 
   // HANDLERS
-  const handleClick = (e) => {
+  const handleClick = async (e) => {
     // get the url of the ItemBox that was clicked
     const innerText = e.target.innerText // print out the inner text of the html element
     
-    // replace spaces with underscore
-    // let locationNameFormatted = innerText.replace(/\s/g, '_')
+    // get locationOfInterest data from location name
+    let response = await axios.get(`/api/devLocationsOfInterest/getLocationFromName/${innerText}`)
+    let category = response.data.results.category
     
-    // axios call to get category name from location name
+    router.push(`/explore/${category}/${innerText}`)
     
 
     // TODO: redirect to the item page /explore/pageName

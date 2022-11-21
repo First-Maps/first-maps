@@ -54,7 +54,7 @@ export default async function devLocationsOfInterestId (req, res) {
     
     // case 'DELETE':
     //   try {
-    //     // delete one location
+    // delete one location
     //     const deletedLocation = await LocationOfInterest.deleteOne({ _id: id })
 
     //     if (!deletedLocation) {
