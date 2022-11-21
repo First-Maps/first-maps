@@ -4,46 +4,89 @@ import Head from 'next/head'
 import styled from "styled-components"
 
 import { Navbar } from '../components/Navbar/Navbar'
+import ProfileHeader from '../components/ProfileHeader/ProfileHeader'
+import {useRouter} from "next/router";
 
 const StyledContainer = styled.div`
-  min-height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
+  max-height: calc(100vh - 60px - 58px);
+  min-height: calc(100vh - 60px - 58px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
   padding: 1.5em;
   background-color: #F2F2F2;
   overflow-y: scroll;
-
   @media (min-width: 768px) {
     height: 100vh;
   }
-
   @media (prefers-color-scheme: dark) {
     background-color: #1F1F1F;
   }
 `
 
-export default function Explore({
+const ProfileTabs = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: space-between;
+  width: 100%;
+  margin: 1.5em 0 0 0;
+  padding: 0;
+  
+`
+
+const ProfileTab = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 50px;
+  padding: 0 1em;
+  border-radius: 10px;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #E5E5E5;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:hover {
+      background-color: #2F2F2F;
+    }
+  }
+`
+
+export default function Profile({
   ...props
 }) {
+
+  const router = useRouter(); //get a router obj from library after u imported, includes routing stuff like going to new pages
+
   return (
     <>
       <Head>
-        <title>Explore | First Maps</title>
-        <meta name="description" content="First Maps: Explore" />
+        <title>Profile | First Maps</title>
+        <meta name="description" content="First Maps: Profile" />
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
 
       <StyledContainer>
-        <h1>Profile</h1>
-        <sub>Coming soon...</sub>
+        <ProfileHeader 
+          profilePicture="/profile-picture.png" // temporary
+          profileName="Ana Williams"// temporary
+        />
+        <ProfileTabs>
+          <ProfileTab onClick={() => router.push('/RecentlyViewed')}>Recently Viewed</ProfileTab>
+          <ProfileTab onClick={() => router.push('/MyContributions')}>My Contributions</ProfileTab>
+          <ProfileTab onClick={() => router.push('/FAQ')}>FAQ</ProfileTab>
+          <ProfileTab onClick={() => router.push('/Help')}>Help</ProfileTab>
+        </ProfileTabs>
       </StyledContainer>
 
-      <Navbar 
+      <Navbar
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
-        activePage={'Profile'} 
+        activePage={'Profile'}
       />
+
     </>
   )
 }

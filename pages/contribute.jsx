@@ -4,7 +4,7 @@ import Head from 'next/head'
 import styled from "styled-components"
 
 import {useRouter} from "next/router";
-import router from 'next/router'
+// import router from 'next/router';
 
 import { Navbar } from '../components/Navbar/Navbar'
 import ContributeForm from '../components/ContributeForm'
@@ -19,7 +19,7 @@ import VideoPlayer from '../components/VideoPlayer'
 import Button from '../components/Button'
 import MiniButton from '../components/Button'
 
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 const StyledContainer = styled.div` 
   min-height: calc(100vh - 60px);
