@@ -4,11 +4,14 @@ import Head from 'next/head'
 import styled from "styled-components"
 import axios from 'axios'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-// components, some loaded from old file. take out all of the ones you dont' use
+// Components, some loaded from old file. take out all of the ones you dont' use
 import { Navbar } from '../../components/Navbar/Navbar'
 import ItemBox from '../../components/ItemBox/ItemBox'
 import { Search } from '../../components/Search/Search'
+
+
 
 // Styled Components
 const StyledCategorySection = styled.div`
@@ -19,6 +22,10 @@ const StyledCategorySection = styled.div`
   flex-direction: row;
   align-items: center;
   border-radius: 1.5rem;
+`
+
+const StyledSearch = styled(Search)`
+  margin-left: 1rem;
 `
 
 const StyledNavBarSection = styled.div`
@@ -63,47 +70,56 @@ const StyledCategoryHeading = styled.div`
   
 `
 
-// TODO: add links to the posts
-
-
-
 export default function Explore({ ...props }) {
   const [history, setHistory] = useState([])
   const [language, setLanguage] = useState([])
   const [arts, setArts] = useState([])
   const [culture, setCulture] = useState([])
 
+
+  let router = useRouter()
+  
+  
+  
   // useEffect to fetch data for languages, arts, culture and history, setState for each
   useEffect(() => {
     (async () => {
       try {
-        // TODO: Make this a single request to the server
-        let histResponse = await axios.get("/api/devLocationsOfInterest/history")
-        let langResponse = await axios.get("/api/devLocationsOfInterest/language")
-        let artsResponse = await axios.get("/api/devLocationsOfInterest/arts")
-        let cultResponse = await axios.get("/api/devLocationsOfInterest/culture")
-
-        let results = await axios.get("/api/devLocationsOfInterest")
-
-        console.log(results.data)
+        // array used to store data from given category
+        let histArray = []
+        let langArray = []
+        let artsArray = []
+        let cultArray = []
         
-        // get the data from the response
-        let histData = histResponse.data.Results
-        let langData = langResponse.data.Results
-        let artsData = artsResponse.data.Results
-        let cultData = cultResponse.data.Results
+        // fetch data from all categories
+        let response = await axios.get("/api/devLocationsOfInterest")
+        let results = response.data.results
 
-        // concate data to 10 items
-        histData = histData.slice(0, 10)
-        langData = langData.slice(0, 10)
-        artsData = artsData.slice(0, 10)
-        cultData = cultData.slice(0, 10)
+        // loop through results and push to appropriate array        
+        for(let result of results){
+          
+          // if there are 10 of each category, break out of loop
+          if(histArray.length >= 10 && langArray.length >= 10 && artsArray.length >= 10 && cultArray.length >= 10){
+            break
+          }
 
-        setHistory(histData)
-        setLanguage(langData)
-        setArts(artsData)
-        setCulture(cultData)
-
+          if(result.category === "history"){
+            histArray.push(result)
+          } else if(result.category === "language"){
+            langArray.push(result)
+          } else if(result.category === "arts"){
+            artsArray.push(result)
+          } else if(result.category === "culture"){
+            cultArray.push(result)
+          }
+        }
+        
+        // set state for each category
+        setHistory(histArray)
+        setLanguage(langArray)
+        setArts(artsArray)
+        setCulture(cultArray)
+        
       } catch (error) {
         console.error(error)
         if (axios.isCancel(error)) {
@@ -112,21 +128,33 @@ export default function Explore({ ...props }) {
       }
     })()
   }, [])
+  
 
+  // HANDLERS
+  const handleClick = async (e) => {
+    // get the url of the ItemBox that was clicked
+    const innerText = e.target.innerText // print out the inner text of the html element
+    
+    // get locationOfInterest data from location name
+    let response = await axios.get(`/api/devLocationsOfInterest/getLocationFromName/${innerText}`)
+    let category = response.data.results.category
+    
+    router.push(`/explore/${category}/${innerText}`)
+    
 
-
+    // TODO: redirect to the item page /explore/pageName
+    // router.push(`/explore/${s}`)
+  }
+  
   return (
     <>
       <Head>
         <title>Explore</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <StyledContainer>
         <Search />
-        <StyledLinkHeading>
-          <a href="">{"< Back to Explore"}</a>
-        </StyledLinkHeading>
+
         <h1>History</h1> 
         <StyledLinkHeading>
           <Link href="/explore/history">
@@ -134,15 +162,17 @@ export default function Explore({ ...props }) {
           </Link>
         </StyledLinkHeading>    
         <StyledCategorySection>
-          {history ?
+          { history ?
             history.map((historyItem => {
               return <ItemBox
-              label={historyItem.name}
-              description={historyItem.description}
-              width="330px"
-              height="230px"
-              margy="1em"
-              key={historyItem._id}
+                label={historyItem.name}
+                description={historyItem.description}
+                width="330px"
+                height="230px"
+                margy="1em"
+                key={historyItem._id}
+                onClick={handleClick}
+                category="history"
             />
             }))
             : "null"
@@ -159,12 +189,14 @@ export default function Explore({ ...props }) {
           {language ?
             language.map((languagItem => {
               return <ItemBox
-              label={languagItem.name}
-              description={languagItem.description}
-              width="330px"
-              height="230px"
-              margy="1em"
-              key={languagItem._id}
+                label={languagItem.name}
+                description={languagItem.description}
+                width="330px"
+                height="230px"
+                margy="1em"
+                key={languagItem._id}
+                onClick={handleClick}
+                category="language"
             />
             }))
             : null
@@ -181,13 +213,15 @@ export default function Explore({ ...props }) {
           {arts ?
             arts.map((artsItem => {
               return <ItemBox
-              label={artsItem.name}
-              description={artsItem.description}
-              width="330px"
-              height="230px"
-              margy="1em"
-              key={artsItem._id}
-            />
+                label={artsItem.name}
+                description={artsItem.description}
+                width="330px"
+                height="230px"
+                margy="1em"
+                key={artsItem._id}
+                onClick={handleClick}
+                category="arts"
+              />
             }))
             : null
           }
@@ -203,13 +237,15 @@ export default function Explore({ ...props }) {
           {culture ?
             culture.map((artsItem => {
               return <ItemBox
-              label={artsItem.name}
-              description={artsItem.description}
-              width="330px"
-              height="230px"
-              margy="1em"
-              key={artsItem._id}
-            />
+                label={artsItem.name}
+                description={artsItem.description}
+                width="330px"
+                height="230px"
+                margy="1em"
+                key={artsItem._id}
+                onClick={handleClick}
+                category="culture"
+               />
             }))
             : null
           }
@@ -220,7 +256,6 @@ export default function Explore({ ...props }) {
         <Navbar
           navPages={['Home', 'Explore', 'Contribute', 'Profile']}
           activePage={'Explore'}
-          
         />
       </StyledNavBarSection>
     </>

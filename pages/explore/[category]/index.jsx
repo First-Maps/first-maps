@@ -4,6 +4,7 @@ import Head from 'next/head'
 import styled from "styled-components"
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import Link from 'next/link'
 
 
 // Componenets
@@ -12,8 +13,6 @@ import ItemBox from '../../../components/ItemBox/ItemBox'
 import { Search } from '../../../components/Search/Search'
 
 
-// TODO: Conditional rendering of elements,  when there are no data to show, display a loading icom, and get rid of headings 
-// bonus points: skeleton load
 
 export default function Explore({ ...props }){
   const [categoryData, setcategoryData] = useState(false)
@@ -21,16 +20,16 @@ export default function Explore({ ...props }){
   let router = useRouter()
   let queryStr = useRouter().query.category // get the query string from the url
   
-  // styled components
-  // make the container centered column
-  const StyledItembox = styled.div`
+  
+  // STYLED COMPONENTS  
+  // updated to 'extending styles' format
+  const StyledItembox = styled(ItemBox)`
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   `
 
-  // Styled Components
   const StyledCategorySection = styled.div`
     min-height: 300px;
     max-height: 300px;
@@ -40,8 +39,13 @@ export default function Explore({ ...props }){
     align-items: center;
     border-radius: 1.5rem;
   `
+
+  const StyledCategoryHeading = styled.h2`
+    color: black;
+  `
+
   
-  const StyledLinkHeading = styled.div`
+  const StyledLinkHeading = styled.p`
     font-size: 1em;
     color: #F8893C;
   `
@@ -70,13 +74,14 @@ export default function Explore({ ...props }){
   const handleClick = (e) => {
     // get the url of the ItemBox that was clicked
     const innerText = e.target.innerText // print out the inner text of the html element
-    console.log(innerText)
+    console.log(`The name of the location you clicked is: ${innerText}`)
+    console.log(queryStr)
     
-    // redirect to the item page /explore/
-    // router.push('/')
+    // todo: redirect to the item page /explore/pageName
+    router.push(`/explore/${queryStr}/${innerText}`)
   }
 
-
+  // get the data from the api
 	useEffect(() => {
     const abortController = new AbortController()
 
@@ -84,8 +89,7 @@ export default function Explore({ ...props }){
     if(!router.isReady){
       return
     }
-
-    // if the query string is empty is not 'arts', 'history', 'language', or 'culture', redirect to the explore page
+    // if the query string is empty or is not 'arts', 'history', 'language', or 'culture', redirect to the explore page
     if (queryStr == undefined || (queryStr != 'arts' && queryStr != 'history' && queryStr != 'language' && queryStr != 'culture')) {
       router.push('/explore')
     }
@@ -117,15 +121,15 @@ export default function Explore({ ...props }){
         <link rel="icon" href="/map-solid.svg" />
       </Head>
       <StyledContainer>
-      
+        <StyledCategoryHeading>
+          { queryStr }
+        </StyledCategoryHeading>
         <StyledLinkHeading>
-          {"< Back To Explore"}
+         <Link href="/explore">...back to explore</Link>
         </StyledLinkHeading>
-        
-        <StyledItembox>
           { categoryData ? 
             categoryData.map((categoryDataItem => {
-              return <ItemBox 
+              return <StyledItembox 
                 label={categoryDataItem.name}
                 description={categoryDataItem.description}
                 width="330px"
@@ -136,7 +140,6 @@ export default function Explore({ ...props }){
             }))
             : <p>Loading...</p>
           }
-        </StyledItembox>
       </StyledContainer>
         <Navbar
           navPages={['Home', 'Explore', 'Contribute', 'Profile']}
