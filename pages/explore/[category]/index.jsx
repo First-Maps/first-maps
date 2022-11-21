@@ -13,11 +13,6 @@ import ItemBox from '../../../components/ItemBox/ItemBox'
 import { Search } from '../../../components/Search/Search'
 
 
-// todo: Conditional rendering of elements,  when there are no data to show, display a loading icom, and get rid of headings 
-// todo: (bonus) skeleton load
-
-
-
 
 export default function Explore({ ...props }){
   const [categoryData, setcategoryData] = useState(false)
