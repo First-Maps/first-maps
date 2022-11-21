@@ -25,6 +25,7 @@ export default async function devLocationsOfInterest (req, res) {
   switch (method) {
     case "GET":
       try {
+        // Get all locations
         const locationsOfInterest = JSON.parse(JSON.stringify(await dev_LocationOfInterest.find({})))
         
         // Photo Storage/retrieval
@@ -40,7 +41,7 @@ export default async function devLocationsOfInterest (req, res) {
             }
           }
         }
-
+        
         res.status(200).json({ success: true, results: locationsOfInterest })
       } catch (error) {
         res.status(400).json({ "error message": error.toString() })

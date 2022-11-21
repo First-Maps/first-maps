@@ -136,12 +136,8 @@ export default function Explore({ ...props }) {
     
     // replace spaces with underscore
     // let locationNameFormatted = innerText.replace(/\s/g, '_')
-
-
-    console.log(e.target)
-
-    // console.log(`/explore/${queryStr}/${locationNameFormatted}`)
     
+    // axios call to get category name from location name
     
 
     // TODO: redirect to the item page /explore/pageName
@@ -167,15 +163,14 @@ export default function Explore({ ...props }) {
           { history ?
             history.map((historyItem => {
               return <ItemBox
-
-              label={historyItem.name}
-              description={historyItem.description}
-              width="330px"
-              height="230px"
-              margy="1em"
-              key={historyItem._id}
-              onClick={handleClick}
-              category="history"
+                label={historyItem.name}
+                description={historyItem.description}
+                width="330px"
+                height="230px"
+                margy="1em"
+                key={historyItem._id}
+                onClick={handleClick}
+                category="history"
             />
             }))
             : "null"
@@ -192,14 +187,14 @@ export default function Explore({ ...props }) {
           {language ?
             language.map((languagItem => {
               return <ItemBox
-              label={languagItem.name}
-              description={languagItem.description}
-              width="330px"
-              height="230px"
-              margy="1em"
-              key={languagItem._id}
-              onClick={handleClick}
-              category="language"
+                label={languagItem.name}
+                description={languagItem.description}
+                width="330px"
+                height="230px"
+                margy="1em"
+                key={languagItem._id}
+                onClick={handleClick}
+                category="language"
             />
             }))
             : null
@@ -216,15 +211,15 @@ export default function Explore({ ...props }) {
           {arts ?
             arts.map((artsItem => {
               return <ItemBox
-              label={artsItem.name}
-              description={artsItem.description}
-              width="330px"
-              height="230px"
-              margy="1em"
-              key={artsItem._id}
-              onClick={handleClick}
-              category="arts"
-            />
+                label={artsItem.name}
+                description={artsItem.description}
+                width="330px"
+                height="230px"
+                margy="1em"
+                key={artsItem._id}
+                onClick={handleClick}
+                category="arts"
+              />
             }))
             : null
           }
@@ -240,15 +235,15 @@ export default function Explore({ ...props }) {
           {culture ?
             culture.map((artsItem => {
               return <ItemBox
-              label={artsItem.name}
-              description={artsItem.description}
-              width="330px"
-              height="230px"
-              margy="1em"
-              key={artsItem._id}
-              onClick={handleClick}
-              category="culture"
-            />
+                label={artsItem.name}
+                description={artsItem.description}
+                width="330px"
+                height="230px"
+                margy="1em"
+                key={artsItem._id}
+                onClick={handleClick}
+                category="culture"
+               />
             }))
             : null
           }
