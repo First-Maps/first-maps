@@ -37,7 +37,6 @@ export default function ExploreLocation() {
     (async () => {
       const res = await axios.get(`/api/devLocationsOfInterest/catname/${category}/${locationName}`)
       const location = res.data.location
-      console.log('location', location)
       setLocation(location)
       if (location.images && location.images.length > 0) {
         setImages(location.images.map((image, index) => {

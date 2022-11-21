@@ -6,7 +6,7 @@ export default async function getLanguageData(lat, lng) {
     const response = await axios.get(url)
   return response.data
   } catch (error) {
-    console.log('getLanguageData error', error)
+    console.error('getLanguageData error', error)
   }
   
 }
