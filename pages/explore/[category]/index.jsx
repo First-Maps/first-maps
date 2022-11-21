@@ -51,8 +51,8 @@ export default function Explore({ ...props }){
   `
 
   const StyledContainer = styled.div`
-    max-height: calc(100vh - 60px - 58px);
-    min-height: calc(100vh - 60px - 58px);
+    max-height: calc(100vh - 60px - 60px);
+    min-height: calc(100vh - 60px - 60px);
     width: 100vw;
     max-width: 100vw;
     margin: 0;
@@ -61,8 +61,7 @@ export default function Explore({ ...props }){
     overflow-y: scroll;
 
     @media (min-width: 768px) {
-      min-height: 100vh;
-      padding-bottom: 75px;
+      height: 100vh;
     }
     @media (prefers-color-scheme: dark) {
       background-color: #1F1F1F;
@@ -74,9 +73,7 @@ export default function Explore({ ...props }){
   const handleClick = (e) => {
     // get the url of the ItemBox that was clicked
     const innerText = e.target.innerText // print out the inner text of the html element
-    console.log(`The name of the location you clicked is: ${innerText}`)
-    console.log(queryStr)
-    
+
     // todo: redirect to the item page /explore/pageName
     router.push(`/explore/${queryStr}/${innerText}`)
   }
@@ -132,7 +129,7 @@ export default function Explore({ ...props }){
               return <StyledItembox 
                 label={categoryDataItem.name}
                 description={categoryDataItem.description}
-                width="330px"
+                width="331.67px"
                 height="230px"
                 key={categoryDataItem._id}
                 onClick={handleClick}
