@@ -1,6 +1,5 @@
 import { Navbar } from '../components/Navbar/Navbar'
 import Carousel from '../components/Carousel/Carousel'
-import Header from '../components/Header/Header'
 import React, { useState } from 'react'
 import Head from 'next/head'
 import styled from "styled-components"
@@ -8,6 +7,11 @@ import ExploreLanguages from '../components/ExplorePages/ExploreLanguages'
 import Bodytext from '../components/BodyText/Bodytext'
 import ItemBox from '../components/ItemBox/ItemBox'
 import VideoPlayer from '../components/VideoPlayer'
+
+import Header from '../components/Header/Header'
+import {useRouter} from "next/router";
+import router from 'next/router';
+import MiniButton from '../components/Button'
 
 const StyledContainer = styled.div`
   min-height: calc(100vh - 60px);
@@ -22,8 +26,22 @@ const StyledContainer = styled.div`
   @media (min-width: 768px) {
     height: 100vh;
   }
-  .p {
-    font-family: 'Fira Sans', sans-serif !important;
+  `
+
+  const InsideContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    margin-bottom: 174px;
+
+  * {
+    font-family: 'Fira Sans', sans-serif;
+  }
+  a {
+    color: blue;
+    text-decoration: underline;
   }
 `
 export default function Help ({
@@ -44,12 +62,29 @@ export default function Help ({
   return (
     <>
       <Head>
-        <title>Recently Viewed | First Maps</title>
-        <meta name="description" content="First Maps: Recently Viewed" />
+        <title>Help | First Maps</title>
+        <meta name="description" content="First Maps: Help" />
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
+
       <StyledContainer>
-        Coming soon
+        <Header
+          label='Contact Us'
+          text='↽ Back to Profile'
+          dir="column-reverse"
+          ali="flex-start"
+          padl="0"
+          onClick={() => router.push('/profile')}
+            />
+        <InsideContainer>
+        <h1>👋</h1>
+        <h2>Having any trouble?</h2>
+        <p>Find help here.</p>
+        <a href="firstmaps@contact.ca">firstmaps@contact.ca</a>
+        </InsideContainer>
+
+        <MiniButton text = "Go Back" onClick={() => router.push('/profile')}>
+        </MiniButton>
   
       </StyledContainer>
       <Navbar

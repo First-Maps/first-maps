@@ -6,6 +6,23 @@ import styled from "styled-components"
 import { Navbar } from '../components/Navbar/Navbar'
 import ProfileHeader from '../components/ProfileHeader/ProfileHeader'
 import {useRouter} from "next/router";
+
+const StyledOutsideContainer = styled.div`
+  width: 100vw;
+  max-width: 100vw;
+  height: 34vh;
+  margin: 0;
+  padding: 1.5em;
+  background-color: #FFFFFF;
+  position:absolute;
+  overflow:hidden;
+  z-index:0;
+  @media (prefers-color-scheme: dark) {
+    background-color: #2B2A33;
+    z-index:3;
+  }
+`
+
 const StyledContainer = styled.div`
   max-height: calc(100vh - 60px - 58px);
   min-height: calc(100vh - 60px - 58px);
@@ -15,11 +32,14 @@ const StyledContainer = styled.div`
   padding: 1.5em;
   background-color: #F2F2F2;
   overflow-y: scroll;
+  z-index:3;
   @media (min-width: 768px) {
     height: 100vh;
+    z-index:3;
   }
   @media (prefers-color-scheme: dark) {
     background-color: #1F1F1F;
+    z-index:3;
   }
 `
 const ProfileTabs = styled.div`
@@ -27,9 +47,9 @@ const ProfileTabs = styled.div`
   flex-direction: column;
   align-items: space-between;
   width: 100%;
-  margin: 1.5em 0 0 0;
+  margin: 1.1em 0 0 0;
   padding: 0;
-  
+  z-index:3;
 `
 const ProfileTab = styled.div`
   display: flex;
@@ -37,17 +57,30 @@ const ProfileTab = styled.div`
   align-items: center;
   justify-content: center;
   width: 100%;
-  height: 50px;
+  height: 80px;
   padding: 0 1em;
-  border-radius: 10px;
   cursor: pointer;
+  z-index:3;
+  background-color: #FFFFFF;
+  border-radius: 30px;
+  margin-top: 16px;
+  @media (min-width: 768px) {
+    height: 100vh;
+    z-index:3;
+  }
+  @media (prefers-color-scheme: dark) {
+    background-color: #2B2A33;
+    z-index:3;
+  }
   
   &:hover {
     background-color: #E5E5E5;
+    z-index:3;
   }
   @media (prefers-color-scheme: dark) {
     &:hover {
       background-color: #2F2F2F;
+      z-index:3;
     }
   }
 `
@@ -62,6 +95,8 @@ export default function Profile({
         <meta name="description" content="First Maps: Profile" />
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
+      <StyledOutsideContainer>
+      </StyledOutsideContainer>
       <StyledContainer>
         <ProfileHeader 
           profilePicture="/profile-picture.png" // temporary
