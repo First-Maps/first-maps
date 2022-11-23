@@ -194,6 +194,7 @@ export default function Explore({ ...props }) {
                 key={historyItem._id}
                 onClick={handleClick}
                 category="history"
+                img="/placeholder02.jpg"
             />
             }))
             : "null"
