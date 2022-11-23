@@ -109,10 +109,8 @@ export default function Explore({ ...props }){
     }
   }, [router.isReady])
 
-	
-
   return (
-  	<div>
+    <div>
       <Head>
         <title>Explore</title>
         <link rel="icon" href="/location-dot-solid.svg" />
@@ -122,7 +120,7 @@ export default function Explore({ ...props }){
           { queryStr[0].toUpperCase() + queryStr.substr(1) }
         </h1> }
         <StyledLinkHeading>
-         <Link href="/explore">...back to explore</Link>
+         <Link href="/explore">...back to Explore</Link>
         </StyledLinkHeading>
           { categoryData ? 
             categoryData.map((categoryDataItem => {
