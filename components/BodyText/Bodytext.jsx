@@ -2,10 +2,10 @@ import styled from "styled-components"
 import PropTypes from "prop-types"
 
 const Paragraph = styled.p`
-font-family: sans-serif;
-font-size: 16px;
-width: 331.67px;
-margin-top: 34px;
+    font-family: sans-serif;
+    font-size: 16px;
+    width: 331.67px;
+    margin-top: 34px;
 `;
 
 export default function BodyText({

@@ -5,21 +5,25 @@ import React, { useState } from 'react';
 
 
 const LangText = styled.p`
-padding-top: 3em;
-padding-left: 1.5em;
-color: white;
-font-family: sans-serif;
-margin: 0;
+  padding-top: 3em;
+  padding-left: 1.5em;
+  color: white;
+  font-family: sans-serif;
+  margin: 0;
 `
 
+
+// make text centered, make photo cover the itembox
 const BubbleBox = styled.div`
-background-image: linear-gradient(to bottom, grey, transparent), url(${props => props.img});
-border-radius: 18px;
-cursor: pointer;
-margin-bottom:${props=>props.margb};
-width:${props=>props.wid};
-height:${props=>props.hei};
-filter: drop-shadow(5px 5px 10px rgba(248, 137, 60, 0.4));
+  background-image: linear-gradient(to bottom, grey, transparent), url("https://d3d0lqu00lnqvz.cloudfront.net/media/media/thumbnails/41a929c8-9efb-45c7-99a3-bf0ea227c3dd.jpg");
+  border-radius: 18px;
+  cursor: pointer;
+  margin-bottom: ${props => props.margb};
+  margin-left: ${props => props.margy};
+  min-width: ${props => props.width};
+  min-height: ${props => props.height};
+  filter: drop-shadow(5px 5px 10px rgba(248, 137, 60, 0.4));
+  background-size: cover;
 `
 
 export default function ItemBox({
@@ -27,12 +31,13 @@ export default function ItemBox({
   width='115px',
   height='137px',
   margb='1.5em',
+  margy='0',
   onClick=()=>{},
-  img='https://d3d0lqu00lnqvz.cloudfront.net/media/media/thumbnails/41a929c8-9efb-45c7-99a3-bf0ea227c3dd.jpg'
+  category={category}
 }){
   const [show, setShow] = useState(true)
   return (
-        <BubbleBox margb={margb} onClick={onClick} wid={width} hei={height} img={img}>
+        <BubbleBox margb={margb} margy={margy} onClick={onClick} width={width} height={height} category={category}>
           <LangText>{label}</LangText>
         </BubbleBox>
   )

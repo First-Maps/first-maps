@@ -2,14 +2,36 @@ import axios from 'axios'
 import dbConnect from './dbConnect.js'
 import dev_LocationOfInterest from '../models/dev_LocationOfInterest.js'
 import nativeIpsum from './nativeIpsum.js'
-import seedDatabase from '../pages/api/seedDatabase/index.js'
-
 
 
 dbConnect()
 
 
 /**
+ * HELPER FUNCTION
+ * removes all of the usual symbols that may interfere with the URL.
+ */
+function sanitizeStringForURL(str){
+  //let sanitized = str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
+  
+  // replace spaces with underscores
+  //sanitized = sanitized.replace(/\s/g, '_') 
+
+  // replace html entities with actual apostrophes
+  const aposRegex = /&#8217;/g
+  const leftSingleQuotRegex = /&#8216;/g
+  const ampersandRegex = /&#038;/g
+  const slashRegex = /\//g
+  const sanitized = str.replace(aposRegex, "'")
+    .replace(leftSingleQuotRegex, "‘")
+    .replace(ampersandRegex, "and")
+    .replace(slashRegex, " or ")
+  return sanitized
+}
+
+
+/**
+ * HELPER FUNCTION
  * @param {Array} locationObj, accepts an object with information on territories, in the same
  * format returned by the native-lands API.
  * @returns {Array} returns an array of two elements, [longitude, latitude]. Representing the middle of the polygon
@@ -50,6 +72,7 @@ function findMiddleOfPolygon(locationObj) {
 
 
 /**
+ * HELPER FUNCTION
  * Checks whether given coordinates are within given bounds. 
  * By default, bounds are set to roughly outline British Columbia.
  * @param {*} coordinate in the form [longitude, latitude]
@@ -75,6 +98,7 @@ function isLocationInBounds(coordinate, north = 60.5000, south = 47.440567, east
 
 
 /**
+ * MAIN FUNCTION
  * Calls the native-lands api to get a list of locations. 
  * For each location, it calculates the middle of the territory and checks whether it is within the given bounds. 
  * If it is, it adds the location to the database.
@@ -84,7 +108,6 @@ export default async function seed(){
 		// get locations of interest from API
   	let response = await axios.get("https://native-land.ca/api/index.php?maps=territories")
 	 	const locationsArray = response.data
-
     const categories = ['arts','culture','language','history'] // the 4 possible categories for a location of interest
 
   	// loop through all locations, locations are represented by a polygon
@@ -107,6 +130,9 @@ export default async function seed(){
       let descriptions = nativeIpsum[category] // array of descriptions from the randomly generated category, from /utils/nativeIpsum.js
       let description = descriptions[Math.floor(Math.random() * descriptions.length)] // select a random description
 
+      // sanitize the name
+      let sanitizedName = sanitizeStringForURL(name)
+
       // if description length greater than 500 characters, truncate it. 
       if (description.length > 500){
         description = description.substring(0, 500)
@@ -114,7 +140,7 @@ export default async function seed(){
 
       // insert into database
       await dev_LocationOfInterest.create({ 
-        name, 
+        name: sanitizedName, 
         coordinates, 
         category, 
         description 

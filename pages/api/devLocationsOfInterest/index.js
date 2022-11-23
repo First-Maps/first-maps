@@ -25,7 +25,10 @@ export default async function devLocationsOfInterest (req, res) {
   switch (method) {
     case "GET":
       try {
+        // Get all locations
         const locationsOfInterest = JSON.parse(JSON.stringify(await dev_LocationOfInterest.find({})))
+        
+        // Photo Storage/retrieval
         for (const location of locationsOfInterest) {
           const images = location.images
           if (images.length > 0) {
@@ -38,7 +41,7 @@ export default async function devLocationsOfInterest (req, res) {
             }
           }
         }
-
+        
         res.status(200).json({ success: true, results: locationsOfInterest })
       } catch (error) {
         res.status(400).json({ "error message": error.toString() })
@@ -91,7 +94,7 @@ export default async function devLocationsOfInterest (req, res) {
           break
         }
 
-        // formatting info from req.boy so that it can be passed into the mongoose function
+        // formatting info from req.body so that it can be passed into the mongoose function
         let reqBodyObj = {
           name: req.body.name,
           description: req.body.description,
