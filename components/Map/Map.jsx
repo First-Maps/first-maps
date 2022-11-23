@@ -214,6 +214,7 @@ export default function Map({
                 <FeaturedImageDiv>
                   <img 
                     src={marker.images[0].imageLink} 
+                    alt={marker.name}
                     style={{width: "100%", height: "180px", objectFit: "cover", borderRadius: "0.5em"}}
                   />
                 </FeaturedImageDiv>
@@ -226,6 +227,7 @@ export default function Map({
                 <FeaturedImageDiv>
                   <img 
                     src='/placeholder.jpg'
+                    alt={marker.name}
                     style={{width: "100%", height: "180px", objectFit: "cover", borderRadius: "0.5em"}}
                   />
                 </FeaturedImageDiv>

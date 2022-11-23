@@ -150,7 +150,7 @@ export default function Explore({ ...props }) {
     <>
       <Head>
         <title>Explore</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
       <StyledContainer>
         <Search />

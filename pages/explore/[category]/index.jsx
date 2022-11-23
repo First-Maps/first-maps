@@ -115,12 +115,12 @@ export default function Explore({ ...props }){
   	<div>
       <Head>
         <title>Explore</title>
-        <link rel="icon" href="/map-solid.svg" />
+        <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
       <StyledContainer>
-        <StyledCategoryHeading>
-          { queryStr }
-        </StyledCategoryHeading>
+        {queryStr && <h1>
+          { queryStr[0].toUpperCase() + queryStr.substr(1) }
+        </h1> }
         <StyledLinkHeading>
          <Link href="/explore">...back to explore</Link>
         </StyledLinkHeading>

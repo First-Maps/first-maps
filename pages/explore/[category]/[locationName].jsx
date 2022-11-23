@@ -103,17 +103,20 @@ export default function ExploreLocation() {
         &nbsp;
         &#62;
         &nbsp;
-        <Link href={`/explore/${category}`}>
-          <LinkText>{category}</LinkText>
-        </Link>
+        {category && <Link href={`/explore/${category}`}>
+          <LinkText>{ category[0].toUpperCase() + category.substr(1) }</LinkText>
+        </Link> }
 
         <Heading>{locationName}</Heading>
-        <CategoryPara>{category}</CategoryPara>
+        {category && <CategoryPara>
+          { category[0].toUpperCase() + category.substr(1) }
+        </CategoryPara> }
 
         {images && images.length > 0 && (
           <div>
             <SelectedImage 
               src={images.find(image => image.selected).imageLink}
+              alt={locationName}
             />
           
             <Carousel>
@@ -125,6 +128,7 @@ export default function ExploreLocation() {
                     name={image.name}
                     selected={image.selected}
                     onClick={handleImageClick}
+                    alt={`${locationName} thumbnail`}
                   />
                 )
               })}
