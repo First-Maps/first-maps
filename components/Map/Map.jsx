@@ -179,7 +179,7 @@ export default function Map({
     <MyMapContainer
       ref={mapRef}
       center={center}
-      zoom={12}
+      zoom={10}
       scrollWheelZoom={true}
       zoomControl={false}
       fullSize={fullSize}
