@@ -96,24 +96,45 @@ export default function Explore({ ...props }) {
         let results = response.data.results
 
         // loop through results and push to appropriate array        
-        for(let result of results){
+        for (let result of results) {
           
           // if there are 10 of each category, break out of loop
-          if(histArray.length >= 10 && langArray.length >= 10 && artsArray.length >= 10 && cultArray.length >= 10){
+          if (
+            histArray.length >= 10 
+            && langArray.length >= 10 
+            && artsArray.length >= 10 
+            && cultArray.length >= 10
+          ) {
             break
           }
 
-          if(result.category === "history"){
+          if (result.category === "history") {
             histArray.push(result)
-          } else if(result.category === "language"){
+          } else if (result.category === "language") {
             langArray.push(result)
-          } else if(result.category === "arts"){
+          } else if (result.category === "arts") {
             artsArray.push(result)
-          } else if(result.category === "culture"){
+          } else if (result.category === "culture") {
             cultArray.push(result)
           }
         }
-        
+
+        histArray.sort((a, b) => {
+          return a.name.localeCompare(b.name)
+        })
+
+        langArray.sort((a, b) => {
+          return a.name.localeCompare(b.name)
+        })
+
+        artsArray.sort((a, b) => {
+          return a.name.localeCompare(b.name)
+        })
+
+        cultArray.sort((a, b) => {
+          return a.name.localeCompare(b.name)
+        })
+
         // set state for each category
         setHistory(histArray)
         setLanguage(langArray)

@@ -96,6 +96,8 @@ export default function Explore({ ...props }){
       try {
         let response = await axios.get(`/api/devLocationsOfInterest/${queryStr}`, { signal: abortController.signal })
         let data = response.data.Results
+        // sort the data alphabetically
+        data.sort((a, b) => a.name.localeCompare(b.name)) 
         setcategoryData(data)
       } catch (error) {
         console.error(error)

@@ -166,16 +166,13 @@ export default function Map({
   }, [])
 
   function locateUser(event) {
-    navigator.geolocation.getCurrentPosition((position) => {
-    }, (error) => {
-      axios.get("https://ipgeolocation.abstractapi.com/v1/?api_key=c44875213f7047a6bf726151678530cb")
-        .then((response) => {
-          const { latitude, longitude } = response.data
-          event.target.flyTo([latitude, longitude], event.target.getZoom())
-        }).catch((error) => {
-          console.log(error)
-        })
-    }, { timeout: 500 })
+    axios.get("https://ipgeolocation.abstractapi.com/v1/?api_key=c44875213f7047a6bf726151678530cb")
+      .then((response) => {
+        const { latitude, longitude } = response.data
+        event.target.flyTo([latitude, longitude], event.target.getZoom())
+      }).catch((error) => {
+        console.log(error)
+      })
   }
 
   return (

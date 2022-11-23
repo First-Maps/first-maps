@@ -19,7 +19,13 @@ function sanitizeStringForURL(str){
 
   // replace html entities with actual apostrophes
   const aposRegex = /&#8217;/g
+  const leftSingleQuotRegex = /&#8216;/g
+  const ampersandRegex = /&#038;/g
+  const slashRegex = /\//g
   const sanitized = str.replace(aposRegex, "'")
+    .replace(leftSingleQuotRegex, "‘")
+    .replace(ampersandRegex, "and")
+    .replace(slashRegex, " or ")
   return sanitized
 }
 

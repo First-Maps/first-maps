@@ -121,7 +121,9 @@ export default function ContributeForm({
 
   async function handleSubmit(e) {
     e.preventDefault()
-    
+
+    console.log('submitting form')
+
     if (
       formValues.name === ''
       || formValues.description === ''
@@ -135,18 +137,25 @@ export default function ContributeForm({
         && formValues.coordinates.length === 2
       )
 
-      const imagesGood = images.length <= 5
+      let imagesGood = true
+      if (!images) {
+        imagesGood = false
+      } else {
+        imagesGood = images.length <= 5
+      }
 
       setFormError({
         name: formValues.name ? false : true,
         description: formValues.description ? false : true,
         category: formValues.category ? false : true,
-        coordinates: coordinatesGood ? false : true,
-        images: imagesGood ? false : true,
+        coordinates: !coordinatesGood,
+        images: !imagesGood,
       })
 
       return
     }
+
+    e.target.closest('button').disabled = true
 
     const formData = new FormData()
     formData.append('name', formValues.name)
@@ -205,8 +214,10 @@ export default function ContributeForm({
               required
             >
               <option value="">--Please choose an option--</option>
-              <option value="culture">Culture</option>
+              <option value="history">History</option>
               <option value="language">Language</option>
+              <option value="arts">Arts</option>
+              <option value="culture">Culture</option>
             </Select>
           </label>
           {formError.category && <ErrorPara>A category is required</ErrorPara>}
