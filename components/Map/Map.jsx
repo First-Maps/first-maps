@@ -208,6 +208,7 @@ export default function Map({
                 </FeaturedImageDiv>
               }
 
+              <h2>{marker.name}</h2>
               <div className="popup-text-content">
                 <p>Category: {marker.category}</p>
                 <p>Description: {marker.description}</p>
