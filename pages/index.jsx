@@ -5,6 +5,16 @@ import { useState } from 'react'
 import Map from '../components/Map'
 import { SearchGroup } from '../components/Search/SearchGroup'
 import { Navbar } from '../components/Navbar/Navbar'
+import {useRouter} from "next/router";
+// import Router from 'next/router';
+import React from 'react';
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link
+} from "react-router-dom";
 
 const StyledMain = styled.main`
   display: flex;
@@ -63,6 +73,7 @@ export default function Home() {
 
   return (
     <div>
+
       <Head>
         <title>First Maps</title>
         <meta name="description" content="First Maps" />
@@ -85,13 +96,12 @@ export default function Home() {
           allowAddingMarkers={false}
           currentResult={currentResult}
         />
-
-        <Navbar 
+      </StyledMain>
+      <Navbar 
           handleSelectPage={handleSelectPage} 
           navPages={navPages} 
           activePage={activePage} 
         />
-      </StyledMain>
     </div>
   )
 }

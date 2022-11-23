@@ -5,14 +5,16 @@ import styled from "styled-components"
 
 import Link from 'next/link'
 import LoginButton from '../components/LoginButton/LoginButton';
+import IntroImage from '../components/IntroImage';
+import IntroText from '../components/IntroText';
 
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-height: calc(100vh - 60px - 60px);
-  min-height: calc(100vh - 60px - 60px);
+  max-height: 100vh;
+  min-height: 100vh;
   width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -50,11 +52,12 @@ const Footer = styled.div`
   margin: 8.5em 0 0 0;
   padding: 0;
 
-  a {
+ a {
     color: #FE672F;
     text-decoration: none;
     margin: 0 0 0 0.5em;
-  }
+ }
+ 
 `
 
 export default function Login({
@@ -69,48 +72,8 @@ export default function Login({
       </Head>
 
       <StyledContainer>
-        <Logo 
-          src="/logo.png"
-        />
-        <LoginText>
-          Log In
-        </LoginText>
-        <LoginButton
-          text="Continue with Email"
-          Logo="Email.png"
-          color={"#FE672F"}
-          onClick={() => {
-            console.log("Log In with Email")
-          }}
-        />
-        <LoginButton
-          text="Continue with Google"
-          Logo="Google.png"
-          color={"#4285F4"}
-          onClick={() => {
-            console.log("Log In with Google")
-          }}
-        />
-        <LoginButton
-          text="Continue with Facebook"
-          Logo="Facebook.png"
-          color={"#3B5998"}
-          onClick={() => {
-            console.log("Log In with Facebook")
-          }}
-        />
-        <LoginButton
-          text="Continue with Apple"
-          Logo="Apple.png"
-          color={"#000000"}
-          onClick={() => {
-            console.log("Log In with Apple")
-          }}
-        />
-
-        <Footer>
-          Don&apos;t have an account?<Link href="/signup">Sign Up</Link>
-        </Footer>
+        <IntroImage></IntroImage>
+        <IntroText></IntroText>
       </StyledContainer>
     </>
   )
