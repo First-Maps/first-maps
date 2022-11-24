@@ -10,18 +10,18 @@ import { useRouter } from 'next/router'
 import { Navbar } from '../../components/Navbar/Navbar'
 import ItemBox from '../../components/ItemBox/ItemBox'
 import { Search } from '../../components/Search/Search'
-
-
+import Header from '../../components/Header/Header'
 
 // Styled Components
 const StyledCategorySection = styled.div`
-  min-height: 300px;
+  min-height: ${props => props.height ? props.height : '300px'};
   max-height: 300px;
   overflow-y: scroll;
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-radius: 1.5rem;
+  border-radius: 1.5em;
+  padding: 1em;
 `
 
 const StyledSearch = styled(Search)`
@@ -96,24 +96,45 @@ export default function Explore({ ...props }) {
         let results = response.data.results
 
         // loop through results and push to appropriate array        
-        for(let result of results){
+        for (let result of results) {
           
           // if there are 10 of each category, break out of loop
-          if(histArray.length >= 10 && langArray.length >= 10 && artsArray.length >= 10 && cultArray.length >= 10){
+          if (
+            histArray.length >= 10 
+            && langArray.length >= 10 
+            && artsArray.length >= 10 
+            && cultArray.length >= 10
+          ) {
             break
           }
 
-          if(result.category === "history"){
+          if (result.category === "history") {
             histArray.push(result)
-          } else if(result.category === "language"){
+          } else if (result.category === "language") {
             langArray.push(result)
-          } else if(result.category === "arts"){
+          } else if (result.category === "arts") {
             artsArray.push(result)
-          } else if(result.category === "culture"){
+          } else if (result.category === "culture") {
             cultArray.push(result)
           }
         }
-        
+
+        histArray.sort((a, b) => {
+          return a.name.localeCompare(b.name)
+        })
+
+        langArray.sort((a, b) => {
+          return a.name.localeCompare(b.name)
+        })
+
+        artsArray.sort((a, b) => {
+          return a.name.localeCompare(b.name)
+        })
+
+        cultArray.sort((a, b) => {
+          return a.name.localeCompare(b.name)
+        })
+
         // set state for each category
         setHistory(histArray)
         setLanguage(langArray)
@@ -150,17 +171,41 @@ export default function Explore({ ...props }) {
     <>
       <Head>
         <title>Explore</title>
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
       <StyledContainer>
         <Search />
 
-        <h1>History</h1> 
-        <StyledLinkHeading>
-          <Link href="/explore/history">
-            <p>{"see all >"}</p>
-          </Link>
-        </StyledLinkHeading>    
+        <Header
+          label="Language"
+          text="see all ➤"
+          space={true}
+          onClick={() => router.push(`/explore/language`)}
+        />
+        <StyledCategorySection height="20px">
+          {language ?
+            language.map((languagItem => {
+              return <ItemBox
+                key={languagItem._id}
+                label={languagItem.name}
+                description={languagItem.description}
+                category="language"
+                margy="1em"
+                padb='1em'
+                padl='1.25em'
+                onClick={handleClick}
+            />
+            }))
+            : null
+          }
+        </StyledCategorySection>
+
+        <Header
+          label="History"
+          text="see all ➤"
+          space={true}
+          onClick={() => router.push(`/explore/history`)}
+        />
         <StyledCategorySection>
           { history ?
             history.map((historyItem => {
@@ -179,36 +224,12 @@ export default function Explore({ ...props }) {
           }
         </StyledCategorySection>
 
-        <h1>Language</h1> 
-        <StyledLinkHeading>
-          <Link href="/explore/language">
-            <p>{"see all >"}</p>
-          </Link>
-        </StyledLinkHeading>    
-        <StyledCategorySection>
-          {language ?
-            language.map((languagItem => {
-              return <ItemBox
-                label={languagItem.name}
-                description={languagItem.description}
-                width="330px"
-                height="230px"
-                margy="1em"
-                key={languagItem._id}
-                onClick={handleClick}
-                category="language"
-            />
-            }))
-            : null
-          }
-        </StyledCategorySection>
-
-        <h1>Arts</h1>
-        <StyledLinkHeading>
-          <Link href="/explore/arts">
-            <p>{"see all >"}</p>
-          </Link>
-        </StyledLinkHeading>    
+        <Header
+          label="Arts"
+          text="see all ➤"
+          space={true}
+          onClick={() => router.push(`/explore/arts`)}
+        />
         <StyledCategorySection>
           {arts ?
             arts.map((artsItem => {
@@ -227,12 +248,12 @@ export default function Explore({ ...props }) {
           }
         </StyledCategorySection>
 
-        <h1>Culture</h1> 
-        <StyledLinkHeading>
-          <Link href="/explore/culture">
-            <p>{"see all >"}</p>
-          </Link>
-        </StyledLinkHeading>   
+        <Header
+          label="Culture"
+          text="see all ➤"
+          space={true}
+          onClick={() => router.push(`/explore/culture`)}
+        />
         <StyledCategorySection>
           {culture ?
             culture.map((artsItem => {

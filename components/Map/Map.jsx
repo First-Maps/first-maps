@@ -166,23 +166,20 @@ export default function Map({
   }, [])
 
   function locateUser(event) {
-    navigator.geolocation.getCurrentPosition((position) => {
-    }, (error) => {
-      axios.get("https://ipgeolocation.abstractapi.com/v1/?api_key=c44875213f7047a6bf726151678530cb")
-        .then((response) => {
-          const { latitude, longitude } = response.data
-          event.target.flyTo([latitude, longitude], event.target.getZoom())
-        }).catch((error) => {
-          console.log(error)
-        })
-    }, { timeout: 500 })
+    axios.get("https://ipgeolocation.abstractapi.com/v1/?api_key=c44875213f7047a6bf726151678530cb")
+      .then((response) => {
+        const { latitude, longitude } = response.data
+        event.target.flyTo([latitude, longitude], event.target.getZoom())
+      }).catch((error) => {
+        console.log(error)
+      })
   }
 
   return (
     <MyMapContainer
       ref={mapRef}
       center={center}
-      zoom={12}
+      zoom={10}
       scrollWheelZoom={true}
       zoomControl={false}
       fullSize={fullSize}
@@ -214,6 +211,7 @@ export default function Map({
                 <FeaturedImageDiv>
                   <img 
                     src={marker.images[0].imageLink} 
+                    alt={marker.name}
                     style={{width: "100%", height: "180px", objectFit: "cover", borderRadius: "0.5em"}}
                   />
                 </FeaturedImageDiv>
@@ -226,6 +224,7 @@ export default function Map({
                 <FeaturedImageDiv>
                   <img 
                     src='/placeholder.jpg'
+                    alt={marker.name}
                     style={{width: "100%", height: "180px", objectFit: "cover", borderRadius: "0.5em"}}
                   />
                 </FeaturedImageDiv>

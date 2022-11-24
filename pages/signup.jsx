@@ -4,7 +4,8 @@ import Head from 'next/head'
 import styled from "styled-components"
 
 import Link from 'next/link'
-import SignupButton from '../components/LoginButton/LoginButton';
+import SignupButton from '../components/LoginButton/LoginButton'
+import { Navbar } from '../components/Navbar/Navbar'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -34,11 +35,11 @@ const Logo = styled.img`
   margin: 0 0 2.5em 0;
 `
 const SignupText = styled.div`
-font-style: normal;
-font-weight: 600;
-font-size: 36px;
-line-height: 16px;
-margin: 0 0 1.5em 0;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 16px;
+  margin: 0 0 1.5em 0;
 `
 
 const Fotter = styled.div`
@@ -112,6 +113,11 @@ export default function Signup({
           Already have an account?<Link href="/login">Log In</Link>
         </Fotter>
       </StyledContainer>
+      
+      <Navbar
+        navPages={['Home', 'Explore', 'Contribute', 'Profile']}
+        activePage={'Profile'}
+      />
     </>
   )
 }

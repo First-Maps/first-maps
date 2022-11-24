@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react'
 
 // Componenets
 import { Navbar } from '../../../components/Navbar/Navbar'
+import Header from '../../../components/Header/Header'
 
 export default function ExploreLocation() {
   const router = useRouter()
@@ -97,23 +98,21 @@ export default function ExploreLocation() {
       </Head>
 
       <StyledContainer>
-        <Link href={'/explore'}>
-          <LinkText>Explore</LinkText>
-        </Link> 
-        &nbsp;
-        &#62;
-        &nbsp;
-        <Link href={`/explore/${category}`}>
-          <LinkText>{category}</LinkText>
-        </Link>
-
-        <Heading>{locationName}</Heading>
-        <CategoryPara>{category}</CategoryPara>
+        <Header
+          label={locationName}
+          text="🠄 Back to Explore"
+          space={true}
+          dir="column-reverse"
+          ali="start"
+          padl="0"
+          onClick={() => router.push(`/explore`)}
+        />
 
         {images && images.length > 0 && (
-          <div>
+          <div style={{ marginTop: "0.5em" }}>
             <SelectedImage 
               src={images.find(image => image.selected).imageLink}
+              alt={locationName}
             />
           
             <Carousel>
@@ -125,6 +124,7 @@ export default function ExploreLocation() {
                     name={image.name}
                     selected={image.selected}
                     onClick={handleImageClick}
+                    alt={`${locationName} thumbnail`}
                   />
                 )
               })}

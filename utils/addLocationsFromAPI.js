@@ -12,11 +12,20 @@ dbConnect()
  * removes all of the usual symbols that may interfere with the URL.
  */
 function sanitizeStringForURL(str){
-  let sanitized = str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
+  //let sanitized = str.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
   
   // replace spaces with underscores
-  sanitized = sanitized.replace(/\s/g, '_') 
+  //sanitized = sanitized.replace(/\s/g, '_') 
 
+  // replace html entities with actual apostrophes
+  const aposRegex = /&#8217;/g
+  const leftSingleQuotRegex = /&#8216;/g
+  const ampersandRegex = /&#038;/g
+  const slashRegex = /\//g
+  const sanitized = str.replace(aposRegex, "'")
+    .replace(leftSingleQuotRegex, "‘")
+    .replace(ampersandRegex, "and")
+    .replace(slashRegex, " or ")
   return sanitized
 }
 
