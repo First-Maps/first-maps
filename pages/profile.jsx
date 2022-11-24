@@ -100,7 +100,7 @@ export default function Profile({
       <StyledContainer>
         <ProfileHeader 
           profilePicture="/profile-picture.png" // temporary
-          profileName="Ana Williams"// temporary
+          profileName="User"// temporary
         />
         <ProfileTabs>
           <ProfileTab onClick={() => router.push('/RecentlyViewed')}>Recently Viewed</ProfileTab>
