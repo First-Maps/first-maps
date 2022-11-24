@@ -18,9 +18,10 @@ const StyledMain = styled.main`
 export default function Home() {
 
   const filterToggles = [
-    { key: "arts", label: "Arts" },
-    { key: "tourism", label: "Tourism" },
     { key: "language", label: "Language" },
+    { key: "history", label: "History" },
+    { key: "arts", label: "Arts" },
+    { key: "culture", label: "Culture" },
   ]
 
   const [currentResult, setCurrentResult] = useState({})

@@ -22,8 +22,10 @@ const BubbleBox = styled.div`
   margin-left: ${props => props.margy};
   min-width: ${props => props.width};
   min-height: ${props => props.height};
+  max-height: ${props => props.height};
   filter: drop-shadow(5px 5px 10px rgba(248, 137, 60, 0.4));
   background-size: cover;
+  overflow: hidden;
 `
 
 export default function ItemBox({
