@@ -41,7 +41,7 @@ line-height: 16px;
 margin: 0 0 1.5em 0;
 `
 
-const Footer = styled.div`
+const Fotter = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -73,14 +73,14 @@ export default function Signup({
           src="/logo.png"
         />
         <SignupText>
-          Sign Up
+          Sing Up
         </SignupText>
         <SignupButton
           text="Continue with Email"
           Logo="Email.png"
           color={"#FE672F"}
           onClick={() => {
-            console.log("Sign Up with Email")
+            console.log("Sing Up with Email")
           }}
         />
         <SignupButton
@@ -88,7 +88,7 @@ export default function Signup({
           Logo="Google.png"
           color={"#4285F4"}
           onClick={() => {
-            console.log("Sign Up with Google")
+            console.log("Sing Up with Google")
           }}
         />
         <SignupButton
@@ -96,7 +96,7 @@ export default function Signup({
           Logo="Facebook.png"
           color={"#3B5998"}
           onClick={() => {
-            console.log("Sign Up with Facebook")
+            console.log("Sing Up with Facebook")
           }}
         />
         <SignupButton
@@ -104,13 +104,13 @@ export default function Signup({
           Logo="Apple.png"
           color={"#000000"}
           onClick={() => {
-            console.log("Sign Up with Apple")
+            console.log("Sing Up with Apple")
           }}
         />
 
-        <Footer>
+        <Fotter>
           Already have an account?<Link href="/login">Log In</Link>
-        </Footer>
+        </Fotter>
       </StyledContainer>
     </>
   )

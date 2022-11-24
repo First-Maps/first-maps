@@ -31,9 +31,6 @@ const StyledContainer = styled.div`
     background-color: #1F1F1F;
   }
 `
-
-const NavbarCotnainer = styled.div``
-
 const HalfPageDiv = styled.div`
   min-height: 50%;
   max-height: 50%;
@@ -43,21 +40,19 @@ export default function Contribute({
 }) {
 
   return (
-    <div>
+    <>
+      <Head>
+        <title>Contribute | First Maps</title>
+        <meta name="description" content="First Maps: Contribute" />
+        <link rel="icon" href="/location-dot-solid.svg" />
+      </Head>
       <StyledContainer>
-        <div>
-          <Head>
-            <title>Contribute | First Maps</title>
-            <meta name="description" content="First Maps: Contribute" />
-            <link rel="icon" href="/location-dot-solid.svg" />
-          </Head>
-        </div>
         <ContributeForm />
-        </StyledContainer>
-        <Navbar
-              navPages={['Home', 'Explore', 'Contribute', 'Profile']}
-              activePage={'Contribute'}
-            />
-      </div>
+      </StyledContainer>
+      <Navbar 
+        navPages={['Home', 'Explore', 'Contribute', 'Profile']}
+        activePage={'Contribute'} 
+      />
+    </>
   )
 }

@@ -65,7 +65,7 @@ export default function MyContributions({
   return (
     <>
       <Head>
-        <title>My Contributions | First Maps</title>
+        <title>My Cotnributions | First Maps</title>
         <meta name="description" content="First Maps: My Contributions" />
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
