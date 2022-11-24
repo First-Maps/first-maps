@@ -185,13 +185,16 @@ export default function Explore({ ...props }) {
         <StyledCategorySection height="20px">
           {language ?
             language.map((languagItem => {
+              console.log('languageItem', languagItem)
               return <ItemBox
+                key={languagItem._id}
                 label={languagItem.name}
                 description={languagItem.description}
-                margy="1em"
-                key={languagItem._id}
-                onClick={handleClick}
                 category="language"
+                margy="1em"
+                padb='1em'
+                padl='1.25em'
+                onClick={handleClick}
             />
             }))
             : null
