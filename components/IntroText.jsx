@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from "styled-components"
+import Head from 'next/head'
 import { useState, useNavigate } from 'react'
 
 const FormDiv = styled.div`
@@ -28,10 +29,13 @@ const Para = styled.p`
 
 export default function IntroText() {
     return (
-        <>
-        <head>
-          <link href='https://fonts.googleapis.com/css?family=Urbanist' rel='stylesheet'/>
-        </head>
+      <>
+        <Head>
+          <title>First Maps</title>
+          <meta name="description" content="First Maps" />
+          <link rel="icon" href="/location-dot-solid.svg" />
+          <link href='https://fonts.googleapis.com/css?family=Urbanist&display=optional' rel='stylesheet'/>
+        </Head>
         <FormDiv>
             <Title>Welcome to</Title>
             <Title>FirstMaps! 🍁</Title>
@@ -44,6 +48,6 @@ export default function IntroText() {
             <Para>and strengthen connections in the</Para>
             <Para>spheres of culture, art and tourism.</Para>
         </FormDiv>
-        </>
+      </>
     )
 }

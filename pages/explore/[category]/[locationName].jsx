@@ -190,7 +190,7 @@ const CategoryPara = styled.p`
 const DescriptionDiv = styled.div`
   @media (min-width: 768px) {
     max-width: 800px;
-
+  }
 `
 
 const Heading = styled.h1`

@@ -6,8 +6,8 @@ import VideoPlayer from '../../components/VideoPlayer'
 import Bodytext from '../../components/BodyText/Bodytext'
 import MiniButton from '../../components/MiniButton'
 import { Navbar } from '../../components/Navbar/Navbar'
-import {useRouter} from "next/router";
-import router from 'next/router';
+import {useRouter} from "next/router"
+import router from 'next/router'
 
 const StyledContainer = styled.div`
   min-height: calc(100vh - 60px);

@@ -81,7 +81,7 @@ export default function Signup({
           Logo="Email.png"
           color={"#FE672F"}
           onClick={() => {
-            console.log("Sing Up with Email")
+            console.log("Sign Up with Email")
           }}
         />
         <SignupButton
@@ -89,7 +89,7 @@ export default function Signup({
           Logo="Google.png"
           color={"#4285F4"}
           onClick={() => {
-            console.log("Sing Up with Google")
+            console.log("Sign Up with Google")
           }}
         />
         <SignupButton
@@ -97,7 +97,7 @@ export default function Signup({
           Logo="Facebook.png"
           color={"#3B5998"}
           onClick={() => {
-            console.log("Sing Up with Facebook")
+            console.log("Sign Up with Facebook")
           }}
         />
         <SignupButton
@@ -105,7 +105,7 @@ export default function Signup({
           Logo="Apple.png"
           color={"#000000"}
           onClick={() => {
-            console.log("Sing Up with Apple")
+            console.log("Sign Up with Apple")
           }}
         />
 

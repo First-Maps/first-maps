@@ -1,7 +1,7 @@
-export default function AccountSettings(){
-    return (
-        <div>
-            
-        </div>
-    )
+export default function AccountSettings() {
+  return (
+    <div>
+      
+    </div>
+  )
 }
