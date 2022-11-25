@@ -13,6 +13,7 @@ const FormDiv = styled.div`
   padding: 1em;
   background-color: white;
   border-radius: 1em;
+  font-family: "Open Sans", sans-serif;
 
   @media (prefers-color-scheme: dark) {
     background-color: #2F2F2F;
@@ -21,6 +22,7 @@ const FormDiv = styled.div`
 
 const Para = styled.p`
   margin-top: 0;
+  font-family: "Open Sans", sans-serif;
 `
 
 const Select = styled.select`
@@ -29,6 +31,7 @@ const Select = styled.select`
   border: 1px solid #707070;
   border-radius: 1em;
   background-color: white;
+  font-family: "Open Sans", sans-serif;
 
   @media (prefers-color-scheme: dark) {
     background-color: #2F2F2F;
@@ -41,6 +44,7 @@ const Input = styled.input`
   border: 1px solid #707070;
   border-radius: 0.5em;
   padding: 0.5em 1em;
+  font-family: "Open Sans", sans-serif;
 `
 
 const Textarea = styled.textarea`
@@ -50,6 +54,7 @@ const Textarea = styled.textarea`
   border-radius: 0.5em;
   padding: 1em;
   resize: none;
+  font-family: "Open Sans", sans-serif;
 `
 
 const ErrorPara = styled.p`
@@ -183,13 +188,6 @@ export default function ContributeForm({
   return (
     <>
       <h3>{heading}</h3>
-
-      <p>
-        You can help other communities by contributing accurate translations (or
-        relevant information) of different First Nation languages, particularly
-        Basic, by filling out a form below. Also, there are initiatives to
-        provide clean water to communities in need if you wish to donate.
-      </p>
 
       <h5>Choose a point on the map</h5>
       <Map

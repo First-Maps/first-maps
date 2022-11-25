@@ -42,7 +42,7 @@ const LoginText = styled.div`
   margin: 0 0 1.5em 0;
 `
 
-const Fotter = styled.div`
+const Footer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -109,9 +109,9 @@ export default function Login({
           }}
         />
 
-        <Fotter>
+        <Footer>
           Don&apos;t have an account?<Link href="/signup">Sign Up</Link>
-        </Fotter>
+        </Footer>
       </StyledContainer>
 
       <Navbar
