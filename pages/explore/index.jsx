@@ -65,6 +65,11 @@ const StyledItemBox = styled.div`
 const StyledLinkHeading = styled.div`
   font-size: 1em;
   color: #F8893C;
+
+  &:hover {
+    transition: 0.6s;
+    color: #FF5929;
+  }
 `
 
 const StyledCategoryHeading = styled.div`
@@ -171,13 +176,15 @@ export default function Explore({ ...props }) {
   return (
     <>
       <Head>
-        <title>Explore</title>
+          <title>Explore</title>
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
       <StyledContainer>
         <Search />
 
-        <h1>History</h1> 
+        <StyledCategoryHeading>
+          <h1>History</h1>
+        </StyledCategoryHeading>
         <StyledLinkHeading>
           <Link href="/explore/history">
             <p>{"see all >"}</p>

@@ -24,6 +24,14 @@ const BubbleBox = styled.div`
   min-height: ${props => props.height};
   filter: drop-shadow(5px 5px 10px rgba(248, 137, 60, 0.4));
   background-size: cover;
+
+  
+  
+  &:hover {
+    transition-property: filter;
+    filter: brightness(1.15);
+    transform: scale(1.03);
+  }
 `
 
 export default function ItemBox({
