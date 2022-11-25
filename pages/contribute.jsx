@@ -17,14 +17,13 @@ import ItemBox from '../components/ItemBox/ItemBox'
 import VideoPlayer from '../components/VideoPlayer'
 
 import Button from '../components/Button'
-import MiniButton from '../components/Button'
+//import MiniButton from '../components/Button'
 
 import { useNavigate } from 'react-router-dom';
 
 const StyledContainer = styled.div` 
-  min-height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
+  min-height: calc(100vh - 60px - 58px);
+  max-height: calc(100vh - 60px - 58px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -34,7 +33,19 @@ const StyledContainer = styled.div`
   @media (min-width: 768px) {
     height: 100vh;
   }
+  @media (prefers-color-scheme: dark) {
+    background-color: #1F1F1F;
+  }
 `
+
+const VideoContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`
+
 export default function Contribute({
   ...props
 }) {
@@ -62,24 +73,24 @@ export default function Contribute({
                 padl="0"
                 // onClick={ItemContributes} 
               />
-              <div> 
-              <VideoPlayer  
-              url="https://www.youtube.com/watch?v=YspD--5nMEI" 
-              width='331.67px'
-              height='230px'
-              />
-              </div>
+              <VideoContainer>
+                <VideoPlayer  
+                  url="https://www.youtube.com/watch?v=YspD--5nMEI" 
+                  width='330px'
+                  height='230px'
+                />
+              </VideoContainer>
               <Bodytext
                 label='You can help other communities by contributing cultural, art, business, or accurate translations
-                 of different First Nation languages, particularly Basic, by filling out a form below to help create a community catered experience.
-                 '
+                 of different First Nation languages, particularly Basic, by filling out a form below to help create 
+                 a community catered experience.'
               />
             </div>
 
             
 
-            <MiniButton text = "Start Here" onClick={() => router.push('/contributeformpg')}>
-            </MiniButton> 
+            <Button text = "Start Here" onClick={() => router.push('/contributeform')}>
+            </Button> 
 
       </StyledContainer>
       <Navbar

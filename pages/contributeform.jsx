@@ -17,7 +17,7 @@ import Button from '../components/Button'
 import MiniButton from '../components/Button'
 
 const StyledContainer = styled.div` 
-  max-height: calc(100vh - 60px - 60px);
+  max-height: calc(100vh - 60px - 58px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;

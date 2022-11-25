@@ -41,7 +41,7 @@ export default function ItemBox({
   padl='2em',
   margy='0',
   onClick=()=>{},
-  category={category}
+  category,
 }){
   const [show, setShow] = useState(true)
   return (

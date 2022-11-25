@@ -11,6 +11,9 @@ const MyButton = styled.button`
   background-image: ${props => props.active ? "linear-gradient(to right, #F8893C 0%, #FF5929 100%)" : "linear-gradient(to right, #878787 0%, #333 100%)"};
   min-width: ${props => props.small ? "6em" : "100%"};
   color: white;
+  @media (min-width: 768px) {
+    max-width: ${props => props.small ? "6em" : "800px"};
+  }
 `
 
 const ButtonText = styled.div`
