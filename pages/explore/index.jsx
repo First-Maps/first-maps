@@ -50,11 +50,12 @@ const StyledContainer = styled.div`
     min-height: 100vh;
     padding-bottom: 75px;
   }
+  
   @media (prefers-color-scheme: dark) {
     background-color: #1F1F1F;
   }
 `
-
+// on hover, change opacity to 0.75
 const StyledItemBox = styled.div`
   width: 330px;
   height: 230px;
@@ -64,6 +65,11 @@ const StyledItemBox = styled.div`
 const StyledLinkHeading = styled.div`
   font-size: 1em;
   color: #F8893C;
+
+  &:hover {
+    transition: 0.6s;
+    color: #FF5929;
+  }
 `
 
 const StyledCategoryHeading = styled.div`
@@ -170,12 +176,22 @@ export default function Explore({ ...props }) {
   return (
     <>
       <Head>
-        <title>Explore</title>
+          <title>Explore</title>
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
       <StyledContainer>
         <Search />
-
+        <StyledCategoryHeading>
+          <h1>History</h1>
+        </StyledCategoryHeading>
+        <StyledLinkHeading>
+          <Link href="/explore/history">
+            <p>{"see all >"}</p>
+          </Link>
+        </StyledLinkHeading>    
+        <StyledCategorySection>
+          { history ?
+            history.map((historyItem => {
         <Header
           label="Language"
           text="see all ➤"
@@ -194,6 +210,8 @@ export default function Explore({ ...props }) {
                 padb='1em'
                 padl='1.25em'
                 onClick={handleClick}
+                category="history"
+                img="/placeholder02.jpg"
             />
             }))
             : null
