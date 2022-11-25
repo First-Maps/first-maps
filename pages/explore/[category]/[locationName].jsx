@@ -8,6 +8,7 @@ import { useState, useEffect } from 'react'
 
 // Componenets
 import { Navbar } from '../../../components/Navbar/Navbar'
+import Header from '../../../components/Header/Header'
 
 export default function ExploreLocation() {
   const router = useRouter()
@@ -97,23 +98,18 @@ export default function ExploreLocation() {
       </Head>
 
       <StyledContainer>
-        <Link href={'/explore'}>
-          <LinkText>Explore</LinkText>
-        </Link> 
-        &nbsp;
-        &#62;
-        &nbsp;
-        {category && <Link href={`/explore/${category}`}>
-          <LinkText>{ category[0].toUpperCase() + category.substr(1) }</LinkText>
-        </Link> }
-
-        <Heading>{locationName}</Heading>
-        {category && <CategoryPara>
-          { category[0].toUpperCase() + category.substr(1) }
-        </CategoryPara> }
+        <Header
+          label={locationName}
+          text="🠄 Back to Explore"
+          space={true}
+          dir="column-reverse"
+          ali="start"
+          padl="0"
+          onClick={() => router.push(`/explore`)}
+        />
 
         {images && images.length > 0 && (
-          <div>
+          <div style={{ marginTop: "0.5em" }}>
             <SelectedImage 
               src={images.find(image => image.selected).imageLink}
               alt={locationName}
@@ -194,7 +190,7 @@ const CategoryPara = styled.p`
 const DescriptionDiv = styled.div`
   @media (min-width: 768px) {
     max-width: 800px;
-
+  }
 `
 
 const Heading = styled.h1`

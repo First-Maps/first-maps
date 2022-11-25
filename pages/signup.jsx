@@ -4,7 +4,8 @@ import Head from 'next/head'
 import styled from "styled-components"
 
 import Link from 'next/link'
-import SignupButton from '../components/LoginButton/LoginButton';
+import SignupButton from '../components/LoginButton/LoginButton'
+import { Navbar } from '../components/Navbar/Navbar'
 
 const StyledContainer = styled.div`
   display: flex;
@@ -34,14 +35,14 @@ const Logo = styled.img`
   margin: 0 0 2.5em 0;
 `
 const SignupText = styled.div`
-font-style: normal;
-font-weight: 600;
-font-size: 36px;
-line-height: 16px;
-margin: 0 0 1.5em 0;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 16px;
+  margin: 0 0 1.5em 0;
 `
 
-const Fotter = styled.div`
+const Footer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -73,14 +74,14 @@ export default function Signup({
           src="/logo.png"
         />
         <SignupText>
-          Sing Up
+          Sign Up
         </SignupText>
         <SignupButton
           text="Continue with Email"
           Logo="Email.png"
           color={"#FE672F"}
           onClick={() => {
-            console.log("Sing Up with Email")
+            console.log("Sign Up with Email")
           }}
         />
         <SignupButton
@@ -88,7 +89,7 @@ export default function Signup({
           Logo="Google.png"
           color={"#4285F4"}
           onClick={() => {
-            console.log("Sing Up with Google")
+            console.log("Sign Up with Google")
           }}
         />
         <SignupButton
@@ -96,7 +97,7 @@ export default function Signup({
           Logo="Facebook.png"
           color={"#3B5998"}
           onClick={() => {
-            console.log("Sing Up with Facebook")
+            console.log("Sign Up with Facebook")
           }}
         />
         <SignupButton
@@ -104,14 +105,19 @@ export default function Signup({
           Logo="Apple.png"
           color={"#000000"}
           onClick={() => {
-            console.log("Sing Up with Apple")
+            console.log("Sign Up with Apple")
           }}
         />
 
-        <Fotter>
+        <Footer>
           Already have an account?<Link href="/login">Log In</Link>
-        </Fotter>
+        </Footer>
       </StyledContainer>
+      
+      <Navbar
+        navPages={['Home', 'Explore', 'Contribute', 'Profile']}
+        activePage={'Profile'}
+      />
     </>
   )
 }

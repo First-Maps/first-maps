@@ -1,10 +1,10 @@
 import React from 'react'
-import ReactPlayer from 'react-player/youtube'
+import ReactPlayer from 'react-player/lazy'
 
 export default function VideoPlayer({
   url
 }) {
   return (
-    <ReactPlayer url={url} width={'331.67px'} height={'230px'} controls={true} />
+    <ReactPlayer url={url} width={'330px'} height={'230px'} controls={true} />
   )
 }
