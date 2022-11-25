@@ -64,6 +64,7 @@ const StyledItemBox = styled.div`
 const StyledLinkHeading = styled.div`
   font-size: 1em;
   color: #F8893C;
+  
 `
 
 const StyledCategoryHeading = styled.div`
