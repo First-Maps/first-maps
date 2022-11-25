@@ -42,7 +42,7 @@ const SignupText = styled.div`
   margin: 0 0 1.5em 0;
 `
 
-const Fotter = styled.div`
+const Footer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -74,7 +74,7 @@ export default function Signup({
           src="/logo.png"
         />
         <SignupText>
-          Sing Up
+          Sign Up
         </SignupText>
         <SignupButton
           text="Continue with Email"
@@ -109,9 +109,9 @@ export default function Signup({
           }}
         />
 
-        <Fotter>
+        <Footer>
           Already have an account?<Link href="/login">Log In</Link>
-        </Fotter>
+        </Footer>
       </StyledContainer>
       
       <Navbar
