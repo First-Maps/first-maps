@@ -181,23 +181,15 @@ export default function Explore({ ...props }) {
       </Head>
       <StyledContainer>
         <Search />
-        <StyledCategoryHeading>
-          <h1>History</h1>
-        </StyledCategoryHeading>
-        <StyledLinkHeading>
-          <Link href="/explore/history">
-            <p>{"see all >"}</p>
-          </Link>
-        </StyledLinkHeading>    
-        <StyledCategorySection>
-          { history ?
-            history.map((historyItem => {
+        
+        
         <Header
           label="Language"
           text="see all ➤"
           space={true}
           onClick={() => router.push(`/explore/language`)}
         />
+
         <StyledCategorySection height="20px">
           {language ?
             language.map((languagItem => {
@@ -210,7 +202,6 @@ export default function Explore({ ...props }) {
                 padb='1em'
                 padl='1.25em'
                 onClick={handleClick}
-                category="history"
                 img="/placeholder02.jpg"
             />
             }))
