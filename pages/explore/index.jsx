@@ -50,11 +50,12 @@ const StyledContainer = styled.div`
     min-height: 100vh;
     padding-bottom: 75px;
   }
+  
   @media (prefers-color-scheme: dark) {
     background-color: #1F1F1F;
   }
 `
-
+// on hover, change opacity to 0.75
 const StyledItemBox = styled.div`
   width: 330px;
   height: 230px;
@@ -64,7 +65,6 @@ const StyledItemBox = styled.div`
 const StyledLinkHeading = styled.div`
   font-size: 1em;
   color: #F8893C;
-  
 `
 
 const StyledCategoryHeading = styled.div`
