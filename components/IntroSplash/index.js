@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import Head, {Sub} from '../Text/Header'
+import Head, { Sub } from '../Text/Header'
 import Buttons from '../Buttons/Buttons'
 import ItemBox from '../ItemBox/ItemBox'
 import useLocalStorage from '../../hooks/useLocalStorage'
@@ -13,12 +13,20 @@ const Body = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #2F2F2F;
+  }
 `
 
 const Logo = styled.img`
   width: 18em;
   height: 16em;
   margin-top: 12em;
+
+  @media (prefers-color-scheme: dark) {
+    filter: invert(1);
+  }
 `
 
 const SplashDiv = styled.div`
@@ -34,6 +42,7 @@ const SplashDiv = styled.div`
   flex-direction: column;
 
 `
+
 const TextDiv = styled.div`
   width: 20em;
   justify-content: center;
@@ -56,39 +65,35 @@ const SelectWrap = styled.div`
   
   `
 const SelectAll = styled.div`
-background-color: white;
+  background-color: white;
   width: 100vw;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #2F2F2F;
+  }
 `
 
 export default function Splash(){
-
-
   return <Body>
     <Logo src='../splash_logo.svg'/>
-
   </Body>
 }
 
 export const Begin = ({
   onClick = () => {}
 }) => {
-
   return <SplashDiv img='../totempole.jpeg'>
     <TextDiv>
-
-    <BeginHead txt='Welcome to First Maps!'/>
-    <Sub light txt={'FirstMaps is an interactive resource for indigenous community members and the general public to establish and strengthen connections in the spheres of culture, art and tourism.'}/>
-    <Buttons txt='Begin' onclick={onClick}/>
-
+      <BeginHead txt='Welcome to First Maps!'/>
+      <Sub light txt={'FirstMaps is an interactive resource for indigenous community members and the general public to establish and strengthen connections in the spheres of culture, art and tourism.'}/>
+      <Buttons txt='Begin' onclick={onClick}/>
     </TextDiv>
-
   </SplashDiv>
-
 }
 
 export const Select = ({

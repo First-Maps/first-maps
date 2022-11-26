@@ -9,9 +9,13 @@ const TxtWrapper = styled.div`
 
 const Header = styled.h1`
     font-size: 1.5em;
-    color: ${props => props.light ? '#E5E5E5' : '#333333'};
+    color: #333333;
     font-weight: 600;
     padding: 0;
+
+    @media (prefers-color-scheme: dark) {
+        color: #F5F5F5;
+    }
 `
 
 const SubHead = styled.p`
@@ -23,13 +27,14 @@ const SubHead = styled.p`
 
 export default function Head({
     txt = 'Headline',
-    light = 'light' //set to 'light' for light text
-}){
+    light = true, //set to 'light' for light text
+}) {
 
-    return <>
-    
-    {light ? <Header light>{txt}</Header> : <Header>{txt}</Header>}
-    </>
+    return (
+        <>
+            {light ? <Header light>{txt}</Header> : <Header>{txt}</Header>}
+        </>
+    )
 }
 
 export const Sub = ({

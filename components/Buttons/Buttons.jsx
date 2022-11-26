@@ -30,8 +30,6 @@ export default function Buttons({
     onclick = () => {},
     txt = 'Button'
 }) {
-
-
     return (
         <ButtonWrapper>
             <Button onClick={onclick}>{txt}</Button>
