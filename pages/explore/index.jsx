@@ -146,10 +146,10 @@ export default function Explore({ ...props }) {
         })
 
         // set state for each category
-        // setHistory(histArray)
-        // setLanguage(langArray)
-        // setArts(artsArray)
-        // setCulture(cultArray)
+        setHistory(histArray)
+        setLanguage(langArray)
+        setArts(artsArray)
+        setCulture(cultArray)
         
       } catch (error) {
         console.error(error)
@@ -160,6 +160,7 @@ export default function Explore({ ...props }) {
     })()
   }, [])
 
+  // TODO: make each category have its own photo
   
 
   // HANDLERS
