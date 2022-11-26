@@ -5,12 +5,15 @@ import styled from "styled-components"
 import axios from 'axios'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 // Components, some loaded from old file. take out all of the ones you dont' use
 import { Navbar } from '../../components/Navbar/Navbar'
 import ItemBox from '../../components/ItemBox/ItemBox'
 import { Search } from '../../components/Search/Search'
 import Header from '../../components/Header/Header'
+import SkeletonCarousel from '../../components/SkeletonCarousel/SkeletonCarousel'
 
 // Styled Components
 const StyledCategorySection = styled.div`
@@ -81,11 +84,12 @@ export default function Explore({ ...props }) {
   const [language, setLanguage] = useState([])
   const [arts, setArts] = useState([])
   const [culture, setCulture] = useState([])
-
+  
 
   let router = useRouter()
   
   
+
   
   // useEffect to fetch data for languages, arts, culture and history, setState for each
   useEffect(() => {
@@ -155,6 +159,7 @@ export default function Explore({ ...props }) {
       }
     })()
   }, [])
+
   
 
   // HANDLERS
@@ -167,10 +172,6 @@ export default function Explore({ ...props }) {
     let category = response.data.results.category
     
     router.push(`/explore/${category}/${innerText}`)
-    
-
-    // TODO: redirect to the item page /explore/pageName
-    // router.push(`/explore/${s}`)
   }
   
   return (
@@ -182,7 +183,6 @@ export default function Explore({ ...props }) {
       <StyledContainer>
         <Search />
         
-        
         <Header
           label="Language"
           text="see all ➤"
@@ -191,7 +191,7 @@ export default function Explore({ ...props }) {
         />
 
         <StyledCategorySection height="20px">
-          {language ?
+          { language.length != 0  ?
             language.map((languagItem => {
               return <ItemBox
                 key={languagItem._id}
@@ -205,7 +205,7 @@ export default function Explore({ ...props }) {
                 img="/placeholder02.jpg"
             />
             }))
-            : null
+            :  <SkeletonCarousel />
           }
         </StyledCategorySection>
 
@@ -216,7 +216,7 @@ export default function Explore({ ...props }) {
           onClick={() => router.push(`/explore/history`)}
         />
         <StyledCategorySection>
-          { history ?
+          { history.length != 0 ?
             history.map((historyItem => {
               return <ItemBox
                 label={historyItem.name}
@@ -229,7 +229,7 @@ export default function Explore({ ...props }) {
                 category="history"
             />
             }))
-            : "null"
+            : <SkeletonCarousel />
           }
         </StyledCategorySection>
 
@@ -240,7 +240,7 @@ export default function Explore({ ...props }) {
           onClick={() => router.push(`/explore/arts`)}
         />
         <StyledCategorySection>
-          {arts ?
+          {arts.length != 0 ?
             arts.map((artsItem => {
               return <ItemBox
                 label={artsItem.name}
@@ -253,7 +253,7 @@ export default function Explore({ ...props }) {
                 category="arts"
               />
             }))
-            : null
+            : <SkeletonCarousel />
           }
         </StyledCategorySection>
 
@@ -264,7 +264,7 @@ export default function Explore({ ...props }) {
           onClick={() => router.push(`/explore/culture`)}
         />
         <StyledCategorySection>
-          {culture ?
+          {culture.length != 0 ?
             culture.map((artsItem => {
               return <ItemBox
                 label={artsItem.name}
@@ -277,7 +277,7 @@ export default function Explore({ ...props }) {
                 category="culture"
                />
             }))
-            : null
+            : <SkeletonCarousel />
           }
         </StyledCategorySection>
 
