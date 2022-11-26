@@ -10,18 +10,18 @@ import { useRouter } from 'next/router'
 import { Navbar } from '../../components/Navbar/Navbar'
 import ItemBox from '../../components/ItemBox/ItemBox'
 import { Search } from '../../components/Search/Search'
-
-
+import Header from '../../components/Header/Header'
 
 // Styled Components
 const StyledCategorySection = styled.div`
-  min-height: 300px;
+  min-height: ${props => props.height ? props.height : '300px'};
   max-height: 300px;
   overflow-y: scroll;
   display: flex;
   flex-direction: row;
   align-items: center;
-  border-radius: 1.5rem;
+  border-radius: 1.5em;
+  padding: 1em;
 `
 
 const StyledSearch = styled(Search)`
@@ -50,11 +50,12 @@ const StyledContainer = styled.div`
     min-height: 100vh;
     padding-bottom: 75px;
   }
+  
   @media (prefers-color-scheme: dark) {
     background-color: #1F1F1F;
   }
 `
-
+// on hover, change opacity to 0.75
 const StyledItemBox = styled.div`
   width: 330px;
   height: 230px;
@@ -64,6 +65,11 @@ const StyledItemBox = styled.div`
 const StyledLinkHeading = styled.div`
   font-size: 1em;
   color: #F8893C;
+
+  &:hover {
+    transition: 0.6s;
+    color: #FF5929;
+  }
 `
 
 const StyledCategoryHeading = styled.div`
@@ -170,18 +176,45 @@ export default function Explore({ ...props }) {
   return (
     <>
       <Head>
-        <title>Explore</title>
+          <title>Explore</title>
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
       <StyledContainer>
         <Search />
+        
+        
+        <Header
+          label="Language"
+          text="see all ➤"
+          space={true}
+          onClick={() => router.push(`/explore/language`)}
+        />
 
-        <h1>History</h1> 
-        <StyledLinkHeading>
-          <Link href="/explore/history">
-            <p>{"see all >"}</p>
-          </Link>
-        </StyledLinkHeading>    
+        <StyledCategorySection height="20px">
+          {language ?
+            language.map((languagItem => {
+              return <ItemBox
+                key={languagItem._id}
+                label={languagItem.name}
+                description={languagItem.description}
+                category="language"
+                margy="1em"
+                padb='1em'
+                padl='1.25em'
+                onClick={handleClick}
+                img="/placeholder02.jpg"
+            />
+            }))
+            : null
+          }
+        </StyledCategorySection>
+
+        <Header
+          label="History"
+          text="see all ➤"
+          space={true}
+          onClick={() => router.push(`/explore/history`)}
+        />
         <StyledCategorySection>
           { history ?
             history.map((historyItem => {
@@ -200,36 +233,12 @@ export default function Explore({ ...props }) {
           }
         </StyledCategorySection>
 
-        <h1>Language</h1> 
-        <StyledLinkHeading>
-          <Link href="/explore/language">
-            <p>{"see all >"}</p>
-          </Link>
-        </StyledLinkHeading>    
-        <StyledCategorySection>
-          {language ?
-            language.map((languagItem => {
-              return <ItemBox
-                label={languagItem.name}
-                description={languagItem.description}
-                width="330px"
-                height="230px"
-                margy="1em"
-                key={languagItem._id}
-                onClick={handleClick}
-                category="language"
-            />
-            }))
-            : null
-          }
-        </StyledCategorySection>
-
-        <h1>Arts</h1>
-        <StyledLinkHeading>
-          <Link href="/explore/arts">
-            <p>{"see all >"}</p>
-          </Link>
-        </StyledLinkHeading>    
+        <Header
+          label="Arts"
+          text="see all ➤"
+          space={true}
+          onClick={() => router.push(`/explore/arts`)}
+        />
         <StyledCategorySection>
           {arts ?
             arts.map((artsItem => {
@@ -248,12 +257,12 @@ export default function Explore({ ...props }) {
           }
         </StyledCategorySection>
 
-        <h1>Culture</h1> 
-        <StyledLinkHeading>
-          <Link href="/explore/culture">
-            <p>{"see all >"}</p>
-          </Link>
-        </StyledLinkHeading>   
+        <Header
+          label="Culture"
+          text="see all ➤"
+          space={true}
+          onClick={() => router.push(`/explore/culture`)}
+        />
         <StyledCategorySection>
           {culture ?
             culture.map((artsItem => {

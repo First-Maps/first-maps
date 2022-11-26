@@ -11,7 +11,7 @@ import Link from 'next/link'
 import { Navbar } from '../../../components/Navbar/Navbar'
 import ItemBox from '../../../components/ItemBox/ItemBox'
 import { Search } from '../../../components/Search/Search'
-
+import Header from '../../../components/Header/Header'
 
 
 export default function Explore({ ...props }){
@@ -68,7 +68,9 @@ export default function Explore({ ...props }){
     }
   `
 
- 
+  const ItemsContainer = styled.div`
+    margin-top: 1em;
+  `
 
   const handleClick = (e) => {
     // get the url of the ItemBox that was clicked
@@ -117,26 +119,35 @@ export default function Explore({ ...props }){
         <title>Explore</title>
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
+
       <StyledContainer>
-        {queryStr && <h1>
-          { queryStr[0].toUpperCase() + queryStr.substr(1) }
-        </h1> }
-        <StyledLinkHeading>
-         <Link href="/explore">...back to Explore</Link>
-        </StyledLinkHeading>
-          { categoryData ? 
-            categoryData.map((categoryDataItem => {
-              return <StyledItembox 
-                label={categoryDataItem.name}
-                description={categoryDataItem.description}
-                width="331.67px"
-                height="230px"
-                key={categoryDataItem._id}
-                onClick={handleClick}
-              />
-            }))
-            : <p>Loading...</p>
-          }
+        {queryStr && <>
+          <Header
+            label={ queryStr[0].toUpperCase() + queryStr.substr(1) }
+            text="🠄 Back to Explore"
+            space={true}
+            dir="column-reverse"
+            ali="start"
+            padl="0"
+            onClick={() => router.push(`/explore`)}
+          />
+        </> }
+
+        { categoryData ? 
+            <ItemsContainer>
+          {categoryData.map(categoryDataItem => {
+            return <StyledItembox 
+              label={categoryDataItem.name}
+              description={categoryDataItem.description}
+              width="331.67px"
+              height="230px"
+              key={categoryDataItem._id}
+              onClick={handleClick}
+            />
+          })}
+            </ItemsContainer>
+          : <p>Loading...</p>
+        }
       </StyledContainer>
         <Navbar
           navPages={['Home', 'Explore', 'Contribute', 'Profile']}
