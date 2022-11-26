@@ -229,7 +229,7 @@ export default function Explore({ ...props }) {
                 category="history"
             />
             }))
-            : <SkeletonCarousel />
+            : <SkeletonCarousel height={230} width={330} />
           }
         </StyledCategorySection>
 

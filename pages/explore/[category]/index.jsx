@@ -5,13 +5,15 @@ import styled from "styled-components"
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 // Componenets
 import { Navbar } from '../../../components/Navbar/Navbar'
 import ItemBox from '../../../components/ItemBox/ItemBox'
 import { Search } from '../../../components/Search/Search'
 import Header from '../../../components/Header/Header'
+import SkeletonCarousel from '../../../components/SkeletonCarousel/SkeletonCarousel'
 
 
 export default function Explore({ ...props }){
@@ -24,7 +26,7 @@ export default function Explore({ ...props }){
   // STYLED COMPONENTS  
   // updated to 'extending styles' format
   const StyledItembox = styled(ItemBox)`
-  display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -100,7 +102,7 @@ export default function Explore({ ...props }){
         let data = response.data.Results
         // sort the data alphabetically
         data.sort((a, b) => a.name.localeCompare(b.name)) 
-        setcategoryData(data)
+        // setcategoryData(data)
       } catch (error) {
         console.error(error)
         if (axios.isCancel(error)) {
@@ -146,7 +148,7 @@ export default function Explore({ ...props }){
             />
           })}
             </ItemsContainer>
-          : <p>Loading...</p>
+          : <SkeletonCarousel />
         }
       </StyledContainer>
         <Navbar

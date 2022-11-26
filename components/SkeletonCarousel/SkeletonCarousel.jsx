@@ -5,9 +5,6 @@ import styled from "styled-components"
 
 // styled components to style the skeleton
 
-const StyledSkeleton = styled(Skeleton)`
-  margin-left: 1rem;
-`
 
 
 export default function SkeletonCarousel(){
