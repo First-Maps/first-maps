@@ -21,16 +21,16 @@ export default function ExploreArtists({
     // ...props
     // onClick=()=>{},
 }) {
-    return (
-            <StyledContainer>
-            <Header
-                    label='Western Albenaki (Algonquin)'
-                    text='↽ Back to Explore'
-                    dir="column-reverse"
-                    ali="flex-start"
-                    padl="0"
-                />
-                
-            </StyledContainer>
-    )
+return (
+  <StyledContainer>
+    <Header
+      label='Western Albenaki (Algonquin)'
+      text='↽ Back to Explore'
+      dir="column-reverse"
+      ali="flex-start"
+      padl="0"
+    />
+
+  </StyledContainer>
+)
 }
