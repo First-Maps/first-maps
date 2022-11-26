@@ -102,7 +102,7 @@ export default function Explore({ ...props }){
         let data = response.data.Results
         // sort the data alphabetically
         data.sort((a, b) => a.name.localeCompare(b.name)) 
-        // setcategoryData(data)
+        setcategoryData(data)
       } catch (error) {
         console.error(error)
         if (axios.isCancel(error)) {

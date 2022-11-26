@@ -10,17 +10,19 @@ import styled from "styled-components"
 export default function SkeletonCarousel(){
     return (
         <>
-          <Skeleton height={230} width={330} borderRadius="1rem"/>
-          <Skeleton height={230} width={330} borderRadius="1rem"/>
-          <Skeleton height={230} width={330} borderRadius="1rem"/>
-          <Skeleton height={230} width={330} borderRadius="1rem"/>
-          <Skeleton height={230} width={330} borderRadius="1rem"/>
-          <Skeleton height={230} width={330} borderRadius="1rem"/>
-          <Skeleton height={230} width={330} borderRadius="1rem"/>
-          <Skeleton height={230} width={330} borderRadius="1rem"/>
-          <Skeleton height={230} width={330} borderRadius="1rem"/>
-          <Skeleton height={230} width={330} borderRadius="1rem"/>
-          <Skeleton height={230} width={330} borderRadius="1rem"/>
+          <Skeleton height={230} width={330} borderRadius="1rem" />
+          <Skeleton height={230} width={330} borderRadius="1rem" />
+          <Skeleton height={230} width={330} borderRadius="1rem" />
+          <Skeleton height={230} width={330} borderRadius="1rem" />
+          <Skeleton height={230} width={330} borderRadius="1rem" />
+          <Skeleton height={230} width={330} borderRadius="1rem" />
+          <Skeleton height={230} width={330} borderRadius="1rem" />
+          <Skeleton height={230} width={330} borderRadius="1rem" />
+          <Skeleton height={230} width={330} borderRadius="1rem" />
+          <Skeleton height={230} width={330} borderRadius="1rem" />
+          <Skeleton height={230} width={330} borderRadius="1rem" />
+          <Skeleton height={230} width={330} borderRadius="1rem" />
+          
         </>
     )
 }
