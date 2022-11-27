@@ -34,11 +34,6 @@ export default function ExploreLocation() {
     }))
   }
 
-  // TODO: refer to code from /pages/explore/[category]/index.jsx
-  // use router.isReady to check if the router is ready
-  // get category & locationName only after it is done loading
-  // Bonus: skeleton load while it waits
-
 
 
   useEffect(() => {
