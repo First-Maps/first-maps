@@ -160,8 +160,6 @@ export default function Explore({ ...props }) {
     })()
   }, [])
 
-  // TODO: make each category have its own photo
-  
 
   // HANDLERS
   const handleClick = async (e) => {
