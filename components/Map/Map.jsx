@@ -11,6 +11,7 @@ import { useMapEvents } from "react-leaflet"
 
 import Button from '../Button'
 
+import Bubble from '../Card/Bubble'
 // this is how we can style exotic components that styled-components doesn't support directly
 const MyMapContainer = styled(MapContainer)`
   &[style] {
@@ -45,7 +46,7 @@ const MyTileLayer = styled(TileLayer)`
 const MyPopup = styled(Popup)`
   &[style] {
     .leaflet-popup-content-wrapper { 
-      background: #E5E5E5;
+      background: #333333;
       border-radius: 1em;
     }
 
@@ -200,6 +201,7 @@ export default function Map({
             description={marker.description}
             category={marker.category}
             key={index}
+            // icon={GetIcon(25)}
           >
             <MyPopup>
               <h2>{marker.name}</h2>
@@ -230,6 +232,7 @@ export default function Map({
                 </FeaturedImageDiv>
               }
 
+              <h2>{marker.name}</h2>
               <div className="popup-text-content">
                 <p>Category: {marker.category}</p>
                 <p>Description: {marker.description}</p>

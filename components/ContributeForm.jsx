@@ -7,6 +7,16 @@ import axios from 'axios'
 import Map from './Map'
 import Button from './Button'
 
+const StyledH5 = styled.h5`
+  color: blue;
+  size: 16pt;
+  font-weight: 500;
+
+  @media (prefers-color-scheme: dark) {
+    color: deepskyblue;
+  }
+`
+
 const FormDiv = styled.div`
   max-width: 100%;
   margin: 1em 0;
@@ -73,7 +83,6 @@ export default function ContributeForm({
   // used for redirecting after location submission
   let router = useRouter()
 
-
   function handleMapClick(latlng) {
     // map expects latitude-first
     setNewLocation([latlng.lat, latlng.lng])
@@ -122,7 +131,6 @@ export default function ContributeForm({
     }
     setImages(files)
   }
-
 
   async function handleSubmit(e) {
     e.preventDefault()
@@ -189,7 +197,8 @@ export default function ContributeForm({
     <>
       <h3>{heading}</h3>
 
-      <h5>Choose a point on the map</h5>
+      <StyledH5>Choose a point on the map</StyledH5>
+
       <Map
         allowAddingMarkers={true}
         handleMapClick={handleMapClick}

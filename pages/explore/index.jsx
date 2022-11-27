@@ -183,7 +183,6 @@ export default function Explore({ ...props }) {
       </Head>
       <StyledContainer>
         <Search />
-        
         <Header
           label="Language"
           text="see all ➤"

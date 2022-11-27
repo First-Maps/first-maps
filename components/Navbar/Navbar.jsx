@@ -11,6 +11,7 @@ const NavContainer = styled.div`
   align-items: center;
   height: 60px;
   min-width: 100%;
+  overflow: hidden;
 
   @media (min-width: 768px) {
     justify-content: left;
@@ -34,7 +35,7 @@ const MyNavbar = styled.div`
 
   @media (min-width: 768px) {
     width: 400px;
-    align-self: flex-end;
+    align-self: center;
     border-radius: 0 1em 0 0;
   }
 
