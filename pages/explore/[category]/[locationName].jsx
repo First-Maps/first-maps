@@ -104,7 +104,7 @@ export default function ExploreLocation() {
   return (
     <>
       <Head>
-        <title>{titleStr}</title>
+        { !router.isReady ? <title>First Maps</title> : <title>{`${titleStr} | First Maps`}</title> }
         <meta name="description" content={`First Maps: ${locationName}`} />
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
