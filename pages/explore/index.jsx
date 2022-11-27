@@ -203,7 +203,7 @@ export default function Explore({ ...props }) {
                 padb='1em'
                 padl='1.25em'
                 onClick={handleClick}
-                img="/placeholder02.jpg"
+                img="/categoryPhotos/language.png"
             />
             }))
             :  <SkeletonCarousel />
@@ -228,6 +228,7 @@ export default function Explore({ ...props }) {
                 key={historyItem._id}
                 onClick={handleClick}
                 category="history"
+                img="/categoryPhotos/history.png"
             />
             }))
             : <SkeletonCarousel height={230} width={330} />
@@ -252,6 +253,7 @@ export default function Explore({ ...props }) {
                 key={artsItem._id}
                 onClick={handleClick}
                 category="arts"
+                img="/categoryPhotos/arts.png"
               />
             }))
             : <SkeletonCarousel />
@@ -263,7 +265,7 @@ export default function Explore({ ...props }) {
           text="see all ➤"
           space={true}
           onClick={() => router.push(`/explore/culture`)}
-        />
+        />  
         <StyledCategorySection>
           {culture.length != 0 ?
             culture.map((artsItem => {
@@ -276,6 +278,7 @@ export default function Explore({ ...props }) {
                 key={artsItem._id}
                 onClick={handleClick}
                 category="culture"
+                img="/categoryPhotos/culture.png"
                />
             }))
             : <SkeletonCarousel />

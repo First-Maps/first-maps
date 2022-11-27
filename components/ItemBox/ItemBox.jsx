@@ -14,7 +14,7 @@ const LangText = styled.p`
 // old one: background-image: linear-gradient(to bottom, grey, transparent), url("${props => props.img}");
 // make text centered, make photo cover the itembox
 const BubbleBox = styled.div`
-  background-image: linear-gradient(to bottom, transparent, transparent, rgba(0,0,0, 0.85) ${props => props.height === '137px' ? '55%' : '75%'}), url("/placeholder.jpg");
+  background-image: linear-gradient(to bottom, transparent, transparent, rgba(0,0,0, 0.85) ${props => props.height === '137px' ? '55%' : '75%'}), url("${props => props.img}");
   border-radius: 18px;
   cursor: pointer;
   margin-bottom: ${props => props.margb};
@@ -49,6 +49,7 @@ export default function ItemBox({
   margy='0',
   onClick=()=>{},
   category,
+  img
 }){
   const [show, setShow] = useState(true)
   return (
@@ -61,7 +62,7 @@ export default function ItemBox({
           category={category}
           padb={padb}
           padl={padl}
-          img
+          img={img}
         >
           <LangText>{label}</LangText>
         </BubbleBox>

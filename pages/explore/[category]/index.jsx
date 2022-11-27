@@ -21,6 +21,13 @@ export default function Explore({ ...props }){
   
   let router = useRouter()
   let queryStr = useRouter().query.category // get the query string from the url
+
+
+  // create an obj to map the queryStr/categoryName to the placeholder photo file name
+  const categoryPhotoMap = {
+    arts: "/categoryPhotos/arts.jpg",
+    culture: "categoryPhotos.culture.jpg"
+  }
   
   
   // STYLED COMPONENTS  
@@ -145,6 +152,7 @@ export default function Explore({ ...props }){
               height="230px"
               key={categoryDataItem._id}
               onClick={handleClick}
+              img={`/categoryPhotos/${queryStr}.png`}
             />
           })}
             </ItemsContainer>
