@@ -5,13 +5,15 @@ import styled from "styled-components"
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import Link from 'next/link'
-
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 
 // Componenets
 import { Navbar } from '../../../components/Navbar/Navbar'
 import ItemBox from '../../../components/ItemBox/ItemBox'
 import { Search } from '../../../components/Search/Search'
 import Header from '../../../components/Header/Header'
+import SkeletonCarousel from '../../../components/SkeletonCarousel/SkeletonCarousel'
 
 
 export default function Explore({ ...props }){
@@ -19,12 +21,19 @@ export default function Explore({ ...props }){
   
   let router = useRouter()
   let queryStr = useRouter().query.category // get the query string from the url
+
+
+  // create an obj to map the queryStr/categoryName to the placeholder photo file name
+  const categoryPhotoMap = {
+    arts: "/categoryPhotos/arts.jpg",
+    culture: "categoryPhotos.culture.jpg"
+  }
   
   
   // STYLED COMPONENTS  
   // updated to 'extending styles' format
   const StyledItembox = styled(ItemBox)`
-  display: flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -143,10 +152,11 @@ export default function Explore({ ...props }){
               height="230px"
               key={categoryDataItem._id}
               onClick={handleClick}
+              img={`/categoryPhotos/${queryStr}.png`}
             />
           })}
             </ItemsContainer>
-          : <p>Loading...</p>
+          : <SkeletonCarousel />
         }
       </StyledContainer>
         <Navbar
