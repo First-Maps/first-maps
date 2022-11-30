@@ -36,6 +36,10 @@ const dev_LocationsOfInterestSchema = new mongoose.Schema({
         }]
     },
     images: [{ name: String }],
+    userEmail: {
+        type: String,
+        required: [true, 'please provide user email'],
+    },
 })
 
 // if the dev_LocationsOfInterestSchema db exists, export it. if not, create it and export it

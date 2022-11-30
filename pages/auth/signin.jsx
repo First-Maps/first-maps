@@ -1,19 +1,21 @@
 import React from 'react'
-import { useState } from 'react'
 import Head from 'next/head'
 import styled from "styled-components"
 
 import Link from 'next/link'
-import SignupButton from '../components/LoginButton/LoginButton'
-import { Navbar } from '../components/Navbar/Navbar'
+import LoginButton from '../../components/LoginButton/LoginButton'
+import { Navbar } from '../../components/Navbar/Navbar'
+import { useSession, signIn, signOut } from 'next-auth/react'
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from "../api/auth/[...nextauth]"
 
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-height: calc(100vh - 60px - 58px);
-  min-height: calc(100vh - 60px - 58px);
+  max-height: calc(100vh - 60px - 60px);
+  min-height: calc(100vh - 60px - 60px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -34,7 +36,7 @@ const Logo = styled.img`
   height: 86px;
   margin: 0 0 2.5em 0;
 `
-const SignupText = styled.div`
+const LoginText = styled.div`
   font-style: normal;
   font-weight: 600;
   font-size: 36px;
@@ -58,14 +60,14 @@ const Footer = styled.div`
   }
 `
 
-export default function Signup({
+export default function Login({
   ...props
 }) {
   return (
     <>
       <Head>
-        <title>Signup | First Maps</title>
-        <meta name="description" content="First Maps: Signup" />
+        <title>Login | First Maps</title>
+        <meta name="description" content="First Maps: Login" />
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
 
@@ -73,51 +75,60 @@ export default function Signup({
         <Logo 
           src="/logo.png"
         />
-        <SignupText>
-          Sign Up
-        </SignupText>
-        <SignupButton
+        <LoginText>
+          Log In
+        </LoginText>
+        <LoginButton
           text="Continue with Email"
           Logo="Email.png"
           color={"#FE672F"}
           onClick={() => {
-            console.log("Sign Up with Email")
+            signIn('email')
           }}
         />
-        <SignupButton
+        <LoginButton
           text="Continue with Google"
           Logo="Google.png"
           color={"#4285F4"}
           onClick={() => {
-            console.log("Sign Up with Google")
+            signIn('google')
           }}
         />
-        <SignupButton
+        <LoginButton
           text="Continue with Facebook"
           Logo="Facebook.png"
           color={"#3B5998"}
           onClick={() => {
-            console.log("Sign Up with Facebook")
-          }}
-        />
-        <SignupButton
-          text="Continue with Apple"
-          Logo="Apple.png"
-          color={"#000000"}
-          onClick={() => {
-            console.log("Sign Up with Apple")
+            signIn('facebook')
           }}
         />
 
         <Footer>
-          Already have an account?<Link href="/login">Log In</Link>
+          Don&apos;t have an account?<Link href="/auth/signup">Sign Up</Link>
         </Footer>
       </StyledContainer>
-      
+
       <Navbar
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
         activePage={'Profile'}
       />
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(context.req, context.res, authOptions)
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/profile',
+        permanent: false,
+      },
+    }
+  }
+
+  return {
+    props: { session }
+  }
 }
