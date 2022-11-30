@@ -2,6 +2,7 @@ import styled from "styled-components"
 import { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import Link from 'next/link'
+import Image from 'next/image'
 
 import "leaflet/dist/leaflet.css"
 import "leaflet/dist/images/marker-shadow.png"
@@ -210,7 +211,7 @@ export default function Map({
                 &&
                 // just show the first image; the rest can be seen in the respective Explore page
                 <FeaturedImageDiv>
-                  <img 
+                  <Image 
                     src={marker.images[0].imageLink} 
                     alt={marker.name}
                     style={{width: "100%", height: "180px", objectFit: "cover", borderRadius: "0.5em"}}
@@ -223,7 +224,7 @@ export default function Map({
                 &&
                 // just show the first image; the rest can be seen in the respective Explore page
                 <FeaturedImageDiv>
-                  <img 
+                  <Image 
                     src='/placeholder.jpg'
                     alt={marker.name}
                     style={{width: "100%", height: "180px", objectFit: "cover", borderRadius: "0.5em"}}
