@@ -6,15 +6,8 @@ import React from 'react'
 import { useState } from 'react'
 import Head from 'next/head'
 
-import ExploreLanguages from '../components/ExplorePages/ExploreLanguages'
-import Bodytext from '../components/BodyText/Bodytext'
-import Carousel from '../components/Carousel/Carousel'
-import Header from '../components/Header/Header'
-import ItemBox from '../components/ItemBox/ItemBox'
-import VideoPlayer from '../components/VideoPlayer'
-
-import Button from '../components/Button'
-import MiniButton from '../components/Button'
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from "./api/auth/[...nextauth]"
 
 const StyledContainer = styled.div` 
   max-height: calc(100vh - 60px - 58px);
@@ -55,4 +48,25 @@ export default function Contribute({
       />
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(context.req, context.res, authOptions)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth/signin",
+        permanent: false,
+      },
+    }
+  } 
+
+  let user = session.user;
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
 }

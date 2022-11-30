@@ -4,16 +4,16 @@ import Head from 'next/head'
 import styled from "styled-components"
 
 import Link from 'next/link'
-import LoginButton from '../components/LoginButton/LoginButton'
-import { Navbar } from '../components/Navbar/Navbar'
+import SignupButton from '../../components/LoginButton/LoginButton'
+import { Navbar } from '../../components/Navbar/Navbar'
 
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-height: calc(100vh - 60px - 60px);
-  min-height: calc(100vh - 60px - 60px);
+  max-height: calc(100vh - 60px - 58px);
+  min-height: calc(100vh - 60px - 58px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -34,7 +34,7 @@ const Logo = styled.img`
   height: 86px;
   margin: 0 0 2.5em 0;
 `
-const LoginText = styled.div`
+const SignupText = styled.div`
   font-style: normal;
   font-weight: 600;
   font-size: 36px;
@@ -58,14 +58,14 @@ const Footer = styled.div`
   }
 `
 
-export default function Login({
+export default function Signup({
   ...props
 }) {
   return (
     <>
       <Head>
-        <title>Login | First Maps</title>
-        <meta name="description" content="First Maps: Login" />
+        <title>Signup | First Maps</title>
+        <meta name="description" content="First Maps: Signup" />
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
 
@@ -73,47 +73,47 @@ export default function Login({
         <Logo 
           src="/logo.png"
         />
-        <LoginText>
-          Log In
-        </LoginText>
-        <LoginButton
+        <SignupText>
+          Sign Up
+        </SignupText>
+        <SignupButton
           text="Continue with Email"
           Logo="Email.png"
           color={"#FE672F"}
           onClick={() => {
-            console.log("Log In with Email")
+            console.log("Sign Up with Email")
           }}
         />
-        <LoginButton
+        <SignupButton
           text="Continue with Google"
           Logo="Google.png"
           color={"#4285F4"}
           onClick={() => {
-            console.log("Log In with Google")
+            console.log("Sign Up with Google")
           }}
         />
-        <LoginButton
+        <SignupButton
           text="Continue with Facebook"
           Logo="Facebook.png"
           color={"#3B5998"}
           onClick={() => {
-            console.log("Log In with Facebook")
+            console.log("Sign Up with Facebook")
           }}
         />
-        <LoginButton
+        <SignupButton
           text="Continue with Apple"
           Logo="Apple.png"
           color={"#000000"}
           onClick={() => {
-            console.log("Log In with Apple")
+            console.log("Sign Up with Apple")
           }}
         />
 
         <Footer>
-          Don&apos;t have an account?<Link href="/signup">Sign Up</Link>
+          Already have an account?<Link href="/auth/signin">Sign In</Link>
         </Footer>
       </StyledContainer>
-
+      
       <Navbar
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
         activePage={'Profile'}

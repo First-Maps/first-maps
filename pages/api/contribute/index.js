@@ -6,6 +6,9 @@ import multer from 'multer'
 import sharp from 'sharp'
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
 
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]";
+
 import dbConnect from '../../../utils/dbConnect'
 import dev_LocationOfInterest from '../../../models/dev_LocationOfInterest'
 
@@ -44,6 +47,11 @@ const uploadImage = upload.array('images', 5)
 apiRoute.use(uploadImage)
 
 apiRoute.post(async (req, res) => {
+  const session = await unstable_getServerSession(req, res, authOptions);
+  if (!session) {
+    res.status(401).json({ success: false, message: "Not logged in" });
+    return;
+  }
   try {
     let newLocationObj = {
       name: req.body.name,
@@ -51,6 +59,7 @@ apiRoute.post(async (req, res) => {
       category: req.body.category,
       coordinates: req.body.coordinates.split(',').map(Number),
       images: [],
+      userEmail: session.user.email,
     }
 
     if (req.files) {

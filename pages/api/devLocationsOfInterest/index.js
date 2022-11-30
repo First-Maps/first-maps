@@ -1,6 +1,9 @@
 import dbConnect from "../../../utils/dbConnect"
 import dev_LocationOfInterest from '../../../models/dev_LocationOfInterest'
 
+import { unstable_getServerSession } from "next-auth/next";
+import { authOptions } from "../auth/[...nextauth]";
+
 import { getSignedUrl } from '@aws-sdk/s3-request-presigner'
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3"
 
@@ -20,6 +23,12 @@ const s3 = new S3Client({
 })
 
 export default async function devLocationsOfInterest (req, res) {
+  const session = await unstable_getServerSession(req, res, authOptions);
+  if (!session) {
+    res.status(401).json({ success: false, message: "Not logged in" });
+    return;
+  }
+  
   const { method } = req
 
   switch (method) {
@@ -100,6 +109,7 @@ export default async function devLocationsOfInterest (req, res) {
           description: req.body.description,
           category: req.body.category,
           coordinates: req.body.coordinates,
+          userEmail: session.user.email,
         }
 
         await dev_LocationOfInterest.create(reqBodyObj)
