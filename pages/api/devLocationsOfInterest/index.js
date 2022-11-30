@@ -23,11 +23,13 @@ const s3 = new S3Client({
 })
 
 export default async function devLocationsOfInterest (req, res) {
-  const session = await unstable_getServerSession(req, res, authOptions);
-  if (!session) {
-    res.status(401).json({ success: false, message: "Not logged in" });
-    return;
-  }
+  // const session = await unstable_getServerSession(req, res, authOptions);
+  // if (!session) {
+  //   res.status(401).json({ success: false, message: "Not logged in" });
+  //   res.redirect("/auth/signin");
+  //   return;
+  // }
+  // TODO: make it redirect to /auth/signin if not logged in
   
   const { method } = req
 

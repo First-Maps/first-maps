@@ -153,7 +153,6 @@ export default function Map({
           // the map expects latitude-first, but the db has longitude-first
           location.coordinates = [location.coordinates[1], location.coordinates[0]]
         })
-
         setMarkers(locationsOfInterestArray)
 
       } catch (error) {
