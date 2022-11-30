@@ -26,6 +26,10 @@ const StyledContainer = styled.div`
   @media (min-width: 768px) {
     height: 100vh;
   }
+  @media (prefers-color-scheme: dark) {
+    background-color: #1F1F1F;
+    color: #FFFFFF;
+  }
   `
 
   const InsideContainer = styled.div`

@@ -1,11 +1,12 @@
 
 import React from 'react'
-import { useState } from 'react'
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from "./api/auth/[...nextauth]"
 import Head from 'next/head'
 import styled from "styled-components"
 import { Navbar } from '../components/Navbar/Navbar'
 import ProfileHeader from '../components/ProfileHeader/ProfileHeader'
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 
 const StyledOutsideContainer = styled.div`
   width: 100vw;
@@ -24,19 +25,13 @@ const StyledOutsideContainer = styled.div`
 `
 
 const StyledContainer = styled.div`
-  max-height: calc(100vh - 60px - 58px);
-  min-height: calc(100vh - 60px - 58px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
   padding: 1.5em;
   background-color: #F2F2F2;
-  overflow-y: scroll;
   z-index:3;
-  @media (min-width: 768px) {
-    height: 100vh;
-    z-index:3;
-  }
+
   @media (prefers-color-scheme: dark) {
     background-color: #1F1F1F;
     z-index:3;
@@ -50,6 +45,12 @@ const ProfileTabs = styled.div`
   margin: 1.1em 0 0 0;
   padding: 0;
   z-index:3;
+  max-height: 47vh;
+  overflow-y: scroll;
+  @media (min-width: 768px) {
+    max-height: 100vh;
+    z-index:3;
+  }
 `
 const ProfileTab = styled.div`
   display: flex;
@@ -64,10 +65,6 @@ const ProfileTab = styled.div`
   background-color: #FFFFFF;
   border-radius: 30px;
   margin-top: 16px;
-  @media (min-width: 768px) {
-    height: 100vh;
-    z-index:3;
-  }
   @media (prefers-color-scheme: dark) {
     background-color: #2B2A33;
     z-index:3;
@@ -88,6 +85,8 @@ export default function Profile({
   ...props
 }) {
   const router = useRouter(); //get a router obj from library after u imported, includes routing stuff like going to new pages
+  
+  const { user } = props;
   return (
     <>
       <Head>
@@ -99,11 +98,11 @@ export default function Profile({
       </StyledOutsideContainer>
       <StyledContainer>
         <ProfileHeader 
-          profilePicture="/profile-picture.png" // temporary
-          profileName="User"// temporary
+          profilePicture={user.image} // temporary
+          profileName={user.email}// temporary
         />
         <ProfileTabs>
-          <ProfileTab onClick={() => router.push('/RecentlyViewed')}>Recently Viewed</ProfileTab>
+          {/* <ProfileTab onClick={() => router.push('/RecentlyViewed')}>Recently Viewed</ProfileTab> */}
           <ProfileTab onClick={() => router.push('/MyContributions')}>My Contributions</ProfileTab>
           <ProfileTab onClick={() => router.push('/FAQ')}>FAQ</ProfileTab>
           <ProfileTab onClick={() => router.push('/Help')}>Help</ProfileTab>
@@ -117,3 +116,23 @@ export default function Profile({
   )
 }
 
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(context.req, context.res, authOptions)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth/signin",
+        permanent: false,
+      },
+    }
+  } 
+
+  let user = session.user;
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
+}

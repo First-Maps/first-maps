@@ -1,6 +1,8 @@
 
 import { Navbar } from '../components/Navbar/Navbar'
 import Carousel from '../components/Carousel/Carousel'
+import { unstable_getServerSession } from "next-auth/next"
+import { authOptions } from "./api/auth/[...nextauth]"
 import Header from '../components/Header/Header'
 import React, { useState } from 'react'
 import Head from 'next/head'
@@ -9,6 +11,8 @@ import ExploreLanguages from '../components/ExplorePages/ExploreLanguages'
 import Bodytext from '../components/BodyText/Bodytext'
 import ItemBox from '../components/ItemBox/ItemBox'
 import VideoPlayer from '../components/VideoPlayer'
+import { useEffect } from 'react'
+
 const StyledContainer = styled.div`
   min-height: calc(100vh - 60px);
   max-height: calc(100vh - 60px);
@@ -25,43 +29,30 @@ const StyledContainer = styled.div`
   .p {
     font-family: 'Fira Sans', sans-serif !important;
   }
+  @media (prefers-color-scheme: dark) {
+    background-color: #1F1F1F;
+    color: #FFFFFF;
+  }
 `
 export default function MyContributions({
   ...props
 }) {
-  const [page, setPage] = useState(true)
-  const [Langauges, setLanguages] = useState(false)
-  const [Arts, setArts] = useState(false)
-  const [Lang, setLang] = useState(false)
-  const [History, setHistory] = useState(false)
-  const GoBack = () => {
-    setPage(true);
-    setLanguages(false);
-    setArts(false);
-    setLang(false);
-    setHistory(false);
-  };
-  const ItemArt = () => {
-    setPage(false);
-    setLanguages(false);
-    setArts(true);
-    setLang(false);
-    setHistory(false);
-  };
-  const ItemLang = () => {
-    setPage(false);
-    setLanguages(false);
-    setArts(false);
-    setLang(true);
-    setHistory(false);
-  };
-  const ItemHistory = () => {
-    setPage(false);
-    setLanguages(false);
-    setArts(false);
-    setLang(true);
-    setHistory(true);
-  };
+  const [allPages, setAllPages] = useState(true)
+  const [currentPage, setCurrentPage] = useState({})
+  const [pages, setPages] = useState([])
+
+  // aysnc functuion to fetch the data from the database
+  const fetchPages = async () => {
+    const res = await fetch('/api/devLocationsOfInterest')
+    const data = await res.json()
+    const usersPages = data.results.filter(page => page.userEmail === props.user.email)
+    setPages(usersPages)
+  }
+
+  useEffect(() => {
+    fetchPages()
+  }, [])
+
   return (
     <>
       <Head>
@@ -70,103 +61,48 @@ export default function MyContributions({
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
       <StyledContainer>
-        {
-          page ? (<><div>
-          </div>
-            <Header
-              label="My Contributions"
-            />
+        <Header
+          label="My Contributions"
+        />
+        {allPages ?
+          pages.map((page) => (
             <ItemBox
-              label='Sqamish Nation Community Art Event in North Vancouver'
+              key={page.id}
+              label={page.name}
+              img={page.images[0].imageLink}
               width="331.67px"
               height="230px"
-              onClick={ItemArt}
+              onClick={() => {
+                setCurrentPage(page)
+                setAllPages(false)
+              }}
             />
-            <ItemBox
-              label='Learn a Language: Western Albenaki (Algonquin)'
-              width="331.67px"
-              height="230px"
-              onClick={ItemLang}
-            />
-            <ItemBox
-              label='Kelli Clifton Gitgaata (Hartle y Bay/Tsimshian)'
-              width="331.67px"
-              height="230px"
-              onClick={ItemHistory}
-            />
-          </>) : null
-        }
-        {
-          Arts && (
+          )) :
+          (
             <div>
               <Header
-                label='Sqamish Nation North Van Community Art Events'
+                label={currentPage.name}
                 text='↽ Back to My Contributions'
                 dir="column-reverse"
                 ali="flex-start"
                 padl="0"
-                onClick={GoBack}
+                onClick={() => {
+                  setAllPages(true)
+                }}
+
               />
               <ItemBox
-                label=''
+                label={currentPage.name}
+                img={currentPage.images[0].imageLink}
                 width="331.67px"
                 height="230px"
               />
               <Bodytext
-                label='Every year from December 16 to 29, an art festival is held at Sqaumish Nation located at Lower Lonsdale. For those interested in visting, hours are 1pm to 4pm.'
+                label={currentPage.description}
               />
             </div>
           )
         }
-        {
-          Lang && (
-            <div>
-              <Header
-                label='Western Albenaki (Algonquin)'
-                text='↽ Back to My Contributions'
-                dir="column-reverse"
-                ali="flex-start"
-                padl="0"
-                onClick={GoBack}
-              />
-              <div> 
-              <VideoPlayer 
-              url="https://www.youtube.com/watch?v=YspD--5nMEI" 
-              width='331.67px'
-              height='230px'
-              />
-              </div>
-              <Bodytext
-                label='Abenaki (Eastern: Alənαpαtəwéwαkan, Western: Alnôbaôdwawôgan) is an endangered Algonquian language of Quebec and the northern states of New England. The language has Eastern and Western forms which differ in vocabulary and phonology and are sometimes considered distinct languages. Click the video to learn Abenaki basic, and the video description for supplementary material.'
-              />
-            </div>
-          )
-        }
-        {
-          History && (
-              <div>
-                <Header
-                  label='Western Albenakiddd (Algonquin)'
-                  text='↽ Back to My Contributions'
-                  dir="column-reverse"
-                  ali="flex-start"
-                  padl="0"
-                  onClick={GoBack}
-                />
-                <div> 
-                <VideoPlayer 
-                url="https://www.youtube.com/watch?v=YspD--5nMEI" 
-                width='331.67px'
-                height='230px'
-                />
-                </div>
-                <Bodytext
-                  label='Abenaki (Eastern: Alənαpαtəwéwαkan, Western: Alnôbaôdwawôgan) is an endangered Algonquian language of Quebec and the northern states of New England. The language has Eastern and Western forms which differ in vocabulary and phonology and are sometimes considered distinct languages. Click the video to learn Abenaki basic, and the video description for supplementary material.'
-                />
-              </div>
-            )
-          }
-
       </StyledContainer>
       <Navbar
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
@@ -174,4 +110,25 @@ export default function MyContributions({
       />
     </>
   )
+}
+
+export async function getServerSideProps(context) {
+  const session = await unstable_getServerSession(context.req, context.res, authOptions)
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/auth/signin",
+        permanent: false,
+      },
+    }
+  }
+
+  let user = session.user;
+
+  return {
+    props: {
+      user: JSON.parse(JSON.stringify(user)),
+    },
+  }
 }

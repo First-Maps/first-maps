@@ -47,7 +47,7 @@ export const NavItem = ({
         : 
         label === "Profile"
         ?
-        "/signup"
+        "/profile"
         :
         `/${label.toLowerCase()}`
       } 
