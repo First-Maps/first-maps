@@ -10,8 +10,9 @@ export default async function seedDatabase (req, res) {
     switch (method) {
         case 'POST':
             try {
-                seed()
-                res.status(201).json({ success: true, results: `Database Seeding Was Successful` })
+                // seed()
+                console.log(`un-comment the "seed()" method in /pages/api/seedDatabase to use the seed method`)
+                res.status(201).json({ success: true, results: `un-comment the "seed()" method in /pages/api/seedDatabase to use the seed method` })
             } catch (error) {
                 res.status(400).json({ "error message": error })
             }
