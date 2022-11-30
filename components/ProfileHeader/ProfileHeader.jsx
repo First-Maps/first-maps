@@ -1,5 +1,5 @@
 import styled from "styled-components"
-
+import Link from "next/link"
 import Button from "../Button"
 import { Settings } from "react-feather"
 
@@ -70,20 +70,17 @@ export default function ProfileHeader({
         <ProfileNameText>
           {profileName}
         </ProfileNameText>
-        <Button
-          active={true}
-          text="Edit Profile"
-          small={true}
-          arrow={false}
-          onClick={() => {}}
-        />
       </ProfileHeaderLeft>
       <ProfileHeaderRight>
-        <Settings
-          style={{
-            margin: "0 0 2em 0",
-            cursor: "pointer",
-          }} />
+        <Link 
+          href="/settings"
+        >
+          <Settings
+            style={{
+              margin: "0 0 2em 0",
+              cursor: "pointer",
+            }} />
+        </Link>
         <ProfilePicture
           src={profilePicture}
         />
