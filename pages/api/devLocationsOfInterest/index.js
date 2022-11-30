@@ -22,13 +22,7 @@ const s3 = new S3Client({
   }
 })
 
-export default async function devLocationsOfInterest (req, res) {
-  const session = await unstable_getServerSession(req, res, authOptions);
-  if (!session) {
-    res.status(401).json({ success: false, message: "Not logged in" });
-    return;
-  }
-  
+export default async function devLocationsOfInterest(req, res) {
   const { method } = req
 
   switch (method) {
@@ -36,7 +30,7 @@ export default async function devLocationsOfInterest (req, res) {
       try {
         // Get all locations
         const locationsOfInterest = JSON.parse(JSON.stringify(await dev_LocationOfInterest.find({})))
-        
+
         // Photo Storage/retrieval
         for (const location of locationsOfInterest) {
           const images = location.images
@@ -50,7 +44,7 @@ export default async function devLocationsOfInterest (req, res) {
             }
           }
         }
-        
+
         res.status(200).json({ success: true, results: locationsOfInterest })
       } catch (error) {
         res.status(400).json({ "error message": error.toString() })
@@ -59,17 +53,20 @@ export default async function devLocationsOfInterest (req, res) {
 
     case "POST":
       try {
-        // validate the request body
-        if (
-          req.body.name === undefined 
-          || req.body.name === null 
+        const session = await unstable_getServerSession(req, res, authOptions);
+        if (!session) {
+          res.status(401).json({ success: false, message: "Not logged in" });
+          break
+        } else if (
+          req.body.name === undefined
+          || req.body.name === null
           || req.body.name === ""
         ) {
           res.status(400).json({ "error message": "name is required" })
           break
         } else if (
-          req.body.coordinates === undefined 
-          || req.body.coordinates === null 
+          req.body.coordinates === undefined
+          || req.body.coordinates === null
           || req.body.coordinates === ""
         ) {
           res.status(400).json({ "error message": "coordinates are required" })
@@ -80,7 +77,7 @@ export default async function devLocationsOfInterest (req, res) {
           })
           break
         } else if (
-          typeof req.body.coordinates[0] !== "number" 
+          typeof req.body.coordinates[0] !== "number"
           || typeof req.body.coordinates[1] !== "number"
         ) {
           res.status(400).json({
@@ -88,15 +85,15 @@ export default async function devLocationsOfInterest (req, res) {
           })
           break
         } else if (
-          req.body.description === undefined 
-          || req.body.description === null 
+          req.body.description === undefined
+          || req.body.description === null
           || req.body.description === ""
         ) {
           res.status(400).json({ "error message": "description is required" })
           break
         } else if (
-          req.body.category === undefined 
-          || req.body.category === null 
+          req.body.category === undefined
+          || req.body.category === null
           || req.body.category === ""
         ) {
           res.status(400).json({ "error message": "category is required" })
@@ -120,9 +117,9 @@ export default async function devLocationsOfInterest (req, res) {
       }
       break
 
-      default:
+    default:
       res.status(400).json({
-        success: false, message: "This route does not exist" 
+        success: false, message: "This route does not exist"
       })
   }
 }

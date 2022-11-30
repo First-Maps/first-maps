@@ -103,9 +103,9 @@ export default function Login({
           }}
         />
 
-        <Footer>
+        {/* <Footer>
           Don&apos;t have an account?<Link href="/auth/signup">Sign Up</Link>
-        </Footer>
+        </Footer> */}
       </StyledContainer>
 
       <Navbar
