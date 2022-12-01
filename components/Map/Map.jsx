@@ -47,7 +47,7 @@ const MyTileLayer = styled(TileLayer)`
 const MyPopup = styled(Popup)`
   &[style] {
     .leaflet-popup-content-wrapper { 
-      background: #333333;
+      background: #E5E5E5;
       border-radius: 1em;
     }
 
@@ -60,18 +60,32 @@ const MyPopup = styled(Popup)`
       background: white;
       border-radius: 0.5em;
       padding: 0.75em;
+      font-color: black;
     }
 
     p {
       margin: 0.25em 0 0.5em 0;
     }
+
+    @media (prefers-color-scheme: dark) {
+      .leaflet-popup-content-wrapper {
+        background: #333333;
+      }
+
+      p {
+        color: #F0F0F0;
+      }
+
+      div.popup-text-content {
+        background: #272727;
+      }
   }
 `
 
 const FeaturedImageDiv = styled.div`
   width: 100%;
   height: 100%;
-  margin: 0.5em 0;
+  margin: 2em 0 0.5em 0;
 `
 
 const PopupButtonDiv = styled.div`
@@ -85,6 +99,10 @@ const PopupButton = styled.a`
   background-image: linear-gradient(to right, #878787 0%, #333 100%);
   min-width: 6em;
   color: white !important;
+`
+
+const PopupHeading = styled.h2`
+  margin: 0.5em 0;
 `
 
 export default function Map({
@@ -204,14 +222,12 @@ export default function Map({
             // icon={GetIcon(25)}
           >
             <MyPopup>
-              <h2>{marker.name}</h2>
-
               {
                 marker.images.length > 0 
                 &&
                 // just show the first image; the rest can be seen in the respective Explore page
                 <FeaturedImageDiv>
-                  <Image 
+                  <img 
                     src={marker.images[0].imageLink} 
                     alt={marker.name}
                     style={{width: "100%", height: "180px", objectFit: "cover", borderRadius: "0.5em"}}
@@ -224,7 +240,7 @@ export default function Map({
                 &&
                 // just show the first image; the rest can be seen in the respective Explore page
                 <FeaturedImageDiv>
-                  <Image 
+                  <img 
                     src='/placeholder.jpg'
                     alt={marker.name}
                     style={{width: "100%", height: "180px", objectFit: "cover", borderRadius: "0.5em"}}
@@ -232,7 +248,7 @@ export default function Map({
                 </FeaturedImageDiv>
               }
 
-              <h2>{marker.name}</h2>
+              <PopupHeading>{marker.name}</PopupHeading>
               <div className="popup-text-content">
                 <p>Category: {marker.category}</p>
                 <p>Description: {marker.description}</p>
@@ -243,7 +259,6 @@ export default function Map({
                     Languages: {marker.languages.map((language) => language.name).join(", ")}
                   </p>
                 }
-                {/* <p>Coordinates: {marker.coordinates.join(', ')}</p> */}
               </div>
 
               <PopupButtonDiv>
