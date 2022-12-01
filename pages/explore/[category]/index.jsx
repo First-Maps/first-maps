@@ -48,20 +48,11 @@ export default function Explore({ ...props }) {
   // is included in the export default while the others are not to prevent errors. It is redeclared every useEffect so it's slower but it works
   function getRandomBackgroundPhoto(){
     const arrOfPhotos = [ 
-      `/backgroundPhotos/background_02.jpg`, 
       `/backgroundPhotos/background_03.jpg`, 
       `/backgroundPhotos/background_04.jpg`, 
-      `/backgroundPhotos/background_05.jpg`, 
-      `/backgroundPhotos/background_06.jpg`,
-      `/backgroundPhotos/background_07.jpg`,
-      `/backgroundPhotos/background_08.jpg`,
-      `/backgroundPhotos/background_09.jpg`,
-      `/backgroundPhotos/background_10.jpg`,
-      `/backgroundPhotos/background_11.jpg`,
-      `/backgroundPhotos/background_12.jpg`, 
-      `/backgroundPhotos/background_13.jpg`, 
-      `/backgroundPhotos/background_14.jpg`,
-      `/backgroundPhotos/background_15.jpg` 
+      `/fire.jpg`,
+      `/backgroundPhotos/background_16.jpg`,
+      
     ]
   
     const randomIndex = Math.floor(Math.random() * arrOfPhotos.length)
