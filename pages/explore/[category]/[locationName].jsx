@@ -107,7 +107,7 @@ export default function ExploreLocation() {
       <StyledContainer>
         <Header
           label={locationName}
-          text="🠄 Back to Explore"
+          text="← Back to Explore"
           space={true}
           dir="column-reverse"
           ali="start"

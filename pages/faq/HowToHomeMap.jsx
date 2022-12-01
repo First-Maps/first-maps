@@ -35,7 +35,7 @@ export default function HowToHomeMap({
             <StyledContainer>
             <Header
                     label='How to use the home map?'
-                    text='↽ Back to FAQ'
+                    text='← Back to FAQ'
                     dir="column-reverse"
                     ali="flex-start"
                     padl="0"  

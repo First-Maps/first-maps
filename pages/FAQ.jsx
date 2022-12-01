@@ -84,7 +84,7 @@ export default function Help ({
       <StyledContainer>
         <Header
           label='FAQ'
-          text='↽ Back to Profile'
+          text='← Back to Profile'
           dir="column-reverse"
           ali="flex-start"
           padl="0"
