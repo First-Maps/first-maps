@@ -5,19 +5,42 @@ import { Settings } from "react-feather"
 
 const StyledProfileHeader = styled.div`
   display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
   width: 100%;
   height: 250px;
   background-color: #FFFFFF;
   border-bottom: 1px solid #E5E5E5;
-  z-index:3;
+  padding: 0.75em;
+  border-radius: 1em;
 
   @media (prefers-color-scheme: dark) {
-    background-color: #1F1F1F;
+    background-color: #2B2A33;
     border-bottom: 1px solid #2F2F2F;
-    z-index:3;
   }
+
+  @media (min-width: 768px) {
+    max-width: 768px;
+  }
+`
+
+const ProfileHeaderTop = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  min-width: 100%;
+`
+
+const ProfileHeaderBottom = styled.div`
+  min-height: 200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 100%;
+  max-width: 100%;
+  padding: 0 0.5em;
 `
 
 const ProfileHeaderLeft = styled.div`
@@ -25,11 +48,11 @@ const ProfileHeaderLeft = styled.div`
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  z-index:3;
+  margin-right: 1em;
+  max-width: calc(100% - 140px);
   
   @media (prefers-color-scheme: dark) {
     color: #FFFFFF;
-    z-index:3;
   }
 `
 
@@ -37,27 +60,30 @@ const ProfileHeaderRight = styled.div`
   display: flex;
   flex-direction: column;
   align-items: end;
-  z-index:3;
   
   @media (prefers-color-scheme: dark) {
     color: #FFFFFF;
-    z-index:3;
   }
 `
 
 const ProfileNameText = styled.div`
-  font-size: 20px;
   font-weight: 600;
-  margin: 0 0 0.5em 0;
-  z-index:3;
+  font-size: 1.25em;
+  max-width: 170px;
+  overflow-wrap: break-word;
+  max-width: 100%;
+  @media (min-width: 768px) {
+    
+  }
 `
 
-const ProfilePicture = styled.img`
-  width: 133px;
-  height: 133px;
+const ProfilePicture = styled.div`
+  min-width: 120px;
+  min-height: 120px;
   border-radius: 50%;
   overflow: hidden;
-  z-index:3;
+  background-image: url(${props => props.picture});
+  background-size: cover;
 `
 
 export default function ProfileHeader({
@@ -66,25 +92,29 @@ export default function ProfileHeader({
 }) {
   return (
     <StyledProfileHeader>
-      <ProfileHeaderLeft>
-        <ProfileNameText>
-          {profileName}
-        </ProfileNameText>
-      </ProfileHeaderLeft>
-      <ProfileHeaderRight>
+      <ProfileHeaderTop>
         <Link 
           href="/settings"
         >
           <Settings
             style={{
-              margin: "0 0 2em 0",
               cursor: "pointer",
             }} />
         </Link>
-        <ProfilePicture
-          src={profilePicture}
-        />
-      </ProfileHeaderRight>
+      </ProfileHeaderTop>
+      <ProfileHeaderBottom>
+        <ProfileHeaderLeft>
+          <ProfileNameText>
+            {profileName}
+          </ProfileNameText>
+        </ProfileHeaderLeft>
+        <ProfileHeaderRight>
+          <ProfilePicture
+            picture={profilePicture}
+          />
+        </ProfileHeaderRight>
+      </ProfileHeaderBottom>
+      
     </StyledProfileHeader>
   )
 }

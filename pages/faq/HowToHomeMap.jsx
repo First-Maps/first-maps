@@ -21,6 +21,9 @@ const StyledContainer = styled.div`
   @media (min-width: 768px) {
     height: 100vh;
   }
+  @media (prefers-color-scheme: dark) {
+    background-color: #1F1F1F;
+  }
 `
 
 export default function HowToHomeMap({
@@ -36,7 +39,7 @@ export default function HowToHomeMap({
                     dir="column-reverse"
                     ali="flex-start"
                     padl="0"  
-                    onClick={() => router.push('../FAQ')}
+                    onClick={() => router.push('/FAQ')}
                 />
                 {/* <div> 
                   <a href="https://imgbox.com/78cKWPhj" target="_blank"><img src="https://images2.imgbox.com/1f/e5/78cKWPhj_o.png" alt='image host' width="320" height="220"/></a>
@@ -52,7 +55,7 @@ export default function HowToHomeMap({
                   label='Click on the "Contrbutions" page located on the bottom right of your screen to contribute language, history, culture or business related information.'
                 />
 
-              <MiniButton text = "Go Back" onClick={() => router.push('../FAQ')}/>
+              {/* <MiniButton text = "Go Back" onClick={() => router.push('../FAQ')}/> */}
 
             </StyledContainer>
 

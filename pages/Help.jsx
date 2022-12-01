@@ -14,9 +14,8 @@ import router from 'next/router';
 import MiniButton from '../components/Button'
 
 const StyledContainer = styled.div`
-  min-height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
+  max-height: calc(100vh - 60px - 58px);
+  min-height: calc(100vh - 60px - 58px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -48,6 +47,14 @@ const StyledContainer = styled.div`
     text-decoration: underline;
   }
 `
+
+const StyledAnchor = styled.a`
+  @media (prefers-color-scheme: dark) {
+    color: deepskyblue !important;
+  }
+`
+
+
 export default function Help ({
   ...props
 }) {
@@ -74,21 +81,21 @@ export default function Help ({
       <StyledContainer>
         <Header
           label='Contact Us'
-          text='↽ Back to Profile'
+          text='↽ Back to FAQ'
           dir="column-reverse"
           ali="flex-start"
           padl="0"
-          onClick={() => router.push('/profile')}
+          onClick={() => router.push('/FAQ')}
             />
         <InsideContainer>
         <h1>👋</h1>
         <h2>Having any trouble?</h2>
         <p>Find help here.</p>
-        <a href="firstmaps@contact.ca">firstmaps@contact.ca</a>
+        <StyledAnchor href="firstmaps@contact.ca">firstmaps@contact.ca</StyledAnchor>
         </InsideContainer>
 
-        <MiniButton text = "Go Back" onClick={() => router.push('/profile')}>
-        </MiniButton>
+        {/* <MiniButton text = "Go Back" onClick={() => router.push('/profile')}>
+        </MiniButton> */}
   
       </StyledContainer>
       <Navbar

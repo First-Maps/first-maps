@@ -12,11 +12,11 @@ import Bodytext from '../components/BodyText/Bodytext'
 import ItemBox from '../components/ItemBox/ItemBox'
 import VideoPlayer from '../components/VideoPlayer'
 import { useEffect } from 'react'
+import router from 'next/router'
 
 const StyledContainer = styled.div`
-  min-height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
+  max-height: calc(100vh - 60px - 58px);
+  min-height: calc(100vh - 60px - 58px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -63,7 +63,13 @@ export default function MyContributions({
       <StyledContainer>
         <Header
           label="My Contributions"
+          text='↽ Back to Profile'
+          dir="column-reverse"
+          ali="flex-start"
+          padl="0"  
+          onClick={() => router.push('/profile')}
         />
+        <br />
         {allPages ?
           pages.map((page) => (
             <ItemBox
@@ -91,6 +97,7 @@ export default function MyContributions({
                 }}
 
               />
+              
               <ItemBox
                 label={currentPage.name}
                 img={currentPage.images[0].imageLink}
