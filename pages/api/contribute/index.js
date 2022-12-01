@@ -47,12 +47,12 @@ const uploadImage = upload.array('images', 5)
 apiRoute.use(uploadImage)
 
 apiRoute.post(async (req, res) => {
-  // const session = await unstable_getServerSession(req, res, authOptions);
-  // if (!session) {
-  // res.status(401).json({ success: false, message: "Not logged in" });
-  //   res.redirect("/auth/signin");
-  //   return;
-  // }
+  const session = await unstable_getServerSession(req, res, authOptions);
+  if (!session) {
+  res.status(401).json({ success: false, message: "Not logged in" });
+    res.redirect("/auth/signin");
+    return;
+  }
   
   try {
     let newLocationObj = {
