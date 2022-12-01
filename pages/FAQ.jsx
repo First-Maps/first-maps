@@ -24,7 +24,7 @@ const StyledContainer = styled.div`
   background-color: #F2F2F2;
   overflow-y: scroll;
   @media (min-width: 768px) {
-    height: 100vh;
+    min-height: 100vh;
   }
   @media (prefers-color-scheme: dark) {
     background-color: #1F1F1F;
