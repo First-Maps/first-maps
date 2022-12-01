@@ -63,7 +63,7 @@ export default function MyContributions({
       <StyledContainer>
         <Header
           label="My Contributions"
-          text='↽ Back to Profile'
+          text='← Back to Profile'
           dir="column-reverse"
           ali="flex-start"
           padl="0"  

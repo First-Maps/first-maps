@@ -35,7 +35,7 @@ export default function HowToPassword({
             <StyledContainer>
             <Header
                     label='Password'
-                    text='↽ Back to FAQ'
+                    text='← Back to FAQ'
                     dir="column-reverse"
                     ali="flex-start"
                     padl="0"  

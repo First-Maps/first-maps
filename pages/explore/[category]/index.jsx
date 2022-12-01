@@ -158,7 +158,7 @@ export default function Explore({ ...props }) {
           {queryStr && <>
             <Header
               label={queryStr[0].toUpperCase() + queryStr.substr(1)}
-              text="< Back to Explore"
+              text="← Back to Explore"
               space={true}
               dir="column-reverse"
               ali="start"

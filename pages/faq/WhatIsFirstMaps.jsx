@@ -35,7 +35,7 @@ export default function WhatIsFirstMaps({
             <StyledContainer>
             <Header
                     label='What is First Maps?'
-                    text='↽ Back to FAQ'
+                    text='← Back to FAQ'
                     dir="column-reverse"
                     ali="flex-start"
                     padl="0"  

@@ -35,7 +35,7 @@ export default function HowToContribute({
             <StyledContainer>
             <Header
                     label='What are Contribute?'
-                    text='↽ Back to FAQ'
+                    text='← Back to FAQ'
                     dir="column-reverse"
                     ali="flex-start"
                     padl="0"  
