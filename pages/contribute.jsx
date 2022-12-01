@@ -30,12 +30,6 @@ const StyledContainer = styled.div`
   padding: 1.5em;
   background-color: #F2F2F2;
   overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-middle;
-
-
   @media (min-width: 768px) {
     min-height: 100vh;
   }
@@ -56,13 +50,8 @@ const StyledButton = styled.div`
   width: 33vw;
 `
 
-// align items center
 const StyledBodyText = styled.div`
-  width: 66vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  width: 50vw;
 `
 
 export default function Contribute({
@@ -125,11 +114,12 @@ export default function Contribute({
             />
           </VideoContainer>
           <StyledBodyText>
-            <Bodytext
-              label='You can help other communities by contributing cultural, art, business, or accurate translations
-                  of different First Nation languages, particularly Basic, by filling out a form below to help create 
-                  a community catered experience.'
-            />
+          <Bodytext
+            label='You can help other communities by contributing cultural, art, business, or accurate translations
+                 of different First Nation languages, particularly Basic, by filling out a form below to help create 
+                 a community catered experience.'
+          />
+          
           </StyledBodyText>
         </div>
         <StyledButton>

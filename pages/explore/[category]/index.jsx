@@ -53,6 +53,9 @@ export default function Explore({ ...props }){
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    background-image: url('/fire.jpg');
+    background-size: cover;
+
 
     @media (min-width: 768px) {
       height: 100vh;
