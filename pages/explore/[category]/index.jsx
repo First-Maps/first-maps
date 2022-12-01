@@ -15,6 +15,26 @@ import { Search } from '../../../components/Search/Search'
 import Header from '../../../components/Header/Header'
 import SkeletonCarousel from '../../../components/SkeletonCarousel/SkeletonCarousel'
 
+const StyledContainer = styled.div`
+    max-height: calc(100vh - 60px - 58px);
+    min-height: calc(100vh - 60px - 58px);
+    width: 100vw;
+    max-width: 100vw;
+    margin: 0;
+    background-color: #F2F2F2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+
+    @media (min-width: 768px) {
+      min-height: 100vh;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      background-color: #1F1F1F;
+    }
+  `
 
 // STYLED COMPONENTS  
 const StyledItembox = styled(ItemBox)`
@@ -30,10 +50,30 @@ const StyledCategorySection = styled.div`
   font-size: 2.5rem;
   font-family: 'fira-sans', sans-serif;
   padding: 1rem;
+  align-self: start;
+
+  @media (prefers-color-scheme: dark) {
+    background-color: #1F1F1F;
+  }
 `
 
 const ItemsContainer = styled.div`
   margin-top: 1em;
+`
+
+const BackgroundContainer = styled.div`
+  min-width: 100vw;
+  background-image: url('${props => props.background}');
+  background-size: cover;
+  overflow-y: scroll;
+  padding: 0 1.5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @media (min-width: 768px) {
+    padding-bottom: 50px;
+  }
 `
 
 
@@ -69,33 +109,6 @@ export default function Explore({ ...props }) {
 
     return photURL
   }
-
-
-  const StyledContainer = styled.div`
-    max-height: calc(100vh - 60px - 58px);
-    min-height: calc(100vh - 60px - 58px);
-    width: 100vw;
-    max-width: 100vw;
-    margin: 0;
-    padding: 1.5em;
-    background-color: #F2F2F2;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    background-image: url('${getRandomBackgroundPhoto()}');
-    background-size: cover;
-
-    @media (min-width: 768px) {
-      height: 100vh;
-    }
-
-    @media (prefers-color-scheme: dark) {
-      background-color: #1F1F1F;
-    }
-  `
-
 
   const handleClick = (e) => {
     // get the url of the ItemBox that was clicked
@@ -145,21 +158,26 @@ export default function Explore({ ...props }) {
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
 
-      <StyledCategorySection>
-        {queryStr && <>
-          <Header
-            label={queryStr[0].toUpperCase() + queryStr.substr(1)}
-            text="< Back to Explore"
-            space={true}
-            dir="column-reverse"
-            ali="start"
-            padl="0"
-            onClick={() => router.push(`/explore`)}
-          />
-        </>}
-      </StyledCategorySection>
+      
 
-      <StyledContainer>
+      <StyledContainer
+        
+      >
+        <StyledCategorySection>
+          {queryStr && <>
+            <Header
+              label={queryStr[0].toUpperCase() + queryStr.substr(1)}
+              text="< Back to Explore"
+              space={true}
+              dir="column-reverse"
+              ali="start"
+              padl="0"
+              onClick={() => router.push(`/explore`)}
+            />
+          </>}
+        </StyledCategorySection>
+
+        <BackgroundContainer background='/fire.jpg'>
         {categoryData ?
           <ItemsContainer>
             {categoryData.map(categoryDataItem => {
@@ -176,6 +194,7 @@ export default function Explore({ ...props }) {
           </ItemsContainer>
           : <SkeletonCarousel />
         }
+        </BackgroundContainer>
       </StyledContainer>
       <Navbar
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
