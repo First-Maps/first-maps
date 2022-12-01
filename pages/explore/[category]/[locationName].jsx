@@ -165,6 +165,7 @@ const StyledContainer = styled.div`
   padding: 1.5em;
   background-color: #F2F2F2;
   overflow-y: scroll;
+  
 
   @media (min-width: 768px) {
     min-height: 100vh;
