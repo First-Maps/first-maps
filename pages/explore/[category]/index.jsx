@@ -37,26 +37,7 @@ export default function Explore({ ...props }){
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  `
-
-  const StyledCategorySection = styled.div`
-    min-height: 300px;
-    max-height: 300px;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    border-radius: 1.5rem;
-  `
-
-  const StyledCategoryHeading = styled.h2`
-    color: black;
-  `
-
-  
-  const StyledLinkHeading = styled.p`
-    font-size: 1em;
-    color: #F8893C;
+    width: 65vw;
   `
 
   const StyledContainer = styled.div`
@@ -68,14 +49,28 @@ export default function Explore({ ...props }){
     padding: 1.5em;
     background-color: #F2F2F2;
     overflow-y: scroll;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
 
     @media (min-width: 768px) {
       height: 100vh;
     }
+    
     @media (prefers-color-scheme: dark) {
       background-color: #1F1F1F;
     }
   `
+
+  const StyledCategorySection = styled.div`
+    background-color: #F2F2F2;
+    font-size: 2.5rem;
+    font-family: 'fira-sans', sans-serif;
+    padding: 1rem;
+  `
+
+ 
 
   const ItemsContainer = styled.div`
     margin-top: 1em;
@@ -129,19 +124,21 @@ export default function Explore({ ...props }){
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
 
-      <StyledContainer>
-        {queryStr && <>
-          <Header
-            label={ queryStr[0].toUpperCase() + queryStr.substr(1) }
-            text="🠄 Back to Explore"
-            space={true}
-            dir="column-reverse"
-            ali="start"
-            padl="0"
-            onClick={() => router.push(`/explore`)}
-          />
-        </> }
+    <StyledCategorySection>
+      {queryStr && <>
+        <Header
+          label={ queryStr[0].toUpperCase() + queryStr.substr(1) }
+          text="< Back to Explore"
+          space={true}
+          dir="column-reverse"
+          ali="start"
+          padl="0"
+          onClick={() => router.push(`/explore`)}
+        />
+      </> }
+    </StyledCategorySection>
 
+      <StyledContainer>
         { categoryData ? 
             <ItemsContainer>
           {categoryData.map(categoryDataItem => {
