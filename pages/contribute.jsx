@@ -30,6 +30,7 @@ const StyledContainer = styled.div`
   padding: 1.5em;
   background-color: #F2F2F2;
   overflow-y: scroll;
+  
   @media (min-width: 768px) {
     min-height: 100vh;
   }
@@ -51,7 +52,7 @@ const StyledButton = styled.div`
 `
 
 const StyledBodyText = styled.div`
-  width: 50vw;
+  
 `
 
 export default function Contribute({
