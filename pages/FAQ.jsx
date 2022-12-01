@@ -7,16 +7,16 @@ import ExploreLanguages from '../components/ExplorePages/ExploreLanguages'
 import Bodytext from '../components/BodyText/Bodytext'
 import ItemBox from '../components/ItemBox/ItemBox'
 import VideoPlayer from '../components/VideoPlayer'
+import Link from 'next/link'  
 
 import Header from '../components/Header/Header'
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import router from 'next/router';
 import MiniButton from '../components/Button'
 
 const StyledContainer = styled.div`
-  min-height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
+  max-height: calc(100vh - 60px - 58px);
+  min-height: calc(100vh - 60px - 58px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -32,13 +32,13 @@ const StyledContainer = styled.div`
   }
   `
 
-  const InsideContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: top;
-    align-items: left;
-    margin-left: 20px;
-    margin-bottom: 60px;
+const InsideContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: left;
+  margin-left: 20px;
+  margin-bottom: 60px;
 
   * {
     font-family: 'Fira Sans', sans-serif;
@@ -48,6 +48,16 @@ const StyledContainer = styled.div`
     text-decoration: underline;
   }
 `
+
+const StyledLink = styled(Link)`
+  color: black !important;
+  text-decoration: none !important;
+
+  @media (prefers-color-scheme: dark) {
+    color: white !important;
+  }
+`
+
 export default function Help ({
   ...props
 }) {
@@ -82,16 +92,26 @@ export default function Help ({
             />
         <InsideContainer>
   
-        <h3 onClick={() => router.push('/faq/WhatIsFirstMaps')}>What is First Maps?</h3>
-        <h3 onClick={() => router.push('/faq/HowToHomeMap')}>How to use the Home Map?</h3>
-        <h3 onClick={() => router.push('/faq/HowToContribute')}>What are Contributions?</h3>
-        <h3 onClick={() => router.push('/faq/HowToPassword')}>How to create a secure password?</h3>
-        <h3 onClick={() => router.push('/EditProfile')}>How to change my password?</h3>
-        <h3 onClick={() => router.push('/Help')}>Where can I ask questions?</h3>
+        <h3>
+          <StyledLink href='/faq/WhatIsFirstMaps'>What is First Maps?</StyledLink>
+        </h3>
+        <h3>
+          <StyledLink href='/faq/HowToHomeMap'>How to use the Home Map?</StyledLink>
+        </h3>
+        <h3>
+          <StyledLink href='/faq/HowToContribute'>What are Contributions?</StyledLink>
+        </h3>
+        <h3>
+          <StyledLink href='/faq/HowToPassword'>How to create a secure password?</StyledLink>
+        </h3>
+        {/* <h3 >How to change my password?</h3> */}
+        <h3>
+          <StyledLink href='/Help'>Where can I ask questions?</StyledLink>
+        </h3>
         </InsideContainer>
 
-        <MiniButton text = "Go Back" onClick={() => router.push('/profile')}>
-        </MiniButton>
+        {/* <MiniButton text = "Go Back" onClick={() => router.push('/profile')}>
+        </MiniButton> */}
   
       </StyledContainer>
       <Navbar

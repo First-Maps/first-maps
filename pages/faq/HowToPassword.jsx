@@ -10,8 +10,8 @@ import {useRouter} from "next/router";
 import router from 'next/router';
 
 const StyledContainer = styled.div`
-  min-height: calc(100vh - 60px);
-  max-height: calc(100vh - 60px);
+  max-height: calc(100vh - 60px - 58px);
+  min-height: calc(100vh - 60px - 58px);
   width: 100vw;
   max-width: 100vw;
   margin: 0;
@@ -20,6 +20,9 @@ const StyledContainer = styled.div`
   overflow-y: scroll;
   @media (min-width: 768px) {
     height: 100vh;
+  }
+  @media (prefers-color-scheme: dark) {
+    background-color: #1F1F1F;
   }
 `
 
@@ -36,7 +39,7 @@ export default function HowToPassword({
                     dir="column-reverse"
                     ali="flex-start"
                     padl="0"  
-                    onClick={() => router.push('../FAQ')}
+                    onClick={() => router.push('/FAQ')}
                 />
                 {/* <div> 
                   <a href="https://imgbox.com/78cKWPhj" target="_blank"><img src="https://images2.imgbox.com/1f/e5/78cKWPhj_o.png" alt='image host' width="320" height="220"/></a>
@@ -52,7 +55,7 @@ export default function HowToPassword({
                   label='This-Is-My-Unique-Password!?!'
                 />
 
-              <MiniButton text = "Go Back" onClick={() => router.push('../FAQ')}/>
+              {/* <MiniButton text = "Go Back" onClick={() => router.push('../FAQ')}/> */}
 
             </StyledContainer>
 
