@@ -101,9 +101,9 @@ export default function Help ({
         <h3>
           <StyledLink href='/faq/HowToContribute'>What are Contributions?</StyledLink>
         </h3>
-        <h3>
+        {/* <h3>
           <StyledLink href='/faq/HowToPassword'>How to create a secure password?</StyledLink>
-        </h3>
+        </h3> */}
         {/* <h3 >How to change my password?</h3> */}
         <h3>
           <StyledLink href='/Help'>Where can I ask questions?</StyledLink>

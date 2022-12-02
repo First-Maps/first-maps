@@ -123,9 +123,9 @@ export default function Contribute({
           
           </StyledBodyText>
         </div>
-        <StyledButton>
+        {/* <StyledButton> */}
           <Button text="Start Here" onClick={() => router.push('/contributeform')} />
-        </StyledButton>
+        {/* </StyledButton> */}
       </StyledContainer>
       <Navbar
         navPages={['Home', 'Explore', 'Contribute', 'Profile']}
