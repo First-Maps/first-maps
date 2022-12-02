@@ -28,10 +28,11 @@ export default function Button({
   text,
   small = false,
   arrow = true,
-  onClick
+  onClick,
+  type
 }) {
   return (
-    <MyButton active={active} small={small} onClick={onClick} >
+    <MyButton active={active} small={small} onClick={onClick} type={type} >
       <ButtonText>
         <div>
           {text}
