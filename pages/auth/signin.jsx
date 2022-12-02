@@ -5,9 +5,15 @@ import styled from "styled-components"
 import Link from 'next/link'
 import LoginButton from '../../components/LoginButton/LoginButton'
 import { Navbar } from '../../components/Navbar/Navbar'
+import Button from '../../components/Button'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { unstable_getServerSession } from "next-auth/next"
 import { authOptions } from "../api/auth/[...nextauth]"
+import { useRouter } from 'next/router';
+import { Magic } from 'magic-sdk';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+
 
 const StyledContainer = styled.div`
   display: flex;
@@ -52,38 +58,76 @@ const Footer = styled.div`
   width: 100%;
   margin: 8.5em 0 0 0;
   padding: 0;
-
+  
   a {
     color: #FE672F;
     text-decoration: none;
     margin: 0 0 0 0.5em;
   }
-`
+  `
 
-export default function Login({
+const FormDiv = styled.div`
+    max-width: 100%;
+    margin: 1em 0;
+    padding: 1em;
+    background-color: white;
+    border-radius: 1em;
+    font-family: "Open Sans", sans-serif;
+  
+    @media (prefers-color-scheme: dark) {
+      background-color: #2F2F2F;
+    }
+  `
+
+const Input = styled.input`
+  width: 100%;
+  min-height: 3em;
+  border: 1px solid #707070;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  font-family: "Open Sans", sans-serif;
+`
+const magic = typeof window !== 'undefined' && new Magic(process.env.NEXT_PUBLIC_MAGIC_PK || 'a')
+
+export default function LogIn({
   ...props
 }) {
+  const router = useRouter();
+  const { register, handleSubmit } = useForm();
+  const [formOpen, setFormOpen] = useState(false);
+
+  const onSubmit = async ({ email }) => {
+    if (!magic) throw new Error(`magic not defined`);
+
+    const didToken = await magic.auth.loginWithMagicLink({ email });
+
+    await signIn('credentials', {
+      didToken,
+      callbackUrl: router.query['callbackUrl'].toString(),
+    });
+  };
+
   return (
     <>
       <Head>
-        <title>Login | First Maps</title>
+        <title>Sign In | First Maps</title>
         <meta name="description" content="First Maps: Login" />
         <link rel="icon" href="/location-dot-solid.svg" />
       </Head>
 
       <StyledContainer>
-        <Logo 
+        <Logo
           src="/logo.png"
         />
         <LoginText>
-          Log In
+          Sign In
         </LoginText>
         <LoginButton
           text="Continue with Email"
           Logo="Email.png"
           color={"#FE672F"}
           onClick={() => {
-            signIn('email')
+            setFormOpen(true);
           }}
         />
         <LoginButton
@@ -102,10 +146,14 @@ export default function Login({
             signIn('facebook')
           }}
         />
-
-        {/* <Footer>
-          Don&apos;t have an account?<Link href="/auth/signup">Sign Up</Link>
-        </Footer> */}
+        {formOpen && (
+          <form>
+            <FormDiv onSubmit={handleSubmit(onSubmit)}>
+              <Input {...register('email', { required: true })} placeholder="example@example.com" />
+              <Button type="submit" text="Sign in" ></Button>
+            </FormDiv>
+          </form>
+        )}
       </StyledContainer>
 
       <Navbar
