@@ -1,40 +1,89 @@
-# README
+# First Maps
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Introduction
 
-## Getting Started
+![Map Card](./public/ReadmePhotos/IntroPage.png)
 
-First, install dependencies:
+<br/>
+**What is First Maps?**
 
-```bash
-yarn install
-```
+First Maps is an interactive map application for indigenous community members and the general public to establish and strengthen connections in the spheres of culture, art and tourism.
+<br/>
 
-now, run the development server:
+**What is our purpose?**
 
-```bash
-yarn dev
-```
+The purpose of First Maps is to allow the native community to showcase aboriginal arts, culture, language and history. Contributing members of the native community can add resources to the app for others to see. This is meant to be a resource for tourists, academics and anyone else who wish to gain a deeper understanding of native culture.
+<br/>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Functionalities
 
-You can start editing the page by modifying `pages/index.jsx`. The page auto-updates as you edit the file.
+### Map Page
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+The application serves as a resource for users to find indigenous location of interest. The main page of the application is a map, which shows the locations of various points of interest close to the user (if location is enabled)
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+![Map Page](./public/ReadmePhotos/Map.png)
+<br/>
 
-## Learn More
+Users can click on a marker to see the name of the location and a brief description. The user can also click on the "More Info" button to see more information about the location.
+![Map Card](./public/ReadmePhotos/MapCard.png)
+<br/>
 
-To learn more about Next.js, take a look at the following resources:
+The search function at the top of the screen allows users to search for a given location by name.
+![Search](./public/ReadmePhotos/SearchBar.png)
+<br/>
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Explore Page
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+The explore page allows users to see all the locations that are available on the map. The locations are separated by categories. Users can click on a category to see all the locations that are in that category.
+![Explore Page](./public/ReadmePhotos/ExplorePage.png)
+<br/>
 
-## Deploy on Vercel
+### Location Page
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The location page displays information in more detail about a given location. The user can see the name of the location, a description, the category of the location, and the location on a map. The user can also see the resources that are associated with the location.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+![Location Page](./public/ReadmePhotos/LocationOfInterest.png)
+<br/>
+
+### Contribution Page
+
+The contribution page allows users to add a new location to the map. The user can enter the name of the location, a description, the category of the location, and the location on a map.
+
+Authentication is required for a user to create a new location. If the user is not logged in, they will be redirected to the login page.
+
+![Contribution Page](./public/ReadmePhotos/ContributionPage.png)
+<br/>
+
+### Authentication Page
+
+The application implements third party authentication. It allows users to log into your application using their credentials from a trusted external service like Google, Facebook, or Twitter, instead of creating a new account specifically for your application.
+![Authentication Page](./public/ReadmePhotos/AuthenticationPage.png)
+<br/>
+
+### User Profile Page
+
+![User Profile Page](./public/ReadmePhotos/UserProfileMobile.png)
+<br/>
+
+## Tech Stack
+
+**Frontend**
+Map: React Leaflet, Open Map Tiles
+Framework: React
+Styling: Storybook, Styled Components
+
+**Backend**
+Auth: Third Party Authentication with NextAuth.js
+Server: Next.js
+Database: MongoDB with Mongoose as the ORM
+<br/>
+
+## Data
+
+The application is seeded with data from the Native-Lands API: <https://native-land.ca/resources/api-docs/>
+The API includes locations around the world, however, for demonstration, we only used locations that are within and near the province of British Columbia, Canada.
+<br/>
+
+## Known Issues
+
+- Originally the plan was to allow the application to connect to two cloud MongoDB Atlas databases, one for development and one for production. Switching between the two databases should be done using environment variables rathern than a different set of URL paths. This will be fixed in the near future.
