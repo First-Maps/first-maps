@@ -3,8 +3,8 @@
 ## Introduction
 
 ![Map Card](./public/ReadmePhotos/IntroPage.png)
-
 <br/>
+
 **What is First Maps?**
 
 First Maps is an interactive map application for indigenous community members and the general public to establish and strengthen connections in the spheres of culture, art and tourism.
